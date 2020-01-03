@@ -1,0 +1,14 @@
+This product contains work from:
+
+--------------------------------------------------------------------
+"tim-kahn__timer.wav" by tim.kahn (timer sound)
+License: https://creativecommons.org/licenses/by/3.0/legalcode
+Summary: https://creativecommons.org/licenses/by/3.0/deed.en
+
+URL: https://freesound.org/people/tim.kahn/sounds/22627/
+Modifications: Only transformed flac to wav format
+--------------------------------------------------------------------
+Icons made by icons8
+Github: https://github.com/icons8/flat-color-icons
+License: MIT License
+--------------------------------------------------------------------

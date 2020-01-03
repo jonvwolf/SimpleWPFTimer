@@ -24,5 +24,10 @@ namespace SimpleTimer
         {
             InitializeComponent();
         }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
