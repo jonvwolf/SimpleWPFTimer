@@ -22,14 +22,30 @@ namespace SimpleTimer
         {
             Timer, Stopwatch
         }
+
+        readonly Mode _mode;
         public ClockUserCtrl(Mode mode)
         {
             InitializeComponent();
+
+            _mode = mode;
         }
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
+
+        private void TxtTime_GotFocus(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        public void FocusText()
+        {
+            TxtTime.Text = "";
+            TxtTime.Focus();
+        }
+
     }
 }
