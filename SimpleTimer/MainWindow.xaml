@@ -7,72 +7,11 @@
         mc:Ignorable="d"
         Title="Simple Timer" Height="250" Width="445" ResizeMode="NoResize">
     <Window.Resources>
-        <Style x:Key="btnStyleStart" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#4d90fe" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="SnapsToDevicePixels" Value="True" />
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
-                            <Grid>
-                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
-                            </Grid>
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#2f5bb7" />
-                                <Setter Property="Foreground" Value="White" />
-                            </Trigger>
-
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#4d90fe" />
-                                <Setter Property="Foreground" Value="White" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="btnStyleReset" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#f1f1f1" />
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="BorderThickness" Value="10" />
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="SnapsToDevicePixels" Value="True" />
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
-                            <Grid>
-                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
-                            </Grid>
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#dcdcdc" />
-                                <Setter Property="Foreground" Value="Black" />
-                            </Trigger>
-
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#f1f1f1" />
-                                <Setter Property="Foreground" Value="Black" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </Window.Resources>
+    
     <Grid>
         <StackPanel>
-            <TabControl Height="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type StackPanel}}, Path=ActualHeight}">
+            <TabControl x:Name="tabCtrl" Height="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type StackPanel}}, Path=ActualHeight}">
                 <TabItem Width="200" Height="30">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
@@ -81,17 +20,7 @@
                         </StackPanel>
                     </TabItem.Header>
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"></ColumnDefinition>
-                            <ColumnDefinition Width="2*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*"></RowDefinition>
-                            <RowDefinition Height="2*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TextBox x:Name="txtTime" Margin="25" Grid.Column="0" Grid.ColumnSpan="2" FontSize="36" TextAlignment="Center" Padding="0,-6,0,0">00:00</TextBox>
-                        <Button x:Name="btnStart" Grid.Column="0" Grid.Row="1" Margin="25" Style="{StaticResource btnStyleStart}" Click="btnStart_Click">Start</Button>
-                        <Button x:Name="btnReset" Grid.Column="1" Grid.Row="1" Margin="25" Style="{StaticResource btnStyleReset}">Reset</Button>
+                        <ContentControl Content="" Name="TimerContentCtrl" />
                     </Grid>
                 </TabItem>
                 <TabItem Width="200" Height="30">
@@ -101,7 +30,9 @@
                             <Label Padding="0,2,0,0">Stopwatch</Label>
                         </StackPanel>
                     </TabItem.Header>
-                    <Grid Background="#FFE5E5E5"/>
+                    <Grid>
+                        <ContentControl Content="" Name="StopwatchContentCtrl" />
+                    </Grid>
                 </TabItem>
             </TabControl>
         </StackPanel>
