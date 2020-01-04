@@ -21,6 +21,9 @@ namespace SimpleTimer
     /// </summary>
     public partial class MainWindow : Window
     {
+        public const string TIMERTABITEM = "TimerTabItem";
+        public const string STOPWATCHTABITEM = "StopwatchTabItem";
+
         readonly ClockUserCtrl _timer;
         readonly ClockUserCtrl _stopwatch;
         
@@ -41,6 +44,17 @@ namespace SimpleTimer
             RoutedCommand tabLeftHotKeyCommand = new RoutedCommand();
             tabLeftHotKeyCommand.InputGestures.Add(new KeyGesture(Key.Left, ModifierKeys.Alt));
             CommandBindings.Add(new CommandBinding(tabLeftHotKeyCommand, TabLeftHotKey));
+
+            this.KeyDown += MainWindow_KeyDown;
+        }
+
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            int key = (int)e.Key;
+            if ((key >= 34 && key <= 43) || (key >= 74 && key <= 83))
+            {
+                SetContentFocus();
+            }
         }
 
         private void TabRightHotKey(object sender, ExecutedRoutedEventArgs e)
@@ -57,19 +71,33 @@ namespace SimpleTimer
         {
             if (right)
             {
-                if (tabCtrl.SelectedIndex == (tabCtrl.Items.Count - 1))
-                    tabCtrl.SelectedIndex = 0;
+                if (TabCtrl.SelectedIndex == (TabCtrl.Items.Count - 1))
+                    TabCtrl.SelectedIndex = 0;
                 else
-                    tabCtrl.SelectedIndex++;
+                    TabCtrl.SelectedIndex++;
             }
             else
             {
-                if (tabCtrl.SelectedIndex == 0)
-                    tabCtrl.SelectedIndex = tabCtrl.Items.Count - 1;
+                if (TabCtrl.SelectedIndex == 0)
+                    TabCtrl.SelectedIndex = TabCtrl.Items.Count - 1;
                 else
-                    tabCtrl.SelectedIndex--;
+                    TabCtrl.SelectedIndex--;
             }
-            
+        }
+
+        private void SetContentFocus()
+        {
+            var obj = TabCtrl.SelectedItem as System.Windows.Controls.TabItem;
+            string tag = (string)obj.Tag ?? "";
+            switch (tag)
+            {
+                case TIMERTABITEM:
+                    _timer.FocusText();
+                    break;
+                case STOPWATCHTABITEM:
+                    _stopwatch.FocusText();
+                    break;
+            }
         }
 
     }
