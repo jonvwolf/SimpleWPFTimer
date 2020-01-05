@@ -41,11 +41,18 @@ namespace SimpleTimer
             
         }
 
-        public void FocusText()
+        public void NumberKeyDown(KeyEventArgs e)
         {
-            TxtTime.Text = "";
-            TxtTime.Focus();
+            if (!TxtTime.IsFocused)
+            {
+                TxtTime.Text = "";
+                TxtTime.Focus();
+            }
         }
 
+        private void TextPressEnter(object sender, ExecutedRoutedEventArgs e)
+        {
+            
+        }
     }
 }

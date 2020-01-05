@@ -21,8 +21,8 @@ namespace SimpleTimer
     /// </summary>
     public partial class MainWindow : Window
     {
-        public const string TIMERTABITEM = "TimerTabItem";
-        public const string STOPWATCHTABITEM = "StopwatchTabItem";
+        public const string TIMERTABITEM = "TimerContentCtrl";
+        public const string STOPWATCHTABITEM = "StopwatchContentCtrl";
 
         readonly ClockUserCtrl _timer;
         readonly ClockUserCtrl _stopwatch;
@@ -36,7 +36,7 @@ namespace SimpleTimer
 
             TimerContentCtrl.Content = _timer;
             StopwatchContentCtrl.Content = _stopwatch;
-
+            
             RoutedCommand tabRightHotKeyCommand = new RoutedCommand();
             tabRightHotKeyCommand.InputGestures.Add(new KeyGesture(Key.Right, ModifierKeys.Alt));
             CommandBindings.Add(new CommandBinding(tabRightHotKeyCommand, TabRightHotKey));
@@ -53,7 +53,7 @@ namespace SimpleTimer
             int key = (int)e.Key;
             if ((key >= 34 && key <= 43) || (key >= 74 && key <= 83))
             {
-                SetContentFocus();
+                GetCurrentUserCtrl()?.NumberKeyDown(e);
             }
         }
 
@@ -85,19 +85,14 @@ namespace SimpleTimer
             }
         }
 
-        private void SetContentFocus()
+        private ClockUserCtrl GetCurrentUserCtrl()
         {
             var obj = TabCtrl.SelectedItem as System.Windows.Controls.TabItem;
             string tag = (string)obj.Tag ?? "";
-            switch (tag)
-            {
-                case TIMERTABITEM:
-                    _timer.FocusText();
-                    break;
-                case STOPWATCHTABITEM:
-                    _stopwatch.FocusText();
-                    break;
-            }
+
+            var ctrl = obj.FindName(tag) as ContentControl;
+            var clockctrl = ctrl?.Content as ClockUserCtrl;
+            return clockctrl;
         }
 
     }
