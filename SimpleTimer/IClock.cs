@@ -5,11 +5,16 @@ using System.Text;
 
 namespace SimpleTimer
 {
-    public interface IClock : INotifyPropertyChanged
+    public interface IClock
     {
         string Text { get; set; }
-        void PrimaryButton();
+        void PrimaryButton(string textTime);
         void SecondaryButton();
-        void FocusText();
+
+        void NewStart(string textTime);
+        void Pause();
+
+        event EventHandler<object> TickHappened;
+        event EventHandler<object> Finished;
     }
 }

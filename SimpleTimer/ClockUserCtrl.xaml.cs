@@ -23,36 +23,47 @@ namespace SimpleTimer
             Timer, Stopwatch
         }
 
+        readonly IClock _clock;
         readonly Mode _mode;
         public ClockUserCtrl(Mode mode)
         {
             InitializeComponent();
 
             _mode = mode;
-        }
-
-        private void BtnStart_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void TxtTime_GotFocus(object sender, RoutedEventArgs e)
-        {
-            
+            //TODO:  : INotifyPropertyChanged
         }
 
         public void NumberKeyDown(KeyEventArgs e)
         {
             if (!TxtTime.IsFocused)
             {
+                _clock.Pause();
                 TxtTime.Text = "";
                 TxtTime.Focus();
             }
         }
+        public void EnterKeyDown(KeyboardEventArgs e)
+        {
+            _clock.PrimaryButton(TxtTime.Text);
+        }
+
+        public void BackspaceKeyDown(KeyboardEventArgs e)
+        {
+            _clock.SecondaryButton();
+        }
 
         private void TextPressEnter(object sender, ExecutedRoutedEventArgs e)
         {
-            
+            _clock.NewStart(TxtTime.Text);
+        }
+
+        private void BtnStart_Click(object sender, RoutedEventArgs e)
+        {
+            _clock.PrimaryButton(TxtTime.Text);
+        }
+        private void BtnReset_Click(object sender, RoutedEventArgs e)
+        {
+            _clock.SecondaryButton();
         }
     }
 }

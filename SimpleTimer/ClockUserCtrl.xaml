@@ -79,8 +79,7 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBox x:Name="TxtTime" Margin="25" Grid.Column="0" Grid.ColumnSpan="2" FontSize="36" TextAlignment="Center" Padding="0,-3,0,0" FontFamily="Consolas"
-                 GotFocus="TxtTime_GotFocus">
+        <TextBox x:Name="TxtTime" Margin="25" Grid.Column="0" Grid.ColumnSpan="2" FontSize="36" TextAlignment="Center" Padding="0,-3,0,0" FontFamily="Consolas">
             <TextBox.InputBindings>
                 <KeyBinding Key="Return" Command="{Binding TextPressEnter}" />
             </TextBox.InputBindings>
@@ -89,6 +88,6 @@
         <Button x:Name="BtnStart" Grid.Column="0" Grid.Row="1" Margin="25" Style="{StaticResource btnStyleStart}" Click="BtnStart_Click">
             <AccessText>_Start</AccessText>
         </Button>
-        <Button x:Name="BtnReset" Grid.Column="1" Grid.Row="1" Margin="25" Style="{StaticResource btnStyleReset}">Reset</Button>
+        <Button x:Name="BtnReset" Grid.Column="1" Grid.Row="1" Margin="25" Style="{StaticResource btnStyleReset}" Click="BtnReset_Click">Reset</Button>
     </Grid>
 </UserControl>
