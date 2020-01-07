@@ -12,7 +12,7 @@
     <Grid>
         <StackPanel>
             <TabControl x:Name="TabCtrl" Height="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type StackPanel}}, Path=ActualHeight}">
-                <TabItem Width="200" Height="30" Tag="{x:Static local:MainWindow.TIMERTABITEM}">
+                <TabItem Width="200" Height="30" Tag="TimerContentCtrl">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="./resources/alarm_clock.png" Width="18" Height="18"/>
@@ -23,7 +23,7 @@
                         <ContentControl Content="" Name="TimerContentCtrl" />
                     </Grid>
                 </TabItem>
-                <TabItem Width="200" Height="30" Tag="{x:Static local:MainWindow.STOPWATCHTABITEM}">
+                <TabItem Width="200" Height="30" Tag="StopwatchContentCtrl">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="./resources/display.png" Width="18" Height="18"/>

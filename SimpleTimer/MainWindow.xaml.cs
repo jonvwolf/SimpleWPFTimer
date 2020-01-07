@@ -21,9 +21,6 @@ namespace SimpleTimer
     /// </summary>
     public partial class MainWindow : Window
     {
-        public const string TIMERTABITEM = "TimerContentCtrl";
-        public const string STOPWATCHTABITEM = "StopwatchContentCtrl";
-
         readonly ClockUserCtrl _timer;
         readonly ClockUserCtrl _stopwatch;
         
@@ -51,9 +48,18 @@ namespace SimpleTimer
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
             int key = (int)e.Key;
+            //numbers and keypad numbers (0-9)
             if ((key >= 34 && key <= 43) || (key >= 74 && key <= 83))
             {
                 GetCurrentUserCtrl()?.NumberKeyDown(e);
+            }
+            else if (e.Key == Key.Enter || e.Key == Key.Return)
+            {
+                GetCurrentUserCtrl()?.EnterKeyDown(e);
+            }
+            else if (e.Key == Key.Back)
+            {
+                GetCurrentUserCtrl()?.BackspaceKeyDown(e);
             }
         }
 
