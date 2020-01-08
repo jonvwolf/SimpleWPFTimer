@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SimpleTimer
 {
-    public interface IClock
+    public interface IClock : IDisposable
     {
         string Text { get; set; }
         void PrimaryButton(string textTime);
@@ -14,7 +14,7 @@ namespace SimpleTimer
         void NewStart(string textTime);
         void Pause();
 
-        event EventHandler<object> TickHappened;
+        event EventHandler<TickHappenedEventArgs> TickHappened;
         event EventHandler<object> Finished;
     }
 }

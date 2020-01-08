@@ -79,7 +79,8 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBox x:Name="TxtTime" Margin="25" Grid.Column="0" Grid.ColumnSpan="2" FontSize="36" TextAlignment="Center" Padding="0,-3,0,0" FontFamily="Consolas">
+        <TextBox x:Name="TxtTime" Margin="25" Grid.Column="0" Grid.ColumnSpan="2" FontSize="36" TextAlignment="Center" Padding="0,-3,0,0" FontFamily="Consolas"
+                 MaxLength="10" MaxLines="1">
             <TextBox.InputBindings>
                 <KeyBinding Key="Return" Command="{Binding TextPressEnter}" />
             </TextBox.InputBindings>

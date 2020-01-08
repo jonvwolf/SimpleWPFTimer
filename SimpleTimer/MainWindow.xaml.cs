@@ -55,11 +55,11 @@ namespace SimpleTimer
             }
             else if (e.Key == Key.Enter || e.Key == Key.Return)
             {
-                GetCurrentUserCtrl()?.EnterKeyDown(e);
+                GetCurrentUserCtrl()?.WindowEnterKeyDown(e);
             }
             else if (e.Key == Key.Back)
             {
-                GetCurrentUserCtrl()?.BackspaceKeyDown(e);
+                GetCurrentUserCtrl()?.WindowBackspaceKeyDown(e);
             }
         }
 
