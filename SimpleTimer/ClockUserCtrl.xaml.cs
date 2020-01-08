@@ -16,21 +16,35 @@ namespace SimpleTimer
     /// <summary>
     /// Interaction logic for ClockUserCtrl.xaml
     /// </summary>
-    public partial class ClockUserCtrl : UserControl
+    public partial class ClockUserCtrl : UserControl, IDisposable
     {
-        public enum Mode
-        {
-            Timer, Stopwatch
-        }
-
         readonly IClock _clock;
-        readonly Mode _mode;
-        public ClockUserCtrl(Mode mode)
+        
+        public ClockUserCtrl()
         {
             InitializeComponent();
-
-            _mode = mode;
+            _clock = new TimerClock();
             //TODO:  : INotifyPropertyChanged
+
+            _clock.Finished += _clock_Finished;
+            _clock.TickHappened += _clock_TickHappened;
+        }
+
+        private void _clock_TickHappened(object sender, TickHappenedEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                TxtTime.Text = e.ToString();
+            });
+        }
+
+        private void _clock_Finished(object sender, object e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                TxtTime.Text = e.ToString();
+                //TODO: playsound
+            });
         }
 
         public void NumberKeyDown(KeyEventArgs e)
@@ -42,12 +56,12 @@ namespace SimpleTimer
                 TxtTime.Focus();
             }
         }
-        public void EnterKeyDown(KeyboardEventArgs e)
+        public void WindowEnterKeyDown(KeyboardEventArgs e)
         {
             _clock.PrimaryButton(TxtTime.Text);
         }
 
-        public void BackspaceKeyDown(KeyboardEventArgs e)
+        public void WindowBackspaceKeyDown(KeyboardEventArgs e)
         {
             _clock.SecondaryButton();
         }
@@ -65,5 +79,33 @@ namespace SimpleTimer
         {
             _clock.SecondaryButton();
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _clock?.Dispose();
+                }
+                disposedValue = true;
+            }
+        }
+
+        ~ClockUserCtrl()
+        {
+            Dispose(false);
+        }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
