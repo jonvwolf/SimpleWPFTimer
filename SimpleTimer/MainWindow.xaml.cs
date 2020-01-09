@@ -19,7 +19,7 @@ namespace SimpleTimer
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IDisposable
     {
         readonly ClockUserCtrl _timer;
         readonly ClockUserCtrl _stopwatch;
@@ -28,8 +28,8 @@ namespace SimpleTimer
         {
             InitializeComponent();
 
-            _timer = new ClockUserCtrl(ClockUserCtrl.Mode.Timer);
-            _stopwatch = new ClockUserCtrl(ClockUserCtrl.Mode.Stopwatch);
+            _timer = new ClockUserCtrl();
+            _stopwatch = new ClockUserCtrl();
 
             TimerContentCtrl.Content = _timer;
             StopwatchContentCtrl.Content = _stopwatch;
@@ -100,6 +100,34 @@ namespace SimpleTimer
             var clockctrl = ctrl?.Content as ClockUserCtrl;
             return clockctrl;
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _stopwatch?.Dispose();
+                    _timer?.Dispose();
+                }
+                disposedValue = true;
+            }
+        }
+
+        ~MainWindow()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
 
     }
 }
