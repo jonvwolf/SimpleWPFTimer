@@ -8,16 +8,15 @@ namespace SimpleTimer
     public class TimerClock : IClock
     {
         static readonly TimeSpan TimerInterval = TimeSpan.FromSeconds(1);
-        string Text { get; set; }
-        Timer _timer = new Timer();
 
+        readonly Timer _timer = new Timer();
         TimeSpan Left { get; set; }
 
         #region Events
         public event EventHandler<TickHappenedEventArgs> TickHappened;
-        public event EventHandler<object> Finished;
+        public event EventHandler<FinishedEventArgs> Finished;
 
-        private void OnFinished(EventArgs e)
+        private void OnFinished(FinishedEventArgs e)
         {
             var handler = Finished;
             handler?.Invoke(this, e);
@@ -32,11 +31,11 @@ namespace SimpleTimer
 
         public TimerClock()
         {
-            _timer.Elapsed += _timer_Elapsed;
+            _timer.Elapsed += Timer_Elapsed;
             _timer.Interval = TimerInterval.TotalMilliseconds;
         }
 
-        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             //not in UI thread
 
@@ -47,7 +46,7 @@ namespace SimpleTimer
             if(Left <= TimeSpan.Zero)
             {
                 _timer.Stop();
-                OnFinished(EventArgs.Empty);
+                OnFinished(new FinishedEventArgs(Left));
             }
             else
             {
@@ -56,7 +55,7 @@ namespace SimpleTimer
             
         }
 
-        private TimeSpan? _getTimeFromText(string text)
+        private TimeSpan? GetTimeFromText(string text)
         {
             try
             {
@@ -74,7 +73,7 @@ namespace SimpleTimer
         public void NewStart(string textTime)
         {
             _timer.Stop();
-            TimeSpan? ts = _getTimeFromText(textTime);
+            TimeSpan? ts = GetTimeFromText(textTime);
             if (ts.HasValue)
             {
                 Left = ts.Value;
@@ -89,7 +88,9 @@ namespace SimpleTimer
 
         public void PrimaryButton(string textTime)
         {
-            throw new NotImplementedException();
+            //if it is paused -> this will be `start` mode
+            //otherwise -> it is `stop` mode
+            NewStart(textTime);
         }
 
         public void SecondaryButton()

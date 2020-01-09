@@ -7,23 +7,32 @@ namespace SimpleTimer
 {
     public class StopwatchClock : IClock
     {
-        public string Text { get; set; }
+        public event EventHandler<TickHappenedEventArgs> TickHappened;
+        public event EventHandler<FinishedEventArgs> Finished;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void FocusText()
+        public void Dispose()
         {
-            
+            throw new NotImplementedException();
         }
 
-        public void PrimaryButton()
+        public void NewStart(string textTime)
         {
-            
+            throw new NotImplementedException();
+        }
+
+        public void Pause()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PrimaryButton(string textTime)
+        {
+            throw new NotImplementedException();
         }
 
         public void SecondaryButton()
         {
-            
+            throw new NotImplementedException();
         }
     }
 }

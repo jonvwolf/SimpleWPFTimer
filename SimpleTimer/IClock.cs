@@ -7,7 +7,6 @@ namespace SimpleTimer
 {
     public interface IClock : IDisposable
     {
-        string Text { get; set; }
         void PrimaryButton(string textTime);
         void SecondaryButton();
 
@@ -15,6 +14,6 @@ namespace SimpleTimer
         void Pause();
 
         event EventHandler<TickHappenedEventArgs> TickHappened;
-        event EventHandler<object> Finished;
+        event EventHandler<FinishedEventArgs> Finished;
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Media;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Windows.Resources;
 using System.Windows.Shapes;
 
 namespace SimpleTimer
@@ -26,23 +29,46 @@ namespace SimpleTimer
             _clock = new TimerClock();
             //TODO:  : INotifyPropertyChanged
 
-            _clock.Finished += _clock_Finished;
-            _clock.TickHappened += _clock_TickHappened;
+            _clock.Finished += Clock_Finished;
+            _clock.TickHappened += Clock_TickHappened;
+
         }
 
-        private void _clock_TickHappened(object sender, TickHappenedEventArgs e)
+        private void Clock_TickHappened(object sender, TickHappenedEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
-                TxtTime.Text = e.ToString();
+                TxtTime.Text = e.Left.ToString("c", null);
+                SoundPlayer sp = new SoundPlayer(GetResourceStream(string.Format(null, "pack://application:,,,/{0};component//{1}", "SimpleTimer", "resources/tim-kahn__timer.wav")));
+                sp.Load();
+                sp.PlayLooping();
+                sp.Dispose();
             });
         }
 
-        private void _clock_Finished(object sender, object e)
+        private static Stream GetResourceStream(string resourcePath)
+        {
+            try
+            {
+
+                string s = System.IO.Packaging.PackUriHelper.UriSchemePack;
+                var uri = new Uri(resourcePath);
+                StreamResourceInfo sri = System.Windows.Application.GetResourceStream(uri);
+                return sri.Stream;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        private void Clock_Finished(object sender, FinishedEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
-                TxtTime.Text = e.ToString();
+                TxtTime.Text = e.Left.ToString("c", null);
+                
+                
                 //TODO: playsound
             });
         }
@@ -68,7 +94,7 @@ namespace SimpleTimer
 
         private void TextPressEnter(object sender, ExecutedRoutedEventArgs e)
         {
-            _clock.NewStart(TxtTime.Text);
+            //not needed
         }
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
