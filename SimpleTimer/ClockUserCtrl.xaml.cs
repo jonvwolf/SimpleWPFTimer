@@ -22,7 +22,8 @@ namespace SimpleTimer
     public partial class ClockUserCtrl : UserControl, IDisposable
     {
         readonly IClock _clock;
-        
+        SoundPlayer _sound;
+
         public ClockUserCtrl()
         {
             InitializeComponent();
@@ -32,6 +33,11 @@ namespace SimpleTimer
             _clock.Finished += Clock_Finished;
             _clock.TickHappened += Clock_TickHappened;
 
+
+            var stream = Utils.GetResourceStream("tim-kahn__timer.wav");
+            //sound player's dispose, also disposes the stream
+            _sound = new SoundPlayer(stream);
+            _sound.Load();
         }
 
         private void Clock_TickHappened(object sender, TickHappenedEventArgs e)
@@ -39,37 +45,18 @@ namespace SimpleTimer
             Dispatcher.Invoke(() =>
             {
                 TxtTime.Text = e.Left.ToString("c", null);
-                SoundPlayer sp = new SoundPlayer(GetResourceStream(string.Format(null, "pack://application:,,,/{0};component//{1}", "SimpleTimer", "resources/tim-kahn__timer.wav")));
-                sp.Load();
-                sp.PlayLooping();
-                sp.Dispose();
             });
         }
 
-        private static Stream GetResourceStream(string resourcePath)
-        {
-            try
-            {
-
-                string s = System.IO.Packaging.PackUriHelper.UriSchemePack;
-                var uri = new Uri(resourcePath);
-                StreamResourceInfo sri = System.Windows.Application.GetResourceStream(uri);
-                return sri.Stream;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
+        
 
         private void Clock_Finished(object sender, FinishedEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
                 TxtTime.Text = e.Left.ToString("c", null);
-                
-                
-                //TODO: playsound
+
+                _sound.PlayLooping();
             });
         }
 
@@ -116,6 +103,7 @@ namespace SimpleTimer
                 if (disposing)
                 {
                     _clock?.Dispose();
+                    _sound?.Dispose();
                 }
                 disposedValue = true;
             }
