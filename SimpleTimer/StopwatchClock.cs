@@ -9,6 +9,7 @@ namespace SimpleTimer
     {
         public event EventHandler<TickHappenedEventArgs> TickHappened;
         public event EventHandler<FinishedEventArgs> Finished;
+        public event EventHandler<UiUpdatedEventArgs> UiUpdated;
 
         public void Dispose()
         {
@@ -26,6 +27,11 @@ namespace SimpleTimer
         }
 
         public void PrimaryButton(string textTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Resume()
         {
             throw new NotImplementedException();
         }
