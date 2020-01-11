@@ -7,8 +7,8 @@ namespace SimpleTimer
 {
     public class StopwatchClock : IClock
     {
-        public event EventHandler<TickHappenedEventArgs> TickHappened;
-        public event EventHandler<FinishedEventArgs> Finished;
+        public event EventHandler<UiUpdatedEventArgs> TickHappened;
+        public event EventHandler<UiUpdatedEventArgs> Finished;
         public event EventHandler<UiUpdatedEventArgs> UiUpdated;
 
         public void Dispose()

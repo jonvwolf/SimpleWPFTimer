@@ -14,8 +14,8 @@ namespace SimpleTimer
         void Pause();
         void Resume();
 
-        event EventHandler<TickHappenedEventArgs> TickHappened;
-        event EventHandler<FinishedEventArgs> Finished;
+        event EventHandler<UiUpdatedEventArgs> TickHappened;
+        event EventHandler<UiUpdatedEventArgs> Finished;
         event EventHandler<UiUpdatedEventArgs> UiUpdated;
     }
 }

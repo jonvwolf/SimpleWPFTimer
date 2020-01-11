@@ -16,23 +16,61 @@ namespace SimpleTimer
         static readonly TimeSpan TimerInterval = TimeSpan.FromSeconds(1);
 
         readonly Timer _timer = new Timer();
-        TimeSpan _left = TimeSpan.Zero;
-        TimeSpan _originalLeft = TimeSpan.Zero;
-
+        private readonly object _lock = new object();
         PrimaryButtonMode _primaryBtnMode;
-        
+
+        #region Left var
+        /// <summary>
+        /// Variable to know how long is left to finish the timer
+        /// This variable is accessed by UI and timer thread
+        /// </summary>
+        TimeSpan _left = TimeSpan.Zero;
+        /// <summary>
+        /// Used for reset
+        /// </summary>
+        TimeSpan _originalLeft = TimeSpan.Zero;
+        /// <summary>
+        /// A simple check to avoid race conditions.
+        /// Fallback if timer is running. Stops, modifies value then starts again
+        /// </summary>
+        TimeSpan Left
+        {
+            get
+            {
+                return _left;
+            }
+            set
+            {
+                //check always if timer is running
+                if (_timer != null && _timer.Enabled == false)
+                {
+                    _left = value;
+                }
+                else
+                {
+                    //log bug
+
+                    //this shouldnt happen but still modify for graceful degradation
+                    _timer.Stop();
+                    _left = value;
+                    _timer.Start();
+                }
+            }
+        }
+        #endregion
+
         #region Events
-        public event EventHandler<TickHappenedEventArgs> TickHappened;
-        public event EventHandler<FinishedEventArgs> Finished;
+        public event EventHandler<UiUpdatedEventArgs> TickHappened;
+        public event EventHandler<UiUpdatedEventArgs> Finished;
         public event EventHandler<UiUpdatedEventArgs> UiUpdated;
 
-        private void OnFinished(FinishedEventArgs e)
+        private void OnFinished(UiUpdatedEventArgs e)
         {
             var handler = Finished;
             handler?.Invoke(this, e);
         }
 
-        private void OnTickHappened(TickHappenedEventArgs e)
+        private void OnTickHappened(UiUpdatedEventArgs e)
         {
             var handler = TickHappened;
             handler?.Invoke(this, e);
@@ -54,46 +92,72 @@ namespace SimpleTimer
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            //not in UI thread
+            //Inside timer thread
 
             //This is not 100% accurate but it is good enough for this app
             //For better precision, you should do a delta
-            _left -= TimerInterval;
+            lock (_lock)
+            {
+                try
+                {
+                    Left -= TimerInterval;
 
-            if(_left <= TimeSpan.Zero)
+                    if (Left <= TimeSpan.Zero)
+                    {
+                        _timer.Stop();
+                        Left = TimeSpan.Zero;
+                        _primaryBtnMode = PrimaryButtonMode.Stopped;
+                        OnFinished(new UiUpdatedEventArgs { Left = Left, PrimaryBtn = _primaryBtnMode });
+                    }
+                    else
+                    {
+                        OnTickHappened(new UiUpdatedEventArgs() { Left = Left });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //todo log exception
+                }
+            }
+        }
+
+        /// <summary>
+        /// Called outside Timer thread (Timer_Elapsed)
+        /// </summary>
+        private void SafeStop()
+        {
+            lock (_lock)
             {
-                _left = TimeSpan.Zero;
                 _timer.Stop();
-                //todo: change these events args (they also update primary button mode)
-                OnFinished(new FinishedEventArgs(_left));
             }
-            else
-            {
-                OnTickHappened(new TickHappenedEventArgs(_left));
-            }
-            
         }
 
         public void NewStart(string textTime)
         {
             //this always forces a new start
-            _timer.Stop();
-            _left = GetTimeFromText(textTime);
-            _originalLeft = _left;
+            SafeStop();
+            Left = GetTimeFromText(textTime);
+            _originalLeft = Left;
             _timer.Start();
 
-            ChangePrimaryBtnMode(PrimaryButtonMode.Running);
+            _primaryBtnMode = PrimaryButtonMode.Running;
+            OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = _primaryBtnMode });
         }
 
         public void Pause()
         {
-            _timer.Stop();
-            ChangePrimaryBtnMode(PrimaryButtonMode.Stopped);
+            if (_primaryBtnMode == PrimaryButtonMode.Running)
+            {
+                SafeStop();
+
+                _primaryBtnMode = PrimaryButtonMode.Stopped;
+                OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = _primaryBtnMode });
+            }
         }
 
         public void Resume()
         {
-            NewStart(_left.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture));
+            NewStart(Left.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture));
         }
 
         public void PrimaryButton(string textTime)
@@ -122,7 +186,13 @@ namespace SimpleTimer
             {
                 if (disposing)
                 {
-                    _timer?.Dispose();
+                    if(_timer != null)
+                    {
+                        _timer.Elapsed -= Timer_Elapsed;
+                        //SafeStop();
+                        _timer.Stop();
+                        _timer.Dispose();
+                    }
                 }
                 disposedValue = true;
             }
@@ -142,16 +212,7 @@ namespace SimpleTimer
 
         #endregion
 
-        private void ChangePrimaryBtnMode(PrimaryButtonMode mode)
-        {
-            _primaryBtnMode = mode;
-            OnUiUpdated(new UiUpdatedEventArgs()
-            {
-                PrimaryBtn = _primaryBtnMode
-            });
-        }
-
-        private TimeSpan GetTimeFromText(string text)
+        private static TimeSpan GetTimeFromText(string text)
         {
             try
             {
