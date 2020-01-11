@@ -51,7 +51,7 @@ namespace SimpleTimer
             //numbers and keypad numbers (0-9)
             if ((key >= 34 && key <= 43) || (key >= 74 && key <= 83))
             {
-                GetCurrentUserCtrl()?.NumberKeyDown(e);
+                GetCurrentUserCtrl()?.WindowNumberKeyDown(e);
             }
             else if (e.Key == Key.Enter || e.Key == Key.Return)
             {
