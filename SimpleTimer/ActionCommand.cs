@@ -21,7 +21,8 @@ namespace SimpleTimer
 
         public void Execute(object parameter)
         {
-            _action?.Invoke(parameter);
+            var action = _action;
+            action?.Invoke(parameter);
         }
 
         #region IDisposable Support

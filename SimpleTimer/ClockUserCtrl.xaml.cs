@@ -40,6 +40,7 @@ namespace SimpleTimer
 
             _clock.Finished += Clock_Finished;
             _clock.TickHappened += Clock_TickHappened;
+            _clock.UiUpdated += Clock_UiUpdated;
 
             var stream = Utils.GetResourceStream("tim-kahn__timer.wav");
             _sound = new LoopSoundPlayer(stream);
@@ -49,21 +50,52 @@ namespace SimpleTimer
         }
 
         #region ClockEvents
-        private void Clock_TickHappened(object sender, TickHappenedEventArgs e)
+        private void Clock_TickHappened(object sender, UiUpdatedEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
-                TxtTime.Text = e.Left.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
+                UpdateIU(e);
             });
         }
 
-        private void Clock_Finished(object sender, FinishedEventArgs e)
+        private void Clock_Finished(object sender, UiUpdatedEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
-                TxtTime.Text = e.Left.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
+                UpdateIU(e);
                 _sound.Play(60);
             });
+        }
+        private void Clock_UiUpdated(object sender, UiUpdatedEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                UpdateIU(e);
+            });
+        }
+        private void UpdateIU(UiUpdatedEventArgs e)
+        {
+            if (e == null)
+                return;
+            if (e.Left.HasValue)
+            {
+                TxtTime.Text = e.Left.Value.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
+            }
+            if (e.PrimaryBtn.HasValue)
+            {
+                switch (e.PrimaryBtn.Value)
+                {
+                    case TimerClock.PrimaryButtonMode.Running:
+                        ((AccessText)BtnStart.Content).Text = "_Stop";
+                        break;
+                    case TimerClock.PrimaryButtonMode.Stopped:
+                        ((AccessText)BtnStart.Content).Text = "_Start";
+                        break;
+                    default:
+                        ((AccessText)BtnStart.Content).Text = e.PrimaryBtn.Value.ToString();
+                        break;
+                }
+            }
         }
         #endregion
 
@@ -153,7 +185,15 @@ namespace SimpleTimer
             {
                 if (disposing)
                 {
-                    _clock?.Dispose();
+                    if(_clock != null)
+                    {
+                        _clock.Finished -= Clock_Finished;
+                        _clock.TickHappened -= Clock_TickHappened;
+                        _clock.UiUpdated -= Clock_UiUpdated;
+                        
+                        _clock.Dispose();
+                    }
+                    
                     _sound?.Dispose();
                     _textPressEnterCommand?.Dispose();
                     _textPressEscapeCommand?.Dispose();

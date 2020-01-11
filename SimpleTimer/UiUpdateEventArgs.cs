@@ -7,7 +7,7 @@ namespace SimpleTimer
 {
     public class UiUpdatedEventArgs : EventArgs
     {
-        public PrimaryButtonMode PrimaryBtn { get; set; }
-        
+        public PrimaryButtonMode? PrimaryBtn { get; set; }
+        public TimeSpan? Left { get; set; }
     }
 }
