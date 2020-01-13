@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Resources;
 using System.Windows.Shapes;
+using static SimpleTimer.UiUpdatedEventArgs;
 
 namespace SimpleTimer
 {
@@ -44,10 +45,75 @@ namespace SimpleTimer
 
             _textPressEnterCommand = new ActionCommand(TxtTime_EnterKeyDown);
             _textPressEscapeCommand = new ActionCommand(TxtTime_EscapeKeyDown);
+            RegisterEvents();
+        }
 
+        private void RegisterEvents()
+        {
             _clock.Finished += Clock_Finished;
             _clock.TickHappened += Clock_TickHappened;
             _clock.UiUpdated += Clock_UiUpdated;
+        }
+        private void UnregisterEvents()
+        {
+            _clock.Finished -= Clock_Finished;
+            _clock.TickHappened -= Clock_TickHappened;
+            _clock.UiUpdated -= Clock_UiUpdated;
+        }
+        public void Shutdown()
+        {
+            _clock.Shutdown();
+
+            UnregisterEvents();
+            _sound.Stop();
+        }
+
+        private void UpdateIU(UiUpdatedEventArgs e)
+        {
+            if (e == null)
+                return;
+            if (e.Left.HasValue)
+            {
+                TxtTime.Text = e.Left.Value.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
+            }
+            if (e.PrimaryBtn.HasValue)
+            {
+                switch (e.PrimaryBtn.Value)
+                {
+                    case PrimaryButtonMode.Running:
+                        ((AccessText)BtnStart.Content).Text = "_Stop";
+                        break;
+                    case PrimaryButtonMode.Stopped:
+                        ((AccessText)BtnStart.Content).Text = "_Start";
+                        break;
+                    default:
+                        ((AccessText)BtnStart.Content).Text = e.PrimaryBtn.Value.ToString();
+                        break;
+                }
+            }
+        }
+
+        private void PressPrimaryButton()
+        {
+            try
+            {
+                _clock.PressPrimaryButton(TxtTime.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void NewStart()
+        {
+            try
+            {
+                _clock.NewStart(TxtTime.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         #region ClockEvents
@@ -74,30 +140,6 @@ namespace SimpleTimer
                 UpdateIU(e);
             });
         }
-        private void UpdateIU(UiUpdatedEventArgs e)
-        {
-            if (e == null)
-                return;
-            if (e.Left.HasValue)
-            {
-                TxtTime.Text = e.Left.Value.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
-            }
-            if (e.PrimaryBtn.HasValue)
-            {
-                switch (e.PrimaryBtn.Value)
-                {
-                    case TimerClock.PrimaryButtonMode.Running:
-                        ((AccessText)BtnStart.Content).Text = "_Stop";
-                        break;
-                    case TimerClock.PrimaryButtonMode.Stopped:
-                        ((AccessText)BtnStart.Content).Text = "_Start";
-                        break;
-                    default:
-                        ((AccessText)BtnStart.Content).Text = e.PrimaryBtn.Value.ToString();
-                        break;
-                }
-            }
-        }
         #endregion
 
         #region WindowEvents
@@ -111,7 +153,7 @@ namespace SimpleTimer
                 TxtTime.Focus();
             }
         }
-        public void WindowEnterKeyDown(KeyboardEventArgs e)
+        public void WindowShiftEnterKeyDown(ExecutedRoutedEventArgs e)
         {
             //This will toggle primary (between start/stop)
             //But if txttime is focused, and enter is pressed,
@@ -126,20 +168,18 @@ namespace SimpleTimer
         {
             _clock.PressSecondaryButton();
         }
+
+        public void SwitchedToAnotherTab()
+        {
+            _clock.Pause();
+        }
         #endregion
 
         #region UI events
         private void TxtTime_EnterKeyDown(object parameters)
         {
-            try
-            {
-                _clock.NewStart(TxtTime.Text);
-                BtnStart.Focus();
-            }
-            catch (HandledException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            NewStart();
+            BtnStart.Focus();
         }
         private void TxtTime_EscapeKeyDown(object parameters)
         {
@@ -164,28 +204,7 @@ namespace SimpleTimer
             _clock.PressSecondaryButton();
         }
         
-        private void PressPrimaryButton()
-        {
-            try
-            {
-                _clock.PressPrimaryButton(TxtTime.Text);
-            }
-            catch (HandledException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
         #endregion
-
-        public void Shutdown()
-        {
-            _clock.Shutdown();
-
-            _clock.Finished -= Clock_Finished;
-            _clock.TickHappened -= Clock_TickHappened;
-            _clock.UiUpdated -= Clock_UiUpdated;
-            _sound.Stop();
-        }
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
@@ -218,5 +237,6 @@ namespace SimpleTimer
         }
         #endregion
 
+        
     }
 }

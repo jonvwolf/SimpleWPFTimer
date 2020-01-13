@@ -42,39 +42,16 @@ namespace SimpleTimer
             tabLeftHotKeyCommand.InputGestures.Add(new KeyGesture(Key.Left, ModifierKeys.Alt));
             CommandBindings.Add(new CommandBinding(tabLeftHotKeyCommand, TabLeftHotKey));
 
+            RoutedCommand enterHotKeyCommand = new RoutedCommand();
+            enterHotKeyCommand.InputGestures.Add(new KeyGesture(Key.Enter, ModifierKeys.Shift));
+            CommandBindings.Add(new CommandBinding(enterHotKeyCommand, ShiftEnterHotKey));
+
             this.KeyDown += MainWindow_KeyDown;
-        }
-
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
-        {
-            int key = (int)e.Key;
-            //numbers and keypad numbers (0-9)
-            if ((key >= 34 && key <= 43) || (key >= 74 && key <= 83))
-            {
-                GetCurrentUserCtrl()?.WindowNumberKeyDown(e);
-            }
-            else if (e.Key == Key.Enter || e.Key == Key.Return)
-            {
-                GetCurrentUserCtrl()?.WindowEnterKeyDown(e);
-            }
-            else if (e.Key == Key.Back)
-            {
-                GetCurrentUserCtrl()?.WindowBackspaceKeyDown(e);
-            }
-        }
-
-        private void TabRightHotKey(object sender, ExecutedRoutedEventArgs e)
-        {
-            SwitchTabs(true);
-        }
-
-        private void TabLeftHotKey(object sender, ExecutedRoutedEventArgs e)
-        {
-            SwitchTabs(false);
         }
 
         private void SwitchTabs(bool right)
         {
+            GetCurrentUserCtrl()?.SwitchedToAnotherTab();
             if (right)
             {
                 if (TabCtrl.SelectedIndex == (TabCtrl.Items.Count - 1))
@@ -101,6 +78,37 @@ namespace SimpleTimer
             return clockctrl;
         }
 
+        #region Keyboards events
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            int key = (int)e.Key;
+            //numbers and keypad numbers (0-9)
+            if ((key >= 34 && key <= 43) || (key >= 74 && key <= 83))
+            {
+                GetCurrentUserCtrl()?.WindowNumberKeyDown(e);
+            }
+            else if (e.Key == Key.Back)
+            {
+                GetCurrentUserCtrl()?.WindowBackspaceKeyDown(e);
+            }
+        }
+
+        private void ShiftEnterHotKey(object sender, ExecutedRoutedEventArgs e)
+        {
+            GetCurrentUserCtrl()?.WindowShiftEnterKeyDown(e);
+        }
+        private void TabRightHotKey(object sender, ExecutedRoutedEventArgs e)
+        {
+            SwitchTabs(true);
+        }
+
+        private void TabLeftHotKey(object sender, ExecutedRoutedEventArgs e)
+        {
+            SwitchTabs(false);
+        }
+        #endregion
+        
+        #region Events
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _timer.Shutdown();
@@ -108,6 +116,7 @@ namespace SimpleTimer
 
             Dispose();
         }
+        #endregion
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls

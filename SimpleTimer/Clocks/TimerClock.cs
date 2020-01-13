@@ -1,23 +1,17 @@
-﻿using System;
+﻿using SimpleTimer.Clocks;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Timers;
+using static SimpleTimer.UiUpdatedEventArgs;
 
 namespace SimpleTimer
 {
     public class TimerClock : IClock
     {
-        public enum PrimaryButtonMode
-        {
-            Stopped, Running
-        }
-
         static readonly TimeSpan TimerInterval = TimeSpan.FromSeconds(1);
 
-        readonly System.Timers.Timer _timer = new System.Timers.Timer();
+        readonly Timer _timer = new Timer();
         private readonly object _lock = new object();
         PrimaryButtonMode _primaryBtnMode;
 
@@ -44,7 +38,7 @@ namespace SimpleTimer
             set
             {
                 //check always if timer is running
-                if (_timer != null && _timer.Enabled == false)
+                if (_timer.Enabled == false)
                 {
                     _left = value;
                 }
@@ -53,9 +47,7 @@ namespace SimpleTimer
                     //log bug
 
                     //this shouldnt happen but still modify for graceful degradation
-                    _timer.Stop();
                     _left = value;
-                    _timer.Start();
                 }
             }
         }
@@ -101,6 +93,7 @@ namespace SimpleTimer
             _timer.Elapsed -= Timer_Elapsed;
         }
 
+        #region Timer related
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             //Inside timer thread
@@ -148,28 +141,12 @@ namespace SimpleTimer
                 OnTickHappened(args);
             }
         }
-
-        public void NewStart(string textTime)
-        {
-            //this always forces a new start
-            if (_timer.Enabled)
-            {
-                Stop();
-            }
-            Left = GetTimeFromText(textTime);
-            _originalLeft = Left;
-            _timer.Start();
-
-            _primaryBtnMode = PrimaryButtonMode.Running;
-            OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = _primaryBtnMode });
-        }
-
         private void Stop()
         {
             bool lockTaken = false;
             try
             {
-                Monitor.TryEnter(_lock, TimerInterval * 2, ref lockTaken);
+                System.Threading.Monitor.TryEnter(_lock, TimerInterval * 2, ref lockTaken);
                 if (lockTaken)
                 {
                     _timer.Stop();
@@ -185,11 +162,27 @@ namespace SimpleTimer
             {
                 if (lockTaken)
                 {
-                    Monitor.Exit(_lock);
+                    System.Threading.Monitor.Exit(_lock);
                 }
             }
         }
+        #endregion
 
+        #region Clock interface
+        public void NewStart(string textTime)
+        {
+            //this always forces a new start
+            if (_timer.Enabled)
+            {
+                Stop();
+            }
+            Left = textTime.GetTimeSpan();
+            _originalLeft = Left;
+            _timer.Start();
+
+            _primaryBtnMode = PrimaryButtonMode.Running;
+            OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = _primaryBtnMode });
+        }
         public void Pause()
         {
             if (_timer.Enabled)
@@ -200,9 +193,10 @@ namespace SimpleTimer
                 OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = _primaryBtnMode });
             }
         }
-
         public void Resume()
         {
+            if (Left == TimeSpan.Zero)
+                return;
             NewStart(Left.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture));
         }
 
@@ -228,6 +222,7 @@ namespace SimpleTimer
             Stop();
             UnregisterEvents();
         }
+        #endregion
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
@@ -238,6 +233,8 @@ namespace SimpleTimer
             {
                 if (disposing)
                 {
+                    if (_timer.Enabled)
+                        throw new InvalidOperationException("Call shutdown first before disposing...");
                     _timer?.Dispose();
                 }
                 disposedValue = true;
@@ -258,30 +255,6 @@ namespace SimpleTimer
 
         #endregion
 
-        private static TimeSpan GetTimeFromText(string text)
-        {
-            try
-            {
-                text = text?.Trim() ?? "";
-
-                string format = @"hh\:mm\:ss";
-                if (text.Contains(":", StringComparison.InvariantCulture) == false)
-                {
-                    if (text.Length < 6)
-                    {
-                        text = text.PadLeft(6, '0');
-                    }
-                    format = "hhmmss";
-                }
-
-                TimeSpan span = TimeSpan.ParseExact(text, format, CultureInfo.InvariantCulture);
-                return span;
-            }
-            catch (Exception e)
-            {
-                throw new HandledException("Error while parsing time. Time must be of format: hhmmss. Example: 0507 is translated to 5 minutes and 7 seconds", e);
-            }
-        }
 
     }
 }
