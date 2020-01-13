@@ -8,6 +8,8 @@ namespace SimpleTimer
 {
     public class StopwatchClock : IClock
     {
+        public bool IsRunning => throw new NotImplementedException();
+
         public event EventHandler<UiUpdatedEventArgs> TickHappened;
         public event EventHandler<UiUpdatedEventArgs> Finished;
         public event EventHandler<UiUpdatedEventArgs> UiUpdated;

@@ -21,8 +21,8 @@ namespace SimpleTimer
     /// </summary>
     public partial class MainWindow : Window, IDisposable
     {
-        readonly ClockUserCtrl _timer;
-        readonly ClockUserCtrl _stopwatch;
+        readonly IClockUserCtrl _timer;
+        readonly IClockUserCtrl _stopwatch;
         
         public MainWindow()
         {
@@ -46,7 +46,16 @@ namespace SimpleTimer
             enterHotKeyCommand.InputGestures.Add(new KeyGesture(Key.Enter, ModifierKeys.Shift));
             CommandBindings.Add(new CommandBinding(enterHotKeyCommand, ShiftEnterHotKey));
 
+            RegisterEvents();
+        }
+
+        private void RegisterEvents()
+        {
             this.KeyDown += MainWindow_KeyDown;
+        }
+        private void UnregisterEvents()
+        {
+            this.KeyDown -= MainWindow_KeyDown;
         }
 
         private void SwitchTabs(bool right)
@@ -113,7 +122,8 @@ namespace SimpleTimer
         {
             _timer.Shutdown();
             _stopwatch.Shutdown();
-
+            UnregisterEvents();
+            CommandBindings.Clear();
             Dispose();
         }
         #endregion

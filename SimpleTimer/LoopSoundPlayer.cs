@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Media;
 using System.Text;
@@ -8,23 +9,55 @@ namespace SimpleTimer
 {
     public class LoopSoundPlayer : IDisposable
     {
+        readonly object _lock = new object();
         SoundPlayer _sound;
+        IClock _timer;
 
         public LoopSoundPlayer(Stream sound)
         {
             //sound player's dispose, also disposes the stream
             _sound = new SoundPlayer(sound);
             _sound.Load();
+
+            _timer = new TimerClock();
+            _timer.Finished += Timer_Finished;
+        }
+
+        private void Timer_Finished(object sender, UiUpdatedEventArgs e)
+        {
+            lock (_lock)
+            {
+                _sound.Stop();
+            }
         }
 
         public void Play(int seconds)
         {
-            _sound.Play();
+            lock (_lock)
+            {
+                _timer.NewStart(TimeSpan.FromSeconds(seconds).ToString("hhmmss", CultureInfo.InvariantCulture));
+                _sound.Stop();
+                _sound.PlayLooping();
+            }
         }
 
         public void Stop()
         {
-            _sound.Stop();
+            lock (_lock)
+            {
+                _timer.Pause();
+                _sound.Stop();
+            }
+        }
+
+        public void Shutdown()
+        {
+            lock (_lock)
+            {
+                _timer.Shutdown();
+                _timer.Finished -= Timer_Finished;
+                _sound.Stop();
+            }
         }
 
         #region IDisposable Support
@@ -36,6 +69,7 @@ namespace SimpleTimer
             {
                 if (disposing)
                 {
+                    _timer?.Dispose();
                     _sound?.Dispose();
                 }
                 disposedValue = true;

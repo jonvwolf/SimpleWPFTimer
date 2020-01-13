@@ -8,6 +8,7 @@ namespace SimpleTimer
 {
     public interface IClock : IDisposable
     {
+        bool IsRunning { get; }
         void PressPrimaryButton(string textTime);
         void PressSecondaryButton();
 
