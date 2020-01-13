@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Media;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -38,21 +39,21 @@ namespace SimpleTimer
             _clock = new TimerClock();
             //TODO:  : INotifyPropertyChanged
 
-            _clock.Finished += Clock_Finished;
-            _clock.TickHappened += Clock_TickHappened;
-            _clock.UiUpdated += Clock_UiUpdated;
-
             var stream = Utils.GetResourceStream("tim-kahn__timer.wav");
             _sound = new LoopSoundPlayer(stream);
 
             _textPressEnterCommand = new ActionCommand(TxtTime_EnterKeyDown);
             _textPressEscapeCommand = new ActionCommand(TxtTime_EscapeKeyDown);
+
+            _clock.Finished += Clock_Finished;
+            _clock.TickHappened += Clock_TickHappened;
+            _clock.UiUpdated += Clock_UiUpdated;
         }
 
         #region ClockEvents
         private void Clock_TickHappened(object sender, UiUpdatedEventArgs e)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.InvokeAsync(() =>
             {
                 UpdateIU(e);
             });
@@ -60,7 +61,7 @@ namespace SimpleTimer
 
         private void Clock_Finished(object sender, UiUpdatedEventArgs e)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.InvokeAsync(() =>
             {
                 UpdateIU(e);
                 _sound.Play(60);
@@ -68,7 +69,7 @@ namespace SimpleTimer
         }
         private void Clock_UiUpdated(object sender, UiUpdatedEventArgs e)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.InvokeAsync(() =>
             {
                 UpdateIU(e);
             });
@@ -123,7 +124,7 @@ namespace SimpleTimer
 
         public void WindowBackspaceKeyDown(KeyboardEventArgs e)
         {
-            _clock.SecondaryButton();
+            _clock.PressSecondaryButton();
         }
         #endregion
 
@@ -160,14 +161,14 @@ namespace SimpleTimer
         }
         private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
-            _clock.SecondaryButton();
+            _clock.PressSecondaryButton();
         }
         
         private void PressPrimaryButton()
         {
             try
             {
-                _clock.PrimaryButton(TxtTime.Text);
+                _clock.PressPrimaryButton(TxtTime.Text);
             }
             catch (HandledException ex)
             {
@@ -175,6 +176,16 @@ namespace SimpleTimer
             }
         }
         #endregion
+
+        public void Shutdown()
+        {
+            _clock.Shutdown();
+
+            _clock.Finished -= Clock_Finished;
+            _clock.TickHappened -= Clock_TickHappened;
+            _clock.UiUpdated -= Clock_UiUpdated;
+            _sound.Stop();
+        }
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
@@ -185,15 +196,7 @@ namespace SimpleTimer
             {
                 if (disposing)
                 {
-                    if(_clock != null)
-                    {
-                        _clock.Finished -= Clock_Finished;
-                        _clock.TickHappened -= Clock_TickHappened;
-                        _clock.UiUpdated -= Clock_UiUpdated;
-                        
-                        _clock.Dispose();
-                    }
-                    
+                    _clock?.Dispose();
                     _sound?.Dispose();
                     _textPressEnterCommand?.Dispose();
                     _textPressEscapeCommand?.Dispose();
@@ -215,6 +218,5 @@ namespace SimpleTimer
         }
         #endregion
 
-        
     }
 }

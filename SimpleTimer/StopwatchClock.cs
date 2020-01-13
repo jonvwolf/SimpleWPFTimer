@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SimpleTimer
 {
@@ -26,7 +27,12 @@ namespace SimpleTimer
             throw new NotImplementedException();
         }
 
-        public void PrimaryButton(string textTime)
+        public void PressPrimaryButton(string textTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PressSecondaryButton()
         {
             throw new NotImplementedException();
         }
@@ -36,7 +42,7 @@ namespace SimpleTimer
             throw new NotImplementedException();
         }
 
-        public void SecondaryButton()
+        public void Shutdown()
         {
             throw new NotImplementedException();
         }
