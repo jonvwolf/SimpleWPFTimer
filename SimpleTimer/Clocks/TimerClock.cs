@@ -15,6 +15,8 @@ namespace SimpleTimer
         private readonly object _lock = new object();
         PrimaryButtonMode _primaryBtnMode;
 
+        public bool IsRunning => _timer.Enabled;
+
         #region Left var
         /// <summary>
         /// Variable to know how long is left to finish the timer
@@ -51,6 +53,7 @@ namespace SimpleTimer
                 }
             }
         }
+
         #endregion
 
         #region Events

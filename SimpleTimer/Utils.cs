@@ -29,7 +29,7 @@ namespace SimpleTimer
             catch (Exception)
             {
                 //TODO log
-                return null;
+                throw;
             }
         }
     }

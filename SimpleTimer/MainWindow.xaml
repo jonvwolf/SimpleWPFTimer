@@ -16,7 +16,7 @@
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="./resources/alarm_clock.png" Width="18" Height="18"/>
-                            <Label Padding="0,2,0,0">Timer</Label>
+                            <Label Padding="2,2,0,0">Timer</Label>
                         </StackPanel>
                     </TabItem.Header>
                     <Grid>
@@ -26,7 +26,7 @@
                 <TabItem Width="200" Height="30" Tag="StopwatchContentCtrl">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="./resources/display.png" Width="18" Height="18"/>
+                            <Image Source="./resources/display.png" Width="18" Height="18" />
                             <Label Padding="0,2,0,0">Stopwatch</Label>
                         </StackPanel>
                     </TabItem.Header>
