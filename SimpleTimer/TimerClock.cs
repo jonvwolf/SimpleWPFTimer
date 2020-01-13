@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace SimpleTimer
@@ -15,7 +17,7 @@ namespace SimpleTimer
 
         static readonly TimeSpan TimerInterval = TimeSpan.FromSeconds(1);
 
-        readonly Timer _timer = new Timer();
+        readonly System.Timers.Timer _timer = new System.Timers.Timer();
         private readonly object _lock = new object();
         PrimaryButtonMode _primaryBtnMode;
 
@@ -84,34 +86,51 @@ namespace SimpleTimer
 
         public TimerClock()
         {
-            _timer.Elapsed += Timer_Elapsed;
             _timer.Interval = TimerInterval.TotalMilliseconds;
-
             _primaryBtnMode = PrimaryButtonMode.Stopped;
+
+            RegisterEvents();
+        }
+
+        private void RegisterEvents()
+        {
+            _timer.Elapsed += Timer_Elapsed;
+        }
+        private void UnregisterEvents()
+        {
+            _timer.Elapsed -= Timer_Elapsed;
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             //Inside timer thread
 
-            //This is not 100% accurate but it is good enough for this app
-            //For better precision, you should do a delta
+            bool finished = false;
+            UiUpdatedEventArgs args = null;
             lock (_lock)
             {
+                if (!_timer.Enabled)
+                    return;
+
                 try
                 {
+                    //This is not 100% accurate but it is good enough for this app
+                    //For better precision, you should do a delta
                     Left -= TimerInterval;
 
                     if (Left <= TimeSpan.Zero)
                     {
                         _timer.Stop();
                         Left = TimeSpan.Zero;
+
                         _primaryBtnMode = PrimaryButtonMode.Stopped;
-                        OnFinished(new UiUpdatedEventArgs { Left = Left, PrimaryBtn = _primaryBtnMode });
+                        finished = true;
+                        args = new UiUpdatedEventArgs { Left = Left, PrimaryBtn = _primaryBtnMode };
                     }
                     else
                     {
-                        OnTickHappened(new UiUpdatedEventArgs() { Left = Left });
+                        finished = false;
+                        args = new UiUpdatedEventArgs() { Left = Left };
                     }
                 }
                 catch (Exception ex)
@@ -119,23 +138,24 @@ namespace SimpleTimer
                     //todo log exception
                 }
             }
-        }
 
-        /// <summary>
-        /// Called outside Timer thread (Timer_Elapsed)
-        /// </summary>
-        private void SafeStop()
-        {
-            lock (_lock)
+            if (finished)
             {
-                _timer.Stop();
+                OnFinished(args);
+            }
+            else
+            {
+                OnTickHappened(args);
             }
         }
 
         public void NewStart(string textTime)
         {
             //this always forces a new start
-            SafeStop();
+            if (_timer.Enabled)
+            {
+                Stop();
+            }
             Left = GetTimeFromText(textTime);
             _originalLeft = Left;
             _timer.Start();
@@ -144,11 +164,37 @@ namespace SimpleTimer
             OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = _primaryBtnMode });
         }
 
+        private void Stop()
+        {
+            bool lockTaken = false;
+            try
+            {
+                Monitor.TryEnter(_lock, TimerInterval * 2, ref lockTaken);
+                if (lockTaken)
+                {
+                    _timer.Stop();
+                }
+                else
+                {
+                    //fallback
+                    _timer.Stop();
+                    //todo log error
+                }
+            }
+            finally
+            {
+                if (lockTaken)
+                {
+                    Monitor.Exit(_lock);
+                }
+            }
+        }
+
         public void Pause()
         {
-            if (_primaryBtnMode == PrimaryButtonMode.Running)
+            if (_timer.Enabled)
             {
-                SafeStop();
+                Stop();
 
                 _primaryBtnMode = PrimaryButtonMode.Stopped;
                 OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = _primaryBtnMode });
@@ -160,7 +206,7 @@ namespace SimpleTimer
             NewStart(Left.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture));
         }
 
-        public void PrimaryButton(string textTime)
+        public void PressPrimaryButton(string textTime)
         {
             if (_primaryBtnMode == PrimaryButtonMode.Stopped)
             {
@@ -172,9 +218,15 @@ namespace SimpleTimer
             }
         }
 
-        public void SecondaryButton()
+        public void PressSecondaryButton()
         {
             NewStart(_originalLeft.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture));
+        }
+
+        public void Shutdown()
+        {
+            Stop();
+            UnregisterEvents();
         }
 
         #region IDisposable Support
@@ -186,13 +238,7 @@ namespace SimpleTimer
             {
                 if (disposing)
                 {
-                    if(_timer != null)
-                    {
-                        _timer.Elapsed -= Timer_Elapsed;
-                        //SafeStop();
-                        _timer.Stop();
-                        _timer.Dispose();
-                    }
+                    _timer?.Dispose();
                 }
                 disposedValue = true;
             }
@@ -217,7 +263,7 @@ namespace SimpleTimer
             try
             {
                 text = text?.Trim() ?? "";
-                
+
                 string format = @"hh\:mm\:ss";
                 if (text.Contains(":", StringComparison.InvariantCulture) == false)
                 {
