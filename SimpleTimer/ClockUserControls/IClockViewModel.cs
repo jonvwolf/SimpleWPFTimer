@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace SimpleTimer.ClockUserControls
 {
-    public interface IClockViewModel
+    public interface IClockViewModel : IDisposable
     {
         ICommand TextPressEnter { get; }
         ICommand TextPressEscape { get; }
