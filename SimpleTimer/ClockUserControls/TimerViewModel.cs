@@ -66,6 +66,38 @@ namespace SimpleTimer.ClockUserControls
         }
         #endregion
 
+        #region UI events
+        private void TxtTime_EnterKeyDown(object parameters)
+        {
+            NewStart();
+            BtnStart.Focus();
+        }
+        private void TxtTime_EscapeKeyDown(object parameters)
+        {
+            //this will make txttime loses focus
+            BtnStart.Focus();
+            //when user clicks text (focus), it pauses so he/she can edit
+            //when escape is pressed, resume clock. (It cannot be start a new because text may have changed)
+            //(because when enter is pressed it will start a new one but escape just resumes)
+            _clock.Resume();
+        }
+        #endregion
+
+        #region Inner logic (private methods)
+        private void RegisterEvents()
+        {
+            _clock.Finished += Clock_Finished;
+            _clock.TickHappened += Clock_TickHappened;
+            _clock.UiUpdated += Clock_UiUpdated;
+        }
+        private void UnregisterEvents()
+        {
+            _clock.Finished -= Clock_Finished;
+            _clock.TickHappened -= Clock_TickHappened;
+            _clock.UiUpdated -= Clock_UiUpdated;
+        }
+
+
         private void UpdateIU(UiUpdatedEventArgs e, bool hasEnded = false)
         {
             if (e == null)
@@ -98,25 +130,12 @@ namespace SimpleTimer.ClockUserControls
             }
         }
 
-        #region Inner logic (private methods)
-        private void RegisterEvents()
-        {
-            _clock.Finished += Clock_Finished;
-            _clock.TickHappened += Clock_TickHappened;
-            _clock.UiUpdated += Clock_UiUpdated;
-        }
-        private void UnregisterEvents()
-        {
-            _clock.Finished -= Clock_Finished;
-            _clock.TickHappened -= Clock_TickHappened;
-            _clock.UiUpdated -= Clock_UiUpdated;
-        }
 
         private bool StopPlayer()
         {
             if (PrimaryButtonText == "_Ok")
             {
-                PrimaryButtonText.Text = "_Start";
+                PrimaryButtonText = "_Start";
                 _sound.Stop();
                 return true;
             }
@@ -148,5 +167,39 @@ namespace SimpleTimer.ClockUserControls
             }
         }
         #endregion
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _clock?.Dispose();
+                    _sound?.Dispose();
+                    _textPressEnterCommand?.Dispose();
+                    _textPressEscapeCommand?.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        ~TimerViewModel()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(false);
+        }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
+        
     }
 }

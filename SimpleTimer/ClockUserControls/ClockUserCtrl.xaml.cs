@@ -81,20 +81,7 @@ namespace SimpleTimer
         #endregion
 
         #region UI events
-        private void TxtTime_EnterKeyDown(object parameters)
-        {
-            NewStart();
-            BtnStart.Focus();
-        }
-        private void TxtTime_EscapeKeyDown(object parameters)
-        {
-            //this will make txttime loses focus
-            BtnStart.Focus();
-            //when user clicks text (focus), it pauses so he/she can edit
-            //when escape is pressed, resume clock. (It cannot be start a new because text may have changed)
-            //(because when enter is pressed it will start a new one but escape just resumes)
-            _clock.Resume();
-        }
+        
         private void TxtTime_GotFocus(object sender, RoutedEventArgs e)
         {
             StopPlayer();
@@ -122,10 +109,7 @@ namespace SimpleTimer
             {
                 if (disposing)
                 {
-                    _clock?.Dispose();
-                    _sound?.Dispose();
-                    _textPressEnterCommand?.Dispose();
-                    _textPressEscapeCommand?.Dispose();
+                    _vm?.Dispose();
                 }
                 disposedValue = true;
             }
