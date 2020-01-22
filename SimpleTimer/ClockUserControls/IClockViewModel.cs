@@ -7,11 +7,13 @@ namespace SimpleTimer.ClockUserControls
 {
     public interface IClockViewModel : IDisposable
     {
+        string Text { get; set; }
         ICommand TextPressEnter { get; }
         ICommand TextPressEscape { get; }
-
-        void ClockTickHappened(object sender, UiUpdatedEventArgs e);
-        void ClockFinished(object sender, UiUpdatedEventArgs e);
-        void ClockUiUpdated(object sender, UiUpdatedEventArgs e);
+        void Shutdown();
+        void TabLostFocus();
+        void WindowBackspaceKeyDown(KeyboardEventArgs e);
+        void WindowShiftEnterKeyDown(ExecutedRoutedEventArgs e);
+        void WindowNumberKeyDown(KeyEventArgs e);
     }
 }
