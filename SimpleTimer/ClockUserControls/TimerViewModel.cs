@@ -1,7 +1,9 @@
-﻿using System;
+﻿using SimpleTimer.Clocks;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using static SimpleTimer.UiUpdatedEventArgs;
@@ -14,15 +16,18 @@ namespace SimpleTimer.ClockUserControls
         readonly LoopSoundPlayer _sound;
         readonly ActionCommand _textPressEnterCommand;
         readonly ActionCommand _textPressEscapeCommand;
-        readonly Dispatcher _dispatcher;
-        public string Text { get; protected set; }
-        public string PrimaryButtonText { get; protected set; }
+        readonly IUserInterface _ui;
+        public string Text { get; set; }
+        public string PrimaryButtonText { get; set; }
         public ICommand TextPressEnter { get => _textPressEnterCommand; }
         public ICommand TextPressEscape { get => _textPressEscapeCommand; }
-
-        public TimerViewModel(Dispatcher dispatcher)
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public bool TextIsFocused { get; set; }
+        public TimerViewModel(IUserInterface ui)
         {
-            _dispatcher = dispatcher;
+            _ui = ui;
             _clock = new TimerClock();
             //TODO:  : INotifyPropertyChanged
 
@@ -43,7 +48,7 @@ namespace SimpleTimer.ClockUserControls
         #region ClockEvents
         private void Clock_TickHappened(object sender, UiUpdatedEventArgs e)
         {
-            _dispatcher.InvokeAsync(() =>
+            _ui.InvokeAsync(() =>
             {
                 UpdateIU(e);
             });
@@ -51,7 +56,7 @@ namespace SimpleTimer.ClockUserControls
 
         private void Clock_Finished(object sender, UiUpdatedEventArgs e)
         {
-            _dispatcher.InvokeAsync(() =>
+            _ui.InvokeAsync(() =>
             {
                 _sound.Play(60);
                 UpdateIU(e, true);
@@ -59,7 +64,7 @@ namespace SimpleTimer.ClockUserControls
         }
         private void Clock_UiUpdated(object sender, UiUpdatedEventArgs e)
         {
-            _dispatcher.InvokeAsync(() =>
+            _ui.InvokeAsync(() =>
             {
                 UpdateIU(e);
             });
@@ -67,15 +72,49 @@ namespace SimpleTimer.ClockUserControls
         #endregion
 
         #region UI events
+        public void TabLostFocus()
+        {
+            StopPlayer();
+            _clock.Pause();
+        }
+
+        public void WindowBackspaceKeyDown(KeyboardEventArgs e)
+        {
+            StopPlayer();
+            _clock.PressSecondaryButton();
+        }
+
+        public void WindowShiftEnterKeyDown(ExecutedRoutedEventArgs e)
+        {
+            //This will toggle primary (between start/stop)
+            //But if txttime is focused, and enter is pressed,
+            //it should explicitely start a new timer (that's why the `if`)
+            if (!TextIsFocused)
+            {
+                PressPrimaryButton();
+            }
+        }
+
+        public void WindowNumberKeyDown(KeyEventArgs e)
+        {
+            //`if` so it doesn't erase text everytime user presses number keys down
+            if (!TextIsFocused)
+            {
+                StopPlayer();
+                _clock.Pause();
+                Text = "";
+                _ui.TextFocus();
+            }
+        }
         private void TxtTime_EnterKeyDown(object parameters)
         {
             NewStart();
-            BtnStart.Focus();
+            _ui.BtnStartFocus();
         }
         private void TxtTime_EscapeKeyDown(object parameters)
         {
             //this will make txttime loses focus
-            BtnStart.Focus();
+            _ui.BtnStartFocus();
             //when user clicks text (focus), it pauses so he/she can edit
             //when escape is pressed, resume clock. (It cannot be start a new because text may have changed)
             //(because when enter is pressed it will start a new one but escape just resumes)
@@ -151,7 +190,7 @@ namespace SimpleTimer.ClockUserControls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ui.ShowMessageBox(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void NewStart()
@@ -163,7 +202,7 @@ namespace SimpleTimer.ClockUserControls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ui.ShowMessageBox(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion
@@ -199,7 +238,8 @@ namespace SimpleTimer.ClockUserControls
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         #endregion
-        
+
     }
 }

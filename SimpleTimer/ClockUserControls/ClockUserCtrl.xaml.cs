@@ -1,4 +1,5 @@
-﻿using SimpleTimer.ClockUserControls;
+﻿using SimpleTimer.Clocks;
+using SimpleTimer.ClockUserControls;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Resources;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using static SimpleTimer.UiUpdatedEventArgs;
 
 namespace SimpleTimer
@@ -23,16 +25,15 @@ namespace SimpleTimer
     /// <summary>
     /// Interaction logic for ClockUserCtrl.xaml
     /// </summary>
-    public partial class ClockUserCtrl : UserControl, IDisposable, IClockUserCtrl
+    public partial class ClockUserCtrl : UserControl, IDisposable, IClockUserCtrl, IUserInterface
     {
 
         IClockViewModel _vm;
         public ClockUserCtrl()
         {
             InitializeComponent();
-            _vm = new TimerViewModel(Dispatcher);
+            _vm = new TimerViewModel(this);
             DataContext = _vm;
-
         }
 
         public void Shutdown()
@@ -40,48 +41,47 @@ namespace SimpleTimer
             _vm.Shutdown();
         }
 
-        
-
+        public DispatcherOperation InvokeAsync(Action action)
+        {
+            return Dispatcher.InvokeAsync(action);
+        }
+        public void BtnStartFocus()
+        {
+            BtnStart.Focus();
+        }
+        public void TextFocus()
+        {
+            TxtTime.Focus();
+        }
+        public void ShowMessageBox(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
+        {
+            MessageBox.Show(messageBoxText, caption, button, icon);
+        }
         
 
         #region WindowEvents
         public void WindowNumberKeyDown(KeyEventArgs e)
         {
-            //`if` so it doesn't erase text everytime user presses number keys down
-            if (!TxtTime.IsFocused)
-            {
-                StopPlayer();
-                _clock.Pause();
-                TxtTime.Text = "";
-                TxtTime.Focus();
-            }
+            _vm.WindowNumberKeyDown(e);
         }
         public void WindowShiftEnterKeyDown(ExecutedRoutedEventArgs e)
         {
-            //This will toggle primary (between start/stop)
-            //But if txttime is focused, and enter is pressed,
-            //it should explicitely start a new timer (that's why the `if`)
-            if (!TxtTime.IsFocused)
-            {
-                PressPrimaryButton();
-            }
+            _vm.WindowShiftEnterKeyDown(e);
         }
 
         public void WindowBackspaceKeyDown(KeyboardEventArgs e)
         {
-            StopPlayer();
-            _clock.PressSecondaryButton();
+            _vm.WindowBackspaceKeyDown(e);
         }
 
         public void SwitchedToAnotherTab()
         {
-            StopPlayer();
-            _clock.Pause();
+            _vm.TabLostFocus();
         }
         #endregion
 
         #region UI events
-        
+        //https://stackoverflow.com/questions/18117294/how-does-this-button-click-work-in-wpf-mvvm
         private void TxtTime_GotFocus(object sender, RoutedEventArgs e)
         {
             StopPlayer();
