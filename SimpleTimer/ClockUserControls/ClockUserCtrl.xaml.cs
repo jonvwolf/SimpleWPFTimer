@@ -29,10 +29,10 @@ namespace SimpleTimer
     {
         public event EventHandler<UIEventArgs> UiEventHappened;
         readonly IClockViewModel _vm;
-        public ClockUserCtrl()
+        public ClockUserCtrl(ConfigurationValues config)
         {
             InitializeComponent();
-            _vm = new TimerViewModel(this);
+            _vm = new TimerViewModel(this, config);
             DataContext = _vm;
         }
 
@@ -54,6 +54,10 @@ namespace SimpleTimer
         public void TextFocus()
         {
             TxtTime.Focus();
+        }
+        public bool IsTextFocused()
+        {
+            return TxtTime.IsFocused;
         }
         public void ShowMessageBox(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
         {

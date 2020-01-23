@@ -7,20 +7,20 @@ namespace SimpleTimer.Clocks
 {
     public static class ClockExtensions
     {
-        public static TimeSpan GetTimeSpan(this string text)
+        public static TimeSpan GetTimeSpan(this string text, string timeFormat, string timeFormatNoSymbols, string detectSymbol, char charFill)
         {
             text = text?.Trim() ?? "";
 
-            string format = @"hh\:mm\:ss";
+            string format = timeFormat;
             int fill = 6;
-            char fillNumber = '0';
-            if (text.Contains(":", StringComparison.InvariantCulture) == false)
+            char fillNumber = charFill;
+            if (text.Contains(detectSymbol, StringComparison.InvariantCulture) == false)
             {
                 if (text.Length < fill)
                 {
                     text = text.PadLeft(fill, fillNumber);
                 }
-                format = "hhmmss";
+                format = timeFormatNoSymbols;
             }
 
             TimeSpan span = TimeSpan.ParseExact(text, format, CultureInfo.InvariantCulture);

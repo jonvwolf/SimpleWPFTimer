@@ -9,17 +9,19 @@ namespace SimpleTimer
 {
     public class LoopSoundPlayer : IDisposable
     {
+        readonly ConfigurationValues _config;
         readonly object _lock = new object();
-        SoundPlayer _sound;
-        IClock _timer;
+        readonly SoundPlayer _sound;
+        readonly IClock _timer;
 
-        public LoopSoundPlayer(Stream sound)
+        public LoopSoundPlayer(Stream sound, ConfigurationValues config)
         {
+            _config = config;
             //sound player's dispose, also disposes the stream
             _sound = new SoundPlayer(sound);
             _sound.Load();
 
-            _timer = new TimerClock();
+            _timer = new TimerClock(config);
             _timer.Finished += Timer_Finished;
         }
 
@@ -35,7 +37,7 @@ namespace SimpleTimer
         {
             lock (_lock)
             {
-                _timer.NewStart(TimeSpan.FromSeconds(seconds).ToString("hhmmss", CultureInfo.InvariantCulture));
+                _timer.NewStart(TimeSpan.FromSeconds(seconds).ToString(_config.TimeFormatNoSymbols, CultureInfo.InvariantCulture));
                 _sound.Stop();
                 _sound.PlayLooping();
             }

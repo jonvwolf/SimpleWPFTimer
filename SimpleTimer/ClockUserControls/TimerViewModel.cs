@@ -1,6 +1,7 @@
 ﻿using SimpleTimer.Clocks;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using System.Windows;
@@ -12,31 +13,44 @@ namespace SimpleTimer.ClockUserControls
 {
     public class TimerViewModel : IClockViewModel
     {
+        readonly ConfigurationValues _config;
         readonly IClock _clock;
         readonly LoopSoundPlayer _sound;
         readonly ActionCommand _textPressEnterCommand;
         readonly ActionCommand _textPressEscapeCommand;
         readonly IUserInterface _ui;
-        public string Text { get; set; }
-        public string PrimaryButtonText { get; set; }
+        string _text;
+        string _primaryButtonText;
+
+        #region DataContext
+        public string Text { get => _text; set { _text = value; OnPropertyChanged(nameof(Text)); } }
+        public string PrimaryButtonText { get => _primaryButtonText; set { _primaryButtonText = value; OnPropertyChanged(nameof(PrimaryButtonText)); } }
         public ICommand TextPressEnter { get => _textPressEnterCommand; }
         public ICommand TextPressEscape { get => _textPressEscapeCommand; }
-        /// <summary>
-        /// TODO
-        /// </summary>
-        public bool TextIsFocused { get; set; }
-        public TimerViewModel(IUserInterface ui)
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string name)
         {
-            _ui = ui;
-            _clock = new TimerClock();
-            //TODO:  : INotifyPropertyChanged
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        #endregion
 
-            var stream = Utils.GetResourceStream("tim-kahn__timer.wav");
-            _sound = new LoopSoundPlayer(stream);
+        public TimerViewModel(IUserInterface ui, ConfigurationValues config)
+        {
+            _config = config;
+            _ui = ui;
+            _clock = new TimerClock(config);
+            
+            var stream = Utils.GetResourceStream(_config.RingtoneFilename);
+            _sound = new LoopSoundPlayer(stream, config);
 
             _textPressEnterCommand = new ActionCommand(TxtTime_EnterKeyDown);
             _textPressEscapeCommand = new ActionCommand(TxtTime_EscapeKeyDown);
             RegisterEvents();
+
+            _text = _config?.InitialText ?? "";
+            _primaryButtonText = _config?.PrimaryButtonStart ?? "";
         }
 
         private void RegisterEvents()
@@ -70,7 +84,7 @@ namespace SimpleTimer.ClockUserControls
         {
             _ui.InvokeAsync(() =>
             {
-                _sound.Play(60);
+                _sound.Play(_config.TimerBeepingSeconds);
                 UpdateIU(e, true);
             });
         }
@@ -109,7 +123,7 @@ namespace SimpleTimer.ClockUserControls
                     break;
                 case UIEventArgs.UIEventType.WindowNumberKeyDown:
                     //`if` so it doesn't erase text everytime user presses number keys down
-                    if (!TextIsFocused)
+                    if (!_ui.IsTextFocused())
                     {
                         StopPlayer();
                         _clock.Pause();
@@ -121,12 +135,13 @@ namespace SimpleTimer.ClockUserControls
                     //This will toggle primary (between start/stop)
                     //But if txttime is focused, and enter is pressed,
                     //it should explicitely start a new timer (that's why the `if`)
-                    if (!TextIsFocused)
+                    if (!_ui.IsTextFocused())
                     {
                         PressPrimaryButton();
                     }
                     break;
                 default:
+                    //TODO log
                     throw new InvalidOperationException($"Unkown event type: {e.Type.ToString()}");
             }
         }
@@ -155,23 +170,23 @@ namespace SimpleTimer.ClockUserControls
                 return;
             if (e.Left.HasValue)
             {
-                Text = e.Left.Value.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
+                Text = e.Left.Value.ToString(_config.TimeFormat, CultureInfo.InvariantCulture);
             }
             if (e.PrimaryBtn.HasValue)
             {
                 switch (e.PrimaryBtn.Value)
                 {
                     case PrimaryButtonMode.Running:
-                        PrimaryButtonText = "_Stop";
+                        PrimaryButtonText = _config.PrimaryButtonStop;
                         break;
                     case PrimaryButtonMode.Stopped:
                         if (hasEnded)
                         {
-                            PrimaryButtonText = "_Ok";
+                            PrimaryButtonText = _config.PrimaryButtonOK;
                         }
                         else
                         {
-                            PrimaryButtonText = "_Start";
+                            PrimaryButtonText = _config.PrimaryButtonStart;
                         }
                         break;
                     default:
@@ -183,9 +198,9 @@ namespace SimpleTimer.ClockUserControls
 
         private bool StopPlayer()
         {
-            if (PrimaryButtonText == "_Ok")
+            if (PrimaryButtonText == _config.PrimaryButtonOK)
             {
-                PrimaryButtonText = "_Start";
+                PrimaryButtonText = _config.PrimaryButtonStart;
                 _sound.Stop();
                 return true;
             }
@@ -201,7 +216,7 @@ namespace SimpleTimer.ClockUserControls
             }
             catch (Exception ex)
             {
-                _ui.ShowMessageBox(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ui.ShowMessageBox(ex.Message, _config.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void NewStart()
@@ -213,7 +228,7 @@ namespace SimpleTimer.ClockUserControls
             }
             catch (Exception ex)
             {
-                _ui.ShowMessageBox(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ui.ShowMessageBox(ex.Message, _config.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion

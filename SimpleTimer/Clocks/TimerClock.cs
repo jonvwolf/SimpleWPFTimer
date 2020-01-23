@@ -9,13 +9,12 @@ namespace SimpleTimer
 {
     public class TimerClock : IClock
     {
-        static readonly TimeSpan TimerInterval = TimeSpan.FromSeconds(1);
+        readonly ConfigurationValues _config;
+        readonly TimeSpan TimerInterval;
 
         readonly Timer _timer = new Timer();
         private readonly object _lock = new object();
         PrimaryButtonMode _primaryBtnMode;
-
-        public bool IsRunning => _timer.Enabled;
 
         #region Left var
         /// <summary>
@@ -79,11 +78,13 @@ namespace SimpleTimer
         }
         #endregion Events
 
-        public TimerClock()
+        public TimerClock(ConfigurationValues config)
         {
+            _config = config;
+            TimerInterval = TimeSpan.FromSeconds(_config?.TimerInterval ?? 1);
             _timer.Interval = TimerInterval.TotalMilliseconds;
             _primaryBtnMode = PrimaryButtonMode.Stopped;
-
+            
             RegisterEvents();
         }
 
@@ -100,16 +101,15 @@ namespace SimpleTimer
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             //Inside timer thread
-
-            bool finished = false;
-            UiUpdatedEventArgs args = null;
-            lock (_lock)
+            try
             {
-                if (!_timer.Enabled)
-                    return;
-
-                try
+                bool finished = false;
+                UiUpdatedEventArgs args = null;
+                lock (_lock)
                 {
+                    if (!_timer.Enabled)
+                        return;
+
                     //This is not 100% accurate but it is good enough for this app
                     //For better precision, you should do a delta
                     Left -= TimerInterval;
@@ -129,19 +129,19 @@ namespace SimpleTimer
                         args = new UiUpdatedEventArgs() { Left = Left };
                     }
                 }
-                catch (Exception ex)
+
+                if (finished)
                 {
-                    //todo log exception
+                    OnFinished(args);
+                }
+                else
+                {
+                    OnTickHappened(args);
                 }
             }
-
-            if (finished)
+            catch (Exception)
             {
-                OnFinished(args);
-            }
-            else
-            {
-                OnTickHappened(args);
+                //todo log
             }
         }
         private void Stop()
@@ -179,7 +179,7 @@ namespace SimpleTimer
             {
                 Stop();
             }
-            Left = textTime.GetTimeSpan();
+            Left = textTime.GetTimeSpan(_config.TimeFormat, _config.TimeFormatNoSymbols, _config.DetectSymbolInFormat, _config.FillCharInTimeFormat);
             _originalLeft = Left;
             _timer.Start();
 
@@ -200,7 +200,7 @@ namespace SimpleTimer
         {
             if (Left == TimeSpan.Zero)
                 return;
-            NewStart(Left.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture));
+            NewStart(Left.ToString(_config.TimeFormat, CultureInfo.InvariantCulture));
         }
 
         public void PressPrimaryButton(string textTime)
@@ -217,7 +217,7 @@ namespace SimpleTimer
 
         public void PressSecondaryButton()
         {
-            NewStart(_originalLeft.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture));
+            NewStart(_originalLeft.ToString(_config.TimeFormat, CultureInfo.InvariantCulture));
         }
 
         #endregion
