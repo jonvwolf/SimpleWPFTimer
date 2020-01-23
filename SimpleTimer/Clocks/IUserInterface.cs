@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleTimer.ClockUserControls;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,5 +14,7 @@ namespace SimpleTimer.Clocks
         void TextFocus();
         void ShowMessageBox(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon);
         DispatcherOperation InvokeAsync(Action action);
+
+        event EventHandler<UIEventArgs> UiEventHappened;
     }
 }

@@ -44,9 +44,5 @@ namespace SimpleTimer
             throw new NotImplementedException();
         }
 
-        public void Shutdown()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
