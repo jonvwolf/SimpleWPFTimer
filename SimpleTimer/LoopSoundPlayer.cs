@@ -50,16 +50,6 @@ namespace SimpleTimer
             }
         }
 
-        public void Shutdown()
-        {
-            lock (_lock)
-            {
-                _timer.Shutdown();
-                _timer.Finished -= Timer_Finished;
-                _sound.Stop();
-            }
-        }
-
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
@@ -69,6 +59,9 @@ namespace SimpleTimer
             {
                 if (disposing)
                 {
+                    _timer.Finished -= Timer_Finished;
+                    Stop();
+
                     _timer?.Dispose();
                     _sound?.Dispose();
                 }

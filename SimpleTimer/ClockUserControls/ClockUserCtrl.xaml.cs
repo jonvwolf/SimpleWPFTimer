@@ -27,8 +27,8 @@ namespace SimpleTimer
     /// </summary>
     public partial class ClockUserCtrl : UserControl, IDisposable, IClockUserCtrl, IUserInterface
     {
-
-        IClockViewModel _vm;
+        public event EventHandler<UIEventArgs> UiEventHappened;
+        readonly IClockViewModel _vm;
         public ClockUserCtrl()
         {
             InitializeComponent();
@@ -36,11 +36,13 @@ namespace SimpleTimer
             DataContext = _vm;
         }
 
-        public void Shutdown()
+        private void OnUiEventHappened(UIEventArgs e)
         {
-            _vm.Shutdown();
+            var handler = UiEventHappened;
+            handler?.Invoke(this, e);
         }
 
+        #region IUserInterface
         public DispatcherOperation InvokeAsync(Action action)
         {
             return Dispatcher.InvokeAsync(action);
@@ -57,45 +59,42 @@ namespace SimpleTimer
         {
             MessageBox.Show(messageBoxText, caption, button, icon);
         }
-        
+        #endregion
 
         #region WindowEvents
         public void WindowNumberKeyDown(KeyEventArgs e)
         {
-            _vm.WindowNumberKeyDown(e);
+            OnUiEventHappened(new UIEventArgs(UIEventArgs.UIEventType.WindowNumberKeyDown));
         }
         public void WindowShiftEnterKeyDown(ExecutedRoutedEventArgs e)
         {
-            _vm.WindowShiftEnterKeyDown(e);
+            OnUiEventHappened(new UIEventArgs(UIEventArgs.UIEventType.WindowShiftEnterKeyDown));
         }
 
         public void WindowBackspaceKeyDown(KeyboardEventArgs e)
         {
-            _vm.WindowBackspaceKeyDown(e);
+            OnUiEventHappened(new UIEventArgs(UIEventArgs.UIEventType.WindowBackspaceKeyDown));
         }
 
         public void SwitchedToAnotherTab()
         {
-            _vm.TabLostFocus();
+            OnUiEventHappened(new UIEventArgs(UIEventArgs.UIEventType.TabLostFocus));
         }
         #endregion
 
         #region UI events
-        //https://stackoverflow.com/questions/18117294/how-does-this-button-click-work-in-wpf-mvvm
         private void TxtTime_GotFocus(object sender, RoutedEventArgs e)
         {
-            StopPlayer();
-            _clock.Pause();
+            OnUiEventHappened(new UIEventArgs(UIEventArgs.UIEventType.TextGotFocus));
         }
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
-            PressPrimaryButton();
+            OnUiEventHappened(new UIEventArgs(UIEventArgs.UIEventType.BtnStartClicked));
         }
         private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
-            StopPlayer();
-            _clock.PressSecondaryButton();
+            OnUiEventHappened(new UIEventArgs(UIEventArgs.UIEventType.BtnResetClicked));
         }
         
         #endregion

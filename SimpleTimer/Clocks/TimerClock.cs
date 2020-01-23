@@ -220,11 +220,6 @@ namespace SimpleTimer
             NewStart(_originalLeft.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture));
         }
 
-        public void Shutdown()
-        {
-            Stop();
-            UnregisterEvents();
-        }
         #endregion
 
         #region IDisposable Support
@@ -236,8 +231,8 @@ namespace SimpleTimer
             {
                 if (disposing)
                 {
-                    if (_timer.Enabled)
-                        throw new InvalidOperationException("Call shutdown first before disposing...");
+                    UnregisterEvents();
+                    Stop();
                     _timer?.Dispose();
                 }
                 disposedValue = true;

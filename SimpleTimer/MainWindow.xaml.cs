@@ -120,8 +120,6 @@ namespace SimpleTimer
         #region Events
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            _timer.Shutdown();
-            _stopwatch.Shutdown();
             UnregisterEvents();
             CommandBindings.Clear();
             Dispose();

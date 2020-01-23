@@ -38,11 +38,23 @@ namespace SimpleTimer.ClockUserControls
             _textPressEscapeCommand = new ActionCommand(TxtTime_EscapeKeyDown);
             RegisterEvents();
         }
-        public void Shutdown()
+
+        private void RegisterEvents()
         {
-            _clock.Shutdown();
-            _sound.Shutdown();
-            UnregisterEvents();
+            _clock.Finished += Clock_Finished;
+            _clock.TickHappened += Clock_TickHappened;
+            _clock.UiUpdated += Clock_UiUpdated;
+
+            _ui.UiEventHappened += Ui_UiEventHappened;
+        }
+
+        private void UnregisterEvents()
+        {
+            _clock.Finished -= Clock_Finished;
+            _clock.TickHappened -= Clock_TickHappened;
+            _clock.UiUpdated -= Clock_UiUpdated;
+
+            _ui.UiEventHappened -= Ui_UiEventHappened;
         }
 
         #region ClockEvents
@@ -72,40 +84,53 @@ namespace SimpleTimer.ClockUserControls
         #endregion
 
         #region UI events
-        public void TabLostFocus()
+        private void Ui_UiEventHappened(object sender, UIEventArgs e)
         {
-            StopPlayer();
-            _clock.Pause();
-        }
-
-        public void WindowBackspaceKeyDown(KeyboardEventArgs e)
-        {
-            StopPlayer();
-            _clock.PressSecondaryButton();
-        }
-
-        public void WindowShiftEnterKeyDown(ExecutedRoutedEventArgs e)
-        {
-            //This will toggle primary (between start/stop)
-            //But if txttime is focused, and enter is pressed,
-            //it should explicitely start a new timer (that's why the `if`)
-            if (!TextIsFocused)
+            switch (e.Type)
             {
-                PressPrimaryButton();
+                case UIEventArgs.UIEventType.BtnResetClicked:
+                    StopPlayer();
+                    _clock.PressSecondaryButton();
+                    break;
+                case UIEventArgs.UIEventType.BtnStartClicked:
+                    PressPrimaryButton();
+                    break;
+                case UIEventArgs.UIEventType.TabLostFocus:
+                    StopPlayer();
+                    _clock.Pause();
+                    break;
+                case UIEventArgs.UIEventType.TextGotFocus:
+                    StopPlayer();
+                    _clock.Pause();
+                    break;
+                case UIEventArgs.UIEventType.WindowBackspaceKeyDown:
+                    StopPlayer();
+                    _clock.PressSecondaryButton();
+                    break;
+                case UIEventArgs.UIEventType.WindowNumberKeyDown:
+                    //`if` so it doesn't erase text everytime user presses number keys down
+                    if (!TextIsFocused)
+                    {
+                        StopPlayer();
+                        _clock.Pause();
+                        Text = "";
+                        _ui.TextFocus();
+                    }
+                    break;
+                case UIEventArgs.UIEventType.WindowShiftEnterKeyDown:
+                    //This will toggle primary (between start/stop)
+                    //But if txttime is focused, and enter is pressed,
+                    //it should explicitely start a new timer (that's why the `if`)
+                    if (!TextIsFocused)
+                    {
+                        PressPrimaryButton();
+                    }
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unkown event type: {e.Type.ToString()}");
             }
         }
 
-        public void WindowNumberKeyDown(KeyEventArgs e)
-        {
-            //`if` so it doesn't erase text everytime user presses number keys down
-            if (!TextIsFocused)
-            {
-                StopPlayer();
-                _clock.Pause();
-                Text = "";
-                _ui.TextFocus();
-            }
-        }
         private void TxtTime_EnterKeyDown(object parameters)
         {
             NewStart();
@@ -123,20 +148,7 @@ namespace SimpleTimer.ClockUserControls
         #endregion
 
         #region Inner logic (private methods)
-        private void RegisterEvents()
-        {
-            _clock.Finished += Clock_Finished;
-            _clock.TickHappened += Clock_TickHappened;
-            _clock.UiUpdated += Clock_UiUpdated;
-        }
-        private void UnregisterEvents()
-        {
-            _clock.Finished -= Clock_Finished;
-            _clock.TickHappened -= Clock_TickHappened;
-            _clock.UiUpdated -= Clock_UiUpdated;
-        }
-
-
+        
         private void UpdateIU(UiUpdatedEventArgs e, bool hasEnded = false)
         {
             if (e == null)
@@ -168,7 +180,6 @@ namespace SimpleTimer.ClockUserControls
                 }
             }
         }
-
 
         private bool StopPlayer()
         {
@@ -216,6 +227,8 @@ namespace SimpleTimer.ClockUserControls
             {
                 if (disposing)
                 {
+                    UnregisterEvents();
+
                     _clock?.Dispose();
                     _sound?.Dispose();
                     _textPressEnterCommand?.Dispose();

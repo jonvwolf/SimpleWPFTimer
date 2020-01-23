@@ -11,6 +11,5 @@ namespace SimpleTimer
         void WindowNumberKeyDown(KeyEventArgs e);
         void WindowBackspaceKeyDown(KeyboardEventArgs e);
         void WindowShiftEnterKeyDown(ExecutedRoutedEventArgs e);
-        void Shutdown();
     }
 }

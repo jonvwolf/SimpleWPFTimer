@@ -15,7 +15,6 @@ namespace SimpleTimer
         void NewStart(string textTime);
         void Pause();
         void Resume();
-        void Shutdown();
 
         event EventHandler<UiUpdatedEventArgs> TickHappened;
         event EventHandler<UiUpdatedEventArgs> Finished;
