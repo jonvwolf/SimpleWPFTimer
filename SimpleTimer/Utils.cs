@@ -12,11 +12,14 @@ namespace SimpleTimer
     {
         public static Stream GetResourceStream(string resourceName)
         {
+            //ex. SimpleTimer
+            string assembly = typeof(Utils).Assembly.FullName;
+
             string resourcePath = "resources/" + resourceName;
             string url = string.Format(
                 null,
                 "pack://application:,,,/{0};component//{1}",
-                "SimpleTimer",
+                assembly,
                 resourcePath);
 
             try

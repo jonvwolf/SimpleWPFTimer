@@ -28,8 +28,9 @@ namespace SimpleTimer
         {
             InitializeComponent();
 
-            _timer = new ClockUserCtrl();
-            _stopwatch = new ClockUserCtrl();
+            var config = new ConfigurationValues();
+            _timer = new ClockUserCtrl(config);
+            _stopwatch = new ClockUserCtrl(config);
 
             TimerContentCtrl.Content = _timer;
             StopwatchContentCtrl.Content = _stopwatch;

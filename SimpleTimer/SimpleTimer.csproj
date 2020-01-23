@@ -13,6 +13,7 @@
     <PackageIcon>clock.png</PackageIcon>
     <PackageIconUrl />
     <ApplicationIcon>clock.ico</ApplicationIcon>
+    <AssemblyName>SimpleTimer</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
