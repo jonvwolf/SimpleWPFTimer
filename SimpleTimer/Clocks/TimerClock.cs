@@ -1,6 +1,5 @@
 ﻿using SimpleTimer.Clocks;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Timers;
 using static SimpleTimer.UiUpdatedEventArgs;
