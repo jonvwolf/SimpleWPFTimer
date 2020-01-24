@@ -8,6 +8,9 @@ using System.Windows.Resources;
 
 namespace SimpleTimer
 {
+    /// <summary>
+    /// Test
+    /// </summary>
     public static class Utils
     {
         public static Stream GetResourceStream(string resourceName)
