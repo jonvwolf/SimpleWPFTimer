@@ -1,12 +1,9 @@
 ﻿using SimpleTimer.Clocks;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 using static SimpleTimer.UiUpdatedEventArgs;
 
 namespace SimpleTimer.ClockUserControls
