@@ -4,4 +4,4 @@
 dotnet_diagnostic.CA1031.severity = silent
 
 # CA1716: Identifiers should not match keywords
-dotnet_diagnostic.CA1716.severity = suggestion
+dotnet_diagnostic.CA1716.severity = silent
