@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
@@ -15,12 +15,6 @@ jobs:
         dotnet-version: 3.1.100
     - name: Build with dotnet
       run: dotnet build --configuration Release
-
-  sonarCloudTrigger:
-    name: SonarCloud Trigger
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
