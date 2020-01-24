@@ -107,9 +107,6 @@ namespace SimpleTimer.ClockUserControls
                     PressPrimaryButton();
                     break;
                 case UIEventArgs.UIEventType.TabLostFocus:
-                    StopPlayer();
-                    _clock.Pause();
-                    break;
                 case UIEventArgs.UIEventType.TextGotFocus:
                     StopPlayer();
                     _clock.Pause();

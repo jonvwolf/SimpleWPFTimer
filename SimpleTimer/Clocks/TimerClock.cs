@@ -37,18 +37,12 @@ namespace SimpleTimer
             }
             set
             {
-                //check always if timer is running
-                if (_timer.Enabled == false)
-                {
-                    _left = value;
-                }
-                else
+                if (_timer.Enabled)
                 {
                     //log bug
-
-                    //this shouldnt happen but still modify for graceful degradation
-                    _left = value;
+                    //this shouldnt happen but still modify for graceful degradation   
                 }
+                _left = value;
             }
         }
 
@@ -149,16 +143,13 @@ namespace SimpleTimer
             try
             {
                 System.Threading.Monitor.TryEnter(_lock, TimerInterval * 2, ref lockTaken);
-                if (lockTaken)
+                if (!lockTaken)
                 {
-                    _timer.Stop();
+                    //log bug
+                    //this shouldn't happen
                 }
-                else
-                {
-                    //fallback
-                    _timer.Stop();
-                    //todo log error
-                }
+                //graceful degradation...
+                _timer.Stop();
             }
             finally
             {

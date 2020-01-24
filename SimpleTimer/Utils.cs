@@ -22,7 +22,6 @@ namespace SimpleTimer
 
             try
             {
-                string s = PackUriHelper.UriSchemePack;
                 var uri = new Uri(url);
                 StreamResourceInfo sri = Application.GetResourceStream(uri);
                 return sri.Stream;
