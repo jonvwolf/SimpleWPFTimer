@@ -2,9 +2,9 @@
 using System;
 using System.Globalization;
 using System.Timers;
-using static SimpleTimer.UiUpdatedEventArgs;
+using static SimpleTimer.Clocks.UiUpdatedEventArgs;
 
-namespace SimpleTimer
+namespace SimpleTimer.Clocks
 {
     public class TimerClock : IClock
     {

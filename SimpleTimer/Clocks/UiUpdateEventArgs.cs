@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimpleTimer
+namespace SimpleTimer.Clocks
 {
     public class UiUpdatedEventArgs : EventArgs
     {

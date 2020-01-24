@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace SimpleTimer
+namespace SimpleTimer.ClockUserControls
 {
     /// <summary>
     /// Interaction logic for ClockUserCtrl.xaml

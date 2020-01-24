@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleTimer.Clocks;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Media;
