@@ -15,6 +15,13 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarcloud'
+    organization: 'jonwolfdev'
+    scannerMode: 'MSBuild'
+    projectKey: 'jonwolfdev_SimpleWPFTimer'
+    projectName: 'SimpleWPFTimer'
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -32,19 +39,8 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'sonarcloud'
-    organization: 'jonwolfdev'
-    scannerMode: 'MSBuild'
-    projectKey: 'jonwolfdev_SimpleWPFTimer'
-    projectName: 'SimpleWPFTimer'
 - task: SonarCloudAnalyze@1
+
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
