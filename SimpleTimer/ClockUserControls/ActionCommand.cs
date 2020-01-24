@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace SimpleTimer
+namespace SimpleTimer.ClockUserControls
 {
     public class ActionCommand : ICommand, IDisposable
     {
