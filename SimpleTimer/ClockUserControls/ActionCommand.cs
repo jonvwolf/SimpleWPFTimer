@@ -5,7 +5,7 @@ namespace SimpleTimer
 {
     public class ActionCommand : ICommand, IDisposable
     {
-        public event EventHandler CanExecuteChanged { add { throw new NotSupportedException(); } remove { } }
+        public event EventHandler CanExecuteChanged { add { throw new NotSupportedException(); } remove { throw new NotSupportedException(); } }
 
         Action<object> _action;
         public ActionCommand(Action<object> action)

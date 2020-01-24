@@ -11,7 +11,7 @@ namespace SimpleTimer
     /// <summary>
     /// Interaction logic for ClockUserCtrl.xaml
     /// </summary>
-    public partial class ClockUserCtrl : UserControl, IDisposable, IClockUserCtrl, IUserInterface
+    public partial class ClockUserCtrl : UserControl, IClockUserCtrl, IUserInterface
     {
         public event EventHandler<UIEventArgs> UiEventHappened;
         readonly IClockViewModel _vm;
