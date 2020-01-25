@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.IO.Packaging;
 using System.Windows;
 using System.Windows.Resources;
 
