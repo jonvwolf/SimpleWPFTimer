@@ -19,17 +19,9 @@ namespace SimpleTimer
                 assembly,
                 resourcePath);
 
-            try
-            {
-                var uri = new Uri(url);
-                StreamResourceInfo sri = Application.GetResourceStream(uri);
-                return sri.Stream;
-            }
-            catch (Exception)
-            {
-                //TODO log
-                throw;
-            }
+            var uri = new Uri(url);
+            StreamResourceInfo sri = Application.GetResourceStream(uri);
+            return sri.Stream;
         }
     }
 }

@@ -100,10 +100,6 @@ namespace SimpleTimer.ClockUserControls
         {
             switch (e.Type)
             {
-                case UIEventArgs.UIEventType.BtnResetClicked:
-                    StopPlayer();
-                    _clock.PressSecondaryButton();
-                    break;
                 case UIEventArgs.UIEventType.BtnStartClicked:
                     PressPrimaryButton();
                     break;
@@ -112,6 +108,7 @@ namespace SimpleTimer.ClockUserControls
                     StopPlayer();
                     _clock.Pause();
                     break;
+                case UIEventArgs.UIEventType.BtnResetClicked:
                 case UIEventArgs.UIEventType.WindowBackspaceKeyDown:
                     StopPlayer();
                     _clock.PressSecondaryButton();

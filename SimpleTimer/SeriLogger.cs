@@ -5,7 +5,7 @@ namespace SimpleTimer
 {
     public class SeriLogger : ILogger
     {
-        Serilog.ILogger _logger;
+        readonly Serilog.ILogger _logger;
         public SeriLogger()
         {
             _logger = new LoggerConfiguration()
