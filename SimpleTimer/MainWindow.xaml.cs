@@ -18,7 +18,7 @@ namespace SimpleTimer
         {
             
         }
-        public MainWindow(ISimpleContainer container = null)
+        public MainWindow(ISimpleContainer container)
         {
             InitializeComponent();
             if (container == null)

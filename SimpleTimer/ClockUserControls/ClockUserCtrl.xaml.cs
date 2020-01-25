@@ -1,5 +1,4 @@
 ﻿using SimpleTimer.Clocks;
-using SimpleTimer.ClockUserControls;
 using System;
 using System.Windows;
 using System.Windows.Controls;
