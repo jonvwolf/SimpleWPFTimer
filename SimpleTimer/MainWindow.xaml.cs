@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using SimpleTimer.ClockUserControls;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SimpleTimer
 {
@@ -23,18 +13,25 @@ namespace SimpleTimer
     {
         readonly IClockUserCtrl _timer;
         readonly IClockUserCtrl _stopwatch;
-        
-        public MainWindow()
+
+        public MainWindow() : this(null)
+        {
+            
+        }
+        public MainWindow(ISimpleContainer container = null)
         {
             InitializeComponent();
+            if (container == null)
+            {
+                container = new SimpleContainer();
+            }
 
-            var config = new ConfigurationValues();
-            _timer = new ClockUserCtrl(config);
-            _stopwatch = new ClockUserCtrl(config);
+            _timer = container.GetTimerClockUserControl();
+            _stopwatch = container.GetStopwatchClockUserControl();
 
             TimerContentCtrl.Content = _timer;
             StopwatchContentCtrl.Content = _stopwatch;
-            
+
             RoutedCommand tabRightHotKeyCommand = new RoutedCommand();
             tabRightHotKeyCommand.InputGestures.Add(new KeyGesture(Key.Right, ModifierKeys.Alt));
             CommandBindings.Add(new CommandBinding(tabRightHotKeyCommand, TabRightHotKey));

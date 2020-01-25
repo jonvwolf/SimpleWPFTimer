@@ -1,38 +1,28 @@
 ﻿using SimpleTimer.Clocks;
 using SimpleTimer.ClockUserControls;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Media;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Resources;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-using static SimpleTimer.UiUpdatedEventArgs;
 
-namespace SimpleTimer
+namespace SimpleTimer.ClockUserControls
 {
     /// <summary>
     /// Interaction logic for ClockUserCtrl.xaml
     /// </summary>
-    public partial class ClockUserCtrl : UserControl, IDisposable, IClockUserCtrl, IUserInterface
+    public partial class ClockUserCtrl : UserControl, IClockUserCtrl, IUserInterface
     {
         public event EventHandler<UIEventArgs> UiEventHappened;
-        readonly IClockViewModel _vm;
-        public ClockUserCtrl(ConfigurationValues config)
+        IClockViewModel _vm;
+        public ClockUserCtrl()
         {
             InitializeComponent();
-            _vm = new TimerViewModel(this, config);
+        }
+
+        public void SetViewModel(IClockViewModel vm)
+        {
+            _vm = vm;
             DataContext = _vm;
         }
 

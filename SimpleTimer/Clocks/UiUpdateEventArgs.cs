@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using static SimpleTimer.TimerClock;
 
-namespace SimpleTimer
+namespace SimpleTimer.Clocks
 {
     public class UiUpdatedEventArgs : EventArgs
     {
