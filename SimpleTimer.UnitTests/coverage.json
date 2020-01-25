@@ -1,0 +1,2784 @@
+{
+  "SimpleTimer.dll": {
+    "D:\\git\\SimpleTimer\\SimpleTimer\\obj\\Debug\\netcoreapp3.1\\App.g.cs": {
+      "SimpleTimer.App": {
+        "System.Void SimpleTimer.App::InitializeComponent()": {
+          "Lines": {
+            "48": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\App.xaml": {
+      "SimpleTimer.App": {
+        "System.Void SimpleTimer.App::InitializeComponent()": {
+          "Lines": {
+            "5": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\ConfigurationValues.cs": {
+      "SimpleTimer.ConfigurationValues": {
+        "System.String SimpleTimer.ConfigurationValues::get_TimeFormatNoSymbols()": {
+          "Lines": {
+            "6": 0
+          },
+          "Branches": []
+        },
+        "System.String SimpleTimer.ConfigurationValues::get_DetectSymbolInFormat()": {
+          "Lines": {
+            "7": 0
+          },
+          "Branches": []
+        },
+        "System.String SimpleTimer.ConfigurationValues::get_TimeFormat()": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        },
+        "System.Char SimpleTimer.ConfigurationValues::get_FillCharInTimeFormat()": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        },
+        "System.String SimpleTimer.ConfigurationValues::get_RingtoneFilename()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "System.String SimpleTimer.ConfigurationValues::get_ErrorTitle()": {
+          "Lines": {
+            "11": 0
+          },
+          "Branches": []
+        },
+        "System.String SimpleTimer.ConfigurationValues::get_InitialText()": {
+          "Lines": {
+            "12": 0
+          },
+          "Branches": []
+        },
+        "System.String SimpleTimer.ConfigurationValues::get_PrimaryButtonStart()": {
+          "Lines": {
+            "13": 0
+          },
+          "Branches": []
+        },
+        "System.String SimpleTimer.ConfigurationValues::get_PrimaryButtonStop()": {
+          "Lines": {
+            "14": 0
+          },
+          "Branches": []
+        },
+        "System.String SimpleTimer.ConfigurationValues::get_PrimaryButtonOK()": {
+          "Lines": {
+            "15": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 SimpleTimer.ConfigurationValues::get_TimerBeepingSeconds()": {
+          "Lines": {
+            "16": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 SimpleTimer.ConfigurationValues::get_TimerInterval()": {
+          "Lines": {
+            "17": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\LoopSoundPlayer.cs": {
+      "SimpleTimer.LoopSoundPlayer": {
+        "System.Void SimpleTimer.LoopSoundPlayer::RegisterEvents()": {
+          "Lines": {
+            "28": 0,
+            "29": 0,
+            "30": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.LoopSoundPlayer::UnregisterEvents()": {
+          "Lines": {
+            "32": 0,
+            "33": 0,
+            "34": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.LoopSoundPlayer::Timer_Finished(System.Object,SimpleTimer.Clocks.UiUpdatedEventArgs)": {
+          "Lines": {
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.LoopSoundPlayer::Play(System.Int32)": {
+          "Lines": {
+            "45": 0,
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "50": 0,
+            "51": 0,
+            "52": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.LoopSoundPlayer::Stop()": {
+          "Lines": {
+            "55": 0,
+            "56": 0,
+            "57": 0,
+            "58": 0,
+            "59": 0,
+            "60": 0,
+            "61": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.LoopSoundPlayer::Dispose(System.Boolean)": {
+          "Lines": {
+            "67": 0,
+            "68": 0,
+            "69": 0,
+            "70": 0,
+            "71": 0,
+            "72": 0,
+            "73": 0,
+            "75": 0,
+            "76": 0,
+            "77": 0,
+            "78": 0,
+            "79": 0,
+            "80": 0
+          },
+          "Branches": [
+            {
+              "Line": 68,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 70,
+              "Offset": 18,
+              "EndOffset": 20,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 75,
+              "Offset": 42,
+              "EndOffset": 44,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 75,
+              "Offset": 42,
+              "EndOffset": 47,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 76,
+              "Offset": 60,
+              "EndOffset": 62,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 76,
+              "Offset": 60,
+              "EndOffset": 65,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 70,
+              "Offset": 18,
+              "EndOffset": 72,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 68,
+              "Offset": 12,
+              "EndOffset": 80,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.LoopSoundPlayer::Finalize()": {
+          "Lines": {
+            "83": 0,
+            "84": 0,
+            "85": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.LoopSoundPlayer::Dispose()": {
+          "Lines": {
+            "88": 0,
+            "89": 0,
+            "90": 0,
+            "91": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.LoopSoundPlayer::.ctor(System.IO.Stream,SimpleTimer.IConfigurationValues,SimpleTimer.Clocks.IClock)": {
+          "Lines": {
+            "12": 0,
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "20": 0,
+            "21": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "64": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\MainWindow.xaml.cs": {
+      "SimpleTimer.MainWindow": {
+        "System.Void SimpleTimer.MainWindow::RegisterEvents()": {
+          "Lines": {
+            "51": 0,
+            "52": 0,
+            "53": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.MainWindow::UnregisterEvents()": {
+          "Lines": {
+            "55": 0,
+            "56": 0,
+            "57": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.MainWindow::SwitchTabs(System.Boolean)": {
+          "Lines": {
+            "60": 0,
+            "61": 0,
+            "62": 0,
+            "63": 0,
+            "64": 0,
+            "65": 0,
+            "67": 0,
+            "68": 0,
+            "70": 0,
+            "71": 0,
+            "72": 0,
+            "74": 0,
+            "75": 0,
+            "76": 0
+          },
+          "Branches": [
+            {
+              "Line": 61,
+              "Offset": 8,
+              "EndOffset": 10,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 61,
+              "Offset": 8,
+              "EndOffset": 13,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 62,
+              "Offset": 22,
+              "EndOffset": 24,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 64,
+              "Offset": 58,
+              "EndOffset": 60,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 64,
+              "Offset": 58,
+              "EndOffset": 75,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 62,
+              "Offset": 22,
+              "EndOffset": 100,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 71,
+              "Offset": 117,
+              "EndOffset": 119,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 71,
+              "Offset": 117,
+              "EndOffset": 151,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            }
+          ]
+        },
+        "SimpleTimer.ClockUserControls.ClockUserCtrl SimpleTimer.MainWindow::GetCurrentUserCtrl()": {
+          "Lines": {
+            "79": 0,
+            "80": 0,
+            "81": 0,
+            "83": 0,
+            "84": 0,
+            "85": 0,
+            "86": 0
+          },
+          "Branches": [
+            {
+              "Line": 81,
+              "Offset": 30,
+              "EndOffset": 32,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 81,
+              "Offset": 30,
+              "EndOffset": 38,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 84,
+              "Offset": 53,
+              "EndOffset": 55,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 84,
+              "Offset": 53,
+              "EndOffset": 58,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.MainWindow::MainWindow_KeyDown(System.Object,System.Windows.Input.KeyEventArgs)": {
+          "Lines": {
+            "90": 0,
+            "91": 0,
+            "93": 0,
+            "94": 0,
+            "95": 0,
+            "96": 0,
+            "97": 0,
+            "98": 0,
+            "99": 0,
+            "100": 0,
+            "101": 0
+          },
+          "Branches": [
+            {
+              "Line": 93,
+              "Offset": 11,
+              "EndOffset": 13,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 93,
+              "Offset": 11,
+              "EndOffset": 18,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 93,
+              "Offset": 16,
+              "EndOffset": 18,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 93,
+              "Offset": 21,
+              "EndOffset": 23,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 93,
+              "Offset": 21,
+              "EndOffset": 33,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 93,
+              "Offset": 16,
+              "EndOffset": 36,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 93,
+              "Offset": 39,
+              "EndOffset": 41,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 95,
+              "Offset": 49,
+              "EndOffset": 51,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 95,
+              "Offset": 49,
+              "EndOffset": 54,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 93,
+              "Offset": 39,
+              "EndOffset": 64,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 97,
+              "Offset": 75,
+              "EndOffset": 77,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 0
+            },
+            {
+              "Line": 99,
+              "Offset": 85,
+              "EndOffset": 87,
+              "Path": 0,
+              "Ordinal": 12,
+              "Hits": 0
+            },
+            {
+              "Line": 99,
+              "Offset": 85,
+              "EndOffset": 90,
+              "Path": 1,
+              "Ordinal": 13,
+              "Hits": 0
+            },
+            {
+              "Line": 97,
+              "Offset": 75,
+              "EndOffset": 98,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.MainWindow::ShiftEnterHotKey(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)": {
+          "Lines": {
+            "104": 0,
+            "105": 0,
+            "106": 0
+          },
+          "Branches": [
+            {
+              "Line": 105,
+              "Offset": 8,
+              "EndOffset": 10,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 105,
+              "Offset": 8,
+              "EndOffset": 13,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.MainWindow::TabRightHotKey(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)": {
+          "Lines": {
+            "108": 0,
+            "109": 0,
+            "110": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.MainWindow::TabLeftHotKey(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)": {
+          "Lines": {
+            "113": 0,
+            "114": 0,
+            "115": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.MainWindow::Window_Closing(System.Object,System.ComponentModel.CancelEventArgs)": {
+          "Lines": {
+            "120": 0,
+            "121": 0,
+            "122": 0,
+            "123": 0,
+            "124": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.MainWindow::Dispose(System.Boolean)": {
+          "Lines": {
+            "131": 0,
+            "132": 0,
+            "133": 0,
+            "134": 0,
+            "135": 0,
+            "136": 0,
+            "137": 0,
+            "138": 0,
+            "139": 0,
+            "140": 0,
+            "141": 0
+          },
+          "Branches": [
+            {
+              "Line": 132,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 134,
+              "Offset": 18,
+              "EndOffset": 20,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 136,
+              "Offset": 28,
+              "EndOffset": 30,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 136,
+              "Offset": 28,
+              "EndOffset": 33,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 137,
+              "Offset": 46,
+              "EndOffset": 48,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 137,
+              "Offset": 46,
+              "EndOffset": 51,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 134,
+              "Offset": 18,
+              "EndOffset": 58,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 132,
+              "Offset": 12,
+              "EndOffset": 66,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.MainWindow::Finalize()": {
+          "Lines": {
+            "144": 0,
+            "145": 0,
+            "146": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.MainWindow::Dispose()": {
+          "Lines": {
+            "149": 0,
+            "150": 0,
+            "151": 0,
+            "152": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.MainWindow::.ctor()": {
+          "Lines": {
+            "17": 0,
+            "18": 0,
+            "20": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.MainWindow::.ctor(SimpleTimer.ISimpleContainer)": {
+          "Lines": {
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "29": 0,
+            "30": 0,
+            "32": 0,
+            "33": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "43": 0,
+            "44": 0,
+            "45": 0,
+            "47": 0,
+            "48": 0,
+            "128": 0
+          },
+          "Branches": [
+            {
+              "Line": 24,
+              "Offset": 28,
+              "EndOffset": 30,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 24,
+              "Offset": 28,
+              "EndOffset": 39,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\MainWindow.xaml": {
+      "SimpleTimer.MainWindow": {
+        "System.Void SimpleTimer.MainWindow::InitializeComponent()": {
+          "Lines": {
+            "1": 0
+          },
+          "Branches": [
+            {
+              "Line": 1,
+              "Offset": 9,
+              "EndOffset": 11,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 1,
+              "Offset": 9,
+              "EndOffset": 14,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.MainWindow::System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": [
+            {
+              "Line": 8,
+              "Offset": 8,
+              "EndOffset": 31,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 8,
+              "Offset": 8,
+              "EndOffset": 57,
+              "Path": 2,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 8,
+              "Offset": 8,
+              "EndOffset": 71,
+              "Path": 3,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 8,
+              "Offset": 8,
+              "EndOffset": 85,
+              "Path": 4,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 8,
+              "Offset": 8,
+              "EndOffset": 99,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\SeriLogger.cs": {
+      "SimpleTimer.SeriLogger": {
+        "System.Void SimpleTimer.SeriLogger::LogError(System.String)": {
+          "Lines": {
+            "19": 0,
+            "20": 0,
+            "21": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.SeriLogger::LogError(System.String,System.Exception)": {
+          "Lines": {
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0
+          },
+          "Branches": [
+            {
+              "Line": 25,
+              "Offset": 7,
+              "EndOffset": 9,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 7,
+              "EndOffset": 20,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.SeriLogger::.ctor()": {
+          "Lines": {
+            "11": 0,
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\SimpleContainer.cs": {
+      "SimpleTimer.SimpleContainer": {
+        "SimpleTimer.ClockUserControls.IClockUserCtrl SimpleTimer.SimpleContainer::GetTimerClockUserControl()": {
+          "Lines": {
+            "17": 0,
+            "18": 0,
+            "20": 0,
+            "21": 0,
+            "23": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "29": 0,
+            "30": 0
+          },
+          "Branches": []
+        },
+        "SimpleTimer.ClockUserControls.IClockUserCtrl SimpleTimer.SimpleContainer::GetStopwatchClockUserControl()": {
+          "Lines": {
+            "33": 0,
+            "34": 0,
+            "36": 0,
+            "37": 0,
+            "39": 0,
+            "41": 0,
+            "42": 0,
+            "43": 0,
+            "45": 0,
+            "46": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.SimpleContainer::.ctor()": {
+          "Lines": {
+            "11": 0,
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "15": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\Utils.cs": {
+      "SimpleTimer.Utils": {
+        "System.IO.Stream SimpleTimer.Utils::GetResourceStream(System.String)": {
+          "Lines": {
+            "12": 0,
+            "14": 0,
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "29": 0,
+            "30": 0,
+            "32": 0,
+            "34": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\ClockUserControls\\ActionCommand.cs": {
+      "SimpleTimer.ClockUserControls.ActionCommand": {
+        "System.Void SimpleTimer.ClockUserControls.ActionCommand::add_CanExecuteChanged(System.EventHandler)": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean SimpleTimer.ClockUserControls.ActionCommand::CanExecute(System.Object)": {
+          "Lines": {
+            "16": 0,
+            "17": 0,
+            "18": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ActionCommand::Execute(System.Object)": {
+          "Lines": {
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0
+          },
+          "Branches": [
+            {
+              "Line": 23,
+              "Offset": 9,
+              "EndOffset": 13,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 23,
+              "Offset": 9,
+              "EndOffset": 21,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.ClockUserControls.ActionCommand::Dispose(System.Boolean)": {
+          "Lines": {
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "34": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0
+          },
+          "Branches": [
+            {
+              "Line": 31,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 33,
+              "Offset": 18,
+              "EndOffset": 20,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 33,
+              "Offset": 18,
+              "EndOffset": 29,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 31,
+              "Offset": 12,
+              "EndOffset": 37,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.ClockUserControls.ActionCommand::Finalize()": {
+          "Lines": {
+            "42": 0,
+            "43": 0,
+            "44": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ActionCommand::Dispose()": {
+          "Lines": {
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "50": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ActionCommand::.ctor(System.Action`1<System.Object>)": {
+          "Lines": {
+            "11": 0,
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "27": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\ClockUserControls\\ClockUserCtrl.xaml.cs": {
+      "SimpleTimer.ClockUserControls.ClockUserCtrl": {
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::SetViewModel(SimpleTimer.ClockUserControls.IClockViewModel)": {
+          "Lines": {
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::OnUiEventHappened(SimpleTimer.ClockUserControls.UIEventArgs)": {
+          "Lines": {
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0
+          },
+          "Branches": [
+            {
+              "Line": 32,
+              "Offset": 9,
+              "EndOffset": 13,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 32,
+              "Offset": 9,
+              "EndOffset": 22,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Windows.Threading.DispatcherOperation SimpleTimer.ClockUserControls.ClockUserCtrl::InvokeAsync(System.Action)": {
+          "Lines": {
+            "37": 0,
+            "38": 0,
+            "39": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::BtnStartFocus()": {
+          "Lines": {
+            "41": 0,
+            "42": 0,
+            "43": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::TextFocus()": {
+          "Lines": {
+            "45": 0,
+            "46": 0,
+            "47": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean SimpleTimer.ClockUserControls.ClockUserCtrl::IsTextFocused()": {
+          "Lines": {
+            "49": 0,
+            "50": 0,
+            "51": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::ShowMessageBox(System.String,System.String,System.Windows.MessageBoxButton,System.Windows.MessageBoxImage)": {
+          "Lines": {
+            "53": 0,
+            "54": 0,
+            "55": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::WindowNumberKeyDown(System.Windows.Input.KeyEventArgs)": {
+          "Lines": {
+            "60": 0,
+            "61": 0,
+            "62": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::WindowShiftEnterKeyDown(System.Windows.Input.ExecutedRoutedEventArgs)": {
+          "Lines": {
+            "64": 0,
+            "65": 0,
+            "66": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::WindowBackspaceKeyDown(System.Windows.Input.KeyboardEventArgs)": {
+          "Lines": {
+            "69": 0,
+            "70": 0,
+            "71": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::SwitchedToAnotherTab()": {
+          "Lines": {
+            "74": 0,
+            "75": 0,
+            "76": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::TxtTime_GotFocus(System.Object,System.Windows.RoutedEventArgs)": {
+          "Lines": {
+            "81": 0,
+            "82": 0,
+            "83": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::BtnStart_Click(System.Object,System.Windows.RoutedEventArgs)": {
+          "Lines": {
+            "86": 0,
+            "87": 0,
+            "88": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::BtnReset_Click(System.Object,System.Windows.RoutedEventArgs)": {
+          "Lines": {
+            "90": 0,
+            "91": 0,
+            "92": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::Dispose(System.Boolean)": {
+          "Lines": {
+            "100": 0,
+            "101": 0,
+            "102": 0,
+            "103": 0,
+            "104": 0,
+            "105": 0,
+            "106": 0,
+            "107": 0,
+            "108": 0,
+            "109": 0
+          },
+          "Branches": [
+            {
+              "Line": 101,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 103,
+              "Offset": 18,
+              "EndOffset": 20,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 105,
+              "Offset": 28,
+              "EndOffset": 30,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 105,
+              "Offset": 28,
+              "EndOffset": 33,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 103,
+              "Offset": 18,
+              "EndOffset": 40,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 12,
+              "EndOffset": 48,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::Finalize()": {
+          "Lines": {
+            "112": 0,
+            "113": 0,
+            "114": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::Dispose()": {
+          "Lines": {
+            "118": 0,
+            "119": 0,
+            "120": 0,
+            "121": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::.ctor()": {
+          "Lines": {
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "97": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\ClockUserControls\\ClockUserCtrl.xaml": {
+      "SimpleTimer.ClockUserControls.ClockUserCtrl": {
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::InitializeComponent()": {
+          "Lines": {
+            "1": 0
+          },
+          "Branches": [
+            {
+              "Line": 1,
+              "Offset": 9,
+              "EndOffset": 11,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 1,
+              "Offset": 9,
+              "EndOffset": 14,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.ClockUserControls.ClockUserCtrl::System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)": {
+          "Lines": {
+            "83": 0,
+            "89": 0,
+            "92": 0
+          },
+          "Branches": [
+            {
+              "Line": 83,
+              "Offset": 8,
+              "EndOffset": 27,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 83,
+              "Offset": 8,
+              "EndOffset": 65,
+              "Path": 2,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 83,
+              "Offset": 8,
+              "EndOffset": 103,
+              "Path": 3,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 83,
+              "Offset": 8,
+              "EndOffset": 141,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\ClockUserControls\\TimerViewModel.cs": {
+      "SimpleTimer.ClockUserControls.TimerViewModel": {
+        "System.String SimpleTimer.ClockUserControls.TimerViewModel::get_Text()": {
+          "Lines": {
+            "24": 0
+          },
+          "Branches": []
+        },
+        "System.String SimpleTimer.ClockUserControls.TimerViewModel::get_PrimaryButtonText()": {
+          "Lines": {
+            "25": 0
+          },
+          "Branches": []
+        },
+        "System.Windows.Input.ICommand SimpleTimer.ClockUserControls.TimerViewModel::get_TextPressEnter()": {
+          "Lines": {
+            "26": 0
+          },
+          "Branches": []
+        },
+        "System.Windows.Input.ICommand SimpleTimer.ClockUserControls.TimerViewModel::get_TextPressEscape()": {
+          "Lines": {
+            "27": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::OnPropertyChanged(System.String)": {
+          "Lines": {
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "34": 0
+          },
+          "Branches": [
+            {
+              "Line": 33,
+              "Offset": 9,
+              "EndOffset": 13,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 33,
+              "Offset": 9,
+              "EndOffset": 27,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::RegisterEvents()": {
+          "Lines": {
+            "55": 0,
+            "56": 0,
+            "57": 0,
+            "58": 0,
+            "60": 0,
+            "61": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::UnregisterEvents()": {
+          "Lines": {
+            "64": 0,
+            "65": 0,
+            "66": 0,
+            "67": 0,
+            "69": 0,
+            "70": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::Clock_TickHappened(System.Object,SimpleTimer.Clocks.UiUpdatedEventArgs)": {
+          "Lines": {
+            "74": 0,
+            "75": 0,
+            "76": 0,
+            "77": 0,
+            "78": 0,
+            "79": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::Clock_Finished(System.Object,SimpleTimer.Clocks.UiUpdatedEventArgs)": {
+          "Lines": {
+            "82": 0,
+            "83": 0,
+            "84": 0,
+            "85": 0,
+            "86": 0,
+            "87": 0,
+            "88": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::Clock_UiUpdated(System.Object,SimpleTimer.Clocks.UiUpdatedEventArgs)": {
+          "Lines": {
+            "90": 0,
+            "91": 0,
+            "92": 0,
+            "93": 0,
+            "94": 0,
+            "95": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::Ui_UiEventHappened(System.Object,SimpleTimer.ClockUserControls.UIEventArgs)": {
+          "Lines": {
+            "100": 0,
+            "101": 0,
+            "104": 0,
+            "105": 0,
+            "106": 0,
+            "108": 0,
+            "109": 0,
+            "112": 0,
+            "113": 0,
+            "114": 0,
+            "116": 0,
+            "117": 0,
+            "118": 0,
+            "121": 0,
+            "122": 0,
+            "123": 0,
+            "124": 0,
+            "125": 0,
+            "126": 0,
+            "127": 0,
+            "128": 0,
+            "133": 0,
+            "134": 0,
+            "135": 0,
+            "136": 0,
+            "137": 0,
+            "139": 0,
+            "140": 0,
+            "142": 0
+          },
+          "Branches": [
+            {
+              "Line": 101,
+              "Offset": 11,
+              "EndOffset": 49,
+              "Path": 7,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 11,
+              "EndOffset": 73,
+              "Path": 6,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 11,
+              "EndOffset": 85,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 11,
+              "EndOffset": 85,
+              "Path": 5,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 11,
+              "EndOffset": 109,
+              "Path": 2,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 11,
+              "EndOffset": 133,
+              "Path": 4,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 121,
+              "Offset": 149,
+              "EndOffset": 151,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 11,
+              "EndOffset": 198,
+              "Path": 3,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 133,
+              "Offset": 214,
+              "EndOffset": 216,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 11,
+              "EndOffset": 227,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 121,
+              "Offset": 149,
+              "EndOffset": 272,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 133,
+              "Offset": 214,
+              "EndOffset": 272,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::TxtTime_EnterKeyDown(System.Object)": {
+          "Lines": {
+            "145": 0,
+            "146": 0,
+            "147": 0,
+            "148": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::TxtTime_EscapeKeyDown(System.Object)": {
+          "Lines": {
+            "150": 0,
+            "152": 0,
+            "156": 0,
+            "157": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::UpdateIU(SimpleTimer.Clocks.UiUpdatedEventArgs,System.Boolean)": {
+          "Lines": {
+            "163": 0,
+            "164": 0,
+            "165": 0,
+            "166": 0,
+            "167": 0,
+            "168": 0,
+            "169": 0,
+            "170": 0,
+            "171": 0,
+            "172": 0,
+            "175": 0,
+            "176": 0,
+            "178": 0,
+            "179": 0,
+            "180": 0,
+            "181": 0,
+            "183": 0,
+            "184": 0,
+            "185": 0,
+            "186": 0,
+            "188": 0,
+            "189": 0,
+            "191": 0,
+            "192": 0
+          },
+          "Branches": [
+            {
+              "Line": 164,
+              "Offset": 7,
+              "EndOffset": 14,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 166,
+              "Offset": 30,
+              "EndOffset": 32,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 166,
+              "Offset": 30,
+              "EndOffset": 79,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 170,
+              "Offset": 98,
+              "EndOffset": 103,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 172,
+              "Offset": 127,
+              "EndOffset": 131,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 172,
+              "Offset": 134,
+              "EndOffset": 138,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 172,
+              "Offset": 127,
+              "EndOffset": 158,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 178,
+              "Offset": 163,
+              "EndOffset": 165,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 0
+            },
+            {
+              "Line": 178,
+              "Offset": 163,
+              "EndOffset": 187,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 0
+            },
+            {
+              "Line": 172,
+              "Offset": 134,
+              "EndOffset": 209,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 164,
+              "Offset": 7,
+              "EndOffset": 249,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 170,
+              "Offset": 98,
+              "EndOffset": 249,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Boolean SimpleTimer.ClockUserControls.TimerViewModel::StopPlayer()": {
+          "Lines": {
+            "195": 0,
+            "196": 0,
+            "197": 0,
+            "198": 0,
+            "199": 0,
+            "200": 0,
+            "202": 0,
+            "203": 0
+          },
+          "Branches": [
+            {
+              "Line": 196,
+              "Offset": 25,
+              "EndOffset": 27,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 196,
+              "Offset": 25,
+              "EndOffset": 62,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::PressPrimaryButton()": {
+          "Lines": {
+            "205": 0,
+            "206": 0,
+            "207": 0,
+            "209": 0,
+            "210": 0,
+            "211": 0,
+            "212": 0,
+            "213": 0,
+            "214": 0,
+            "215": 0,
+            "216": 0
+          },
+          "Branches": [
+            {
+              "Line": 206,
+              "Offset": 9,
+              "EndOffset": 13,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 206,
+              "Offset": 9,
+              "EndOffset": 73,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::NewStart()": {
+          "Lines": {
+            "218": 0,
+            "219": 0,
+            "221": 0,
+            "222": 0,
+            "223": 0,
+            "224": 0,
+            "225": 0,
+            "226": 0,
+            "227": 0,
+            "228": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::Dispose(System.Boolean)": {
+          "Lines": {
+            "235": 0,
+            "236": 0,
+            "237": 0,
+            "238": 0,
+            "239": 0,
+            "240": 0,
+            "242": 0,
+            "243": 0,
+            "244": 0,
+            "245": 0,
+            "246": 0,
+            "248": 0,
+            "249": 0,
+            "250": 0
+          },
+          "Branches": [
+            {
+              "Line": 236,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 238,
+              "Offset": 18,
+              "EndOffset": 20,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 242,
+              "Offset": 35,
+              "EndOffset": 37,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 242,
+              "Offset": 35,
+              "EndOffset": 40,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 243,
+              "Offset": 53,
+              "EndOffset": 55,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 243,
+              "Offset": 53,
+              "EndOffset": 58,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 244,
+              "Offset": 71,
+              "EndOffset": 73,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 244,
+              "Offset": 71,
+              "EndOffset": 76,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 245,
+              "Offset": 89,
+              "EndOffset": 91,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 0
+            },
+            {
+              "Line": 245,
+              "Offset": 89,
+              "EndOffset": 94,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 0
+            },
+            {
+              "Line": 238,
+              "Offset": 18,
+              "EndOffset": 101,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 236,
+              "Offset": 12,
+              "EndOffset": 109,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::Finalize()": {
+          "Lines": {
+            "253": 0,
+            "255": 0,
+            "256": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::Dispose()": {
+          "Lines": {
+            "260": 0,
+            "261": 0,
+            "262": 0,
+            "263": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.TimerViewModel::.ctor(SimpleTimer.Clocks.IUserInterface,SimpleTimer.ILoopSoundPlayer,SimpleTimer.Clocks.IClock,SimpleTimer.IConfigurationValues,SimpleTimer.ILogger)": {
+          "Lines": {
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0,
+            "44": 0,
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "50": 0,
+            "51": 0,
+            "52": 0,
+            "232": 0
+          },
+          "Branches": [
+            {
+              "Line": 50,
+              "Offset": 113,
+              "EndOffset": 115,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 50,
+              "Offset": 113,
+              "EndOffset": 119,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 50,
+              "Offset": 125,
+              "EndOffset": 127,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 50,
+              "Offset": 125,
+              "EndOffset": 133,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 51,
+              "Offset": 146,
+              "EndOffset": 148,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 51,
+              "Offset": 146,
+              "EndOffset": 152,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 51,
+              "Offset": 158,
+              "EndOffset": 160,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 51,
+              "Offset": 158,
+              "EndOffset": 166,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\ClockUserControls\\UIEventArgs.cs": {
+      "SimpleTimer.ClockUserControls.UIEventArgs": {
+        "SimpleTimer.ClockUserControls.UIEventArgs/UIEventType SimpleTimer.ClockUserControls.UIEventArgs::get_Type()": {
+          "Lines": {
+            "13": 2
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.ClockUserControls.UIEventArgs::.ctor(SimpleTimer.ClockUserControls.UIEventArgs/UIEventType)": {
+          "Lines": {
+            "15": 1,
+            "16": 1,
+            "17": 1,
+            "18": 1
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\Clocks\\ClockExtensions.cs": {
+      "SimpleTimer.Clocks.ClockExtensions": {
+        "System.TimeSpan SimpleTimer.Clocks.ClockExtensions::GetTimeSpan(System.String,System.String,System.String,System.String,System.Char)": {
+          "Lines": {
+            "9": 0,
+            "10": 0,
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0
+          },
+          "Branches": [
+            {
+              "Line": 10,
+              "Offset": 2,
+              "EndOffset": 4,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 10,
+              "Offset": 2,
+              "EndOffset": 7,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 10,
+              "Offset": 14,
+              "EndOffset": 16,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 10,
+              "Offset": 14,
+              "EndOffset": 22,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 15,
+              "Offset": 46,
+              "EndOffset": 48,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 17,
+              "Offset": 62,
+              "EndOffset": 64,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 17,
+              "Offset": 62,
+              "EndOffset": 76,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 15,
+              "Offset": 46,
+              "EndOffset": 79,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\Clocks\\StopwatchClock.cs": {
+      "SimpleTimer.Clocks.StopwatchClock": {
+        "System.Void SimpleTimer.Clocks.StopwatchClock::NewStart(System.String)": {
+          "Lines": {
+            "12": 0,
+            "13": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.StopwatchClock::Pause()": {
+          "Lines": {
+            "17": 0,
+            "18": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.StopwatchClock::PressPrimaryButton(System.String)": {
+          "Lines": {
+            "22": 0,
+            "23": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.StopwatchClock::PressSecondaryButton()": {
+          "Lines": {
+            "27": 0,
+            "28": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.StopwatchClock::Resume()": {
+          "Lines": {
+            "32": 0,
+            "33": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.StopwatchClock::Dispose(System.Boolean)": {
+          "Lines": {
+            "40": 0,
+            "41": 0,
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "46": 0,
+            "48": 0,
+            "49": 0,
+            "50": 0
+          },
+          "Branches": [
+            {
+              "Line": 41,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 43,
+              "Offset": 18,
+              "EndOffset": 20,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 43,
+              "Offset": 18,
+              "EndOffset": 22,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 41,
+              "Offset": 12,
+              "EndOffset": 30,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.Clocks.StopwatchClock::Finalize()": {
+          "Lines": {
+            "53": 0,
+            "55": 0,
+            "56": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.StopwatchClock::Dispose()": {
+          "Lines": {
+            "59": 0,
+            "60": 0,
+            "61": 0,
+            "62": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.StopwatchClock::.ctor()": {
+          "Lines": {
+            "37": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\Clocks\\TimerClock.cs": {
+      "SimpleTimer.Clocks.TimerClock": {
+        "System.TimeSpan SimpleTimer.Clocks.TimerClock::get_Left()": {
+          "Lines": {
+            "28": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::OnFinished(SimpleTimer.Clocks.UiUpdatedEventArgs)": {
+          "Lines": {
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0
+          },
+          "Branches": [
+            {
+              "Line": 40,
+              "Offset": 9,
+              "EndOffset": 13,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 40,
+              "Offset": 9,
+              "EndOffset": 22,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::OnTickHappened(SimpleTimer.Clocks.UiUpdatedEventArgs)": {
+          "Lines": {
+            "44": 0,
+            "45": 0,
+            "46": 0,
+            "47": 0
+          },
+          "Branches": [
+            {
+              "Line": 46,
+              "Offset": 9,
+              "EndOffset": 13,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 46,
+              "Offset": 9,
+              "EndOffset": 22,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::OnUiUpdated(SimpleTimer.Clocks.UiUpdatedEventArgs)": {
+          "Lines": {
+            "49": 0,
+            "50": 0,
+            "51": 0,
+            "52": 0
+          },
+          "Branches": [
+            {
+              "Line": 51,
+              "Offset": 9,
+              "EndOffset": 13,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 51,
+              "Offset": 9,
+              "EndOffset": 22,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::RegisterEvents()": {
+          "Lines": {
+            "67": 0,
+            "68": 0,
+            "69": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::UnregisterEvents()": {
+          "Lines": {
+            "71": 0,
+            "72": 0,
+            "73": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::Timer_Elapsed(System.Object,System.Timers.ElapsedEventArgs)": {
+          "Lines": {
+            "77": 0,
+            "80": 0,
+            "81": 0,
+            "82": 0,
+            "83": 0,
+            "84": 0,
+            "85": 0,
+            "86": 0,
+            "90": 0,
+            "92": 0,
+            "93": 0,
+            "94": 0,
+            "95": 0,
+            "97": 0,
+            "98": 0,
+            "99": 0,
+            "100": 0,
+            "102": 0,
+            "103": 0,
+            "104": 0,
+            "105": 0,
+            "106": 0,
+            "108": 0,
+            "109": 0,
+            "110": 0,
+            "111": 0,
+            "113": 0,
+            "114": 0,
+            "115": 0,
+            "116": 0,
+            "117": 0,
+            "118": 0,
+            "119": 0,
+            "120": 0,
+            "121": 0
+          },
+          "Branches": [
+            {
+              "Line": 85,
+              "Offset": 43,
+              "EndOffset": 45,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 85,
+              "Offset": 43,
+              "EndOffset": 50,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 92,
+              "Offset": 94,
+              "EndOffset": 96,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 92,
+              "Offset": 94,
+              "EndOffset": 175,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 108,
+              "Offset": 222,
+              "EndOffset": 224,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 108,
+              "Offset": 222,
+              "EndOffset": 236,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::Stop()": {
+          "Lines": {
+            "123": 0,
+            "124": 0,
+            "126": 0,
+            "127": 0,
+            "128": 0,
+            "129": 0,
+            "131": 0,
+            "132": 0,
+            "134": 0,
+            "135": 0,
+            "137": 0,
+            "138": 0,
+            "139": 0,
+            "140": 0,
+            "141": 0,
+            "142": 0,
+            "143": 0
+          },
+          "Branches": [
+            {
+              "Line": 128,
+              "Offset": 44,
+              "EndOffset": 46,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 128,
+              "Offset": 44,
+              "EndOffset": 65,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 138,
+              "Offset": 84,
+              "EndOffset": 86,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 138,
+              "Offset": 84,
+              "EndOffset": 100,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::NewStart(System.String)": {
+          "Lines": {
+            "148": 0,
+            "150": 0,
+            "151": 0,
+            "152": 0,
+            "153": 0,
+            "154": 0,
+            "155": 0,
+            "156": 0,
+            "158": 0,
+            "159": 0,
+            "160": 0
+          },
+          "Branches": [
+            {
+              "Line": 150,
+              "Offset": 14,
+              "EndOffset": 16,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 150,
+              "Offset": 14,
+              "EndOffset": 25,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::Pause()": {
+          "Lines": {
+            "162": 0,
+            "163": 0,
+            "164": 0,
+            "165": 0,
+            "167": 0,
+            "168": 0,
+            "169": 0,
+            "170": 0
+          },
+          "Branches": [
+            {
+              "Line": 163,
+              "Offset": 14,
+              "EndOffset": 16,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 163,
+              "Offset": 14,
+              "EndOffset": 62,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::Resume()": {
+          "Lines": {
+            "172": 0,
+            "173": 0,
+            "174": 0,
+            "175": 0,
+            "176": 0
+          },
+          "Branches": [
+            {
+              "Line": 173,
+              "Offset": 19,
+              "EndOffset": 23,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 173,
+              "Offset": 19,
+              "EndOffset": 60,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::PressPrimaryButton(System.String)": {
+          "Lines": {
+            "179": 0,
+            "180": 0,
+            "181": 0,
+            "182": 0,
+            "183": 0,
+            "184": 0,
+            "185": 0,
+            "186": 0,
+            "187": 0,
+            "188": 0
+          },
+          "Branches": [
+            {
+              "Line": 180,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 180,
+              "Offset": 12,
+              "EndOffset": 26,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 184,
+              "Offset": 37,
+              "EndOffset": 39,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 184,
+              "Offset": 37,
+              "EndOffset": 48,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::PressSecondaryButton()": {
+          "Lines": {
+            "191": 0,
+            "192": 0,
+            "193": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::Dispose(System.Boolean)": {
+          "Lines": {
+            "201": 0,
+            "202": 0,
+            "203": 0,
+            "204": 0,
+            "205": 0,
+            "206": 0,
+            "207": 0,
+            "208": 0,
+            "209": 0,
+            "210": 0,
+            "211": 0,
+            "212": 0
+          },
+          "Branches": [
+            {
+              "Line": 202,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 204,
+              "Offset": 18,
+              "EndOffset": 20,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 208,
+              "Offset": 42,
+              "EndOffset": 44,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 208,
+              "Offset": 42,
+              "EndOffset": 47,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 204,
+              "Offset": 18,
+              "EndOffset": 54,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 202,
+              "Offset": 12,
+              "EndOffset": 62,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::Finalize()": {
+          "Lines": {
+            "215": 0,
+            "216": 0,
+            "217": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::Dispose()": {
+          "Lines": {
+            "221": 0,
+            "222": 0,
+            "223": 0,
+            "224": 0
+          },
+          "Branches": []
+        },
+        "System.Void SimpleTimer.Clocks.TimerClock::.ctor(SimpleTimer.IConfigurationValues,SimpleTimer.ILogger)": {
+          "Lines": {
+            "15": 0,
+            "16": 0,
+            "23": 0,
+            "55": 0,
+            "56": 0,
+            "57": 0,
+            "58": 0,
+            "59": 0,
+            "60": 0,
+            "61": 0,
+            "63": 0,
+            "64": 0,
+            "198": 0
+          },
+          "Branches": [
+            {
+              "Line": 59,
+              "Offset": 81,
+              "EndOffset": 83,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 59,
+              "Offset": 81,
+              "EndOffset": 87,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "D:\\git\\SimpleTimer\\SimpleTimer\\Clocks\\UiUpdateEventArgs.cs": {
+      "SimpleTimer.Clocks.UiUpdatedEventArgs": {
+        "System.Nullable`1<SimpleTimer.Clocks.UiUpdatedEventArgs/PrimaryButtonMode> SimpleTimer.Clocks.UiUpdatedEventArgs::get_PrimaryBtn()": {
+          "Lines": {
+            "11": 0
+          },
+          "Branches": []
+        },
+        "System.Nullable`1<System.TimeSpan> SimpleTimer.Clocks.UiUpdatedEventArgs::get_Left()": {
+          "Lines": {
+            "12": 0
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}

@@ -18,29 +18,14 @@ namespace SimpleTimer.Clocks
 
         #region Left var
         /// <summary>
-        /// Variable to know how long is left to finish the timer
-        /// This variable is accessed by UI and timer thread
-        /// </summary>
-        TimeSpan _left = TimeSpan.Zero;
-        /// <summary>
         /// Used for reset
         /// </summary>
         TimeSpan _originalLeft = TimeSpan.Zero;
         /// <summary>
-        /// A simple check to avoid race conditions.
-        /// Fallback if timer is running. Stops, modifies value then starts again
+        /// Variable to know how long is left to finish the timer
+        /// This variable is accessed by UI and timer thread
         /// </summary>
-        TimeSpan Left
-        {
-            get
-            {
-                return _left;
-            }
-            set
-            {
-                _left = value;
-            }
-        }
+        TimeSpan Left { get; set; } = TimeSpan.Zero;
 
         #endregion
 
