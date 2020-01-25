@@ -37,7 +37,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*[Tt]ests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) /p:Platform=$(buildPlatform) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
     testRunTitle: 'UnitTests'
 
 - task: SonarCloudAnalyze@1
