@@ -6,5 +6,6 @@ namespace SimpleTimer
     {
         IClockUserCtrl GetTimerClockUserControl();
         IClockUserCtrl GetStopwatchClockUserControl();
+        ILogger GetLogger();
     }
 }

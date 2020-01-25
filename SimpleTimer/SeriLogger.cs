@@ -8,10 +8,8 @@ namespace SimpleTimer
         readonly Serilog.ILogger _logger;
         public SeriLogger()
         {
-            _logger = new LoggerConfiguration()
-                .MinimumLevel.Error()
-                .WriteTo.File("errorlog.txt", rollingInterval: RollingInterval.Month, retainedFileCountLimit: 3, fileSizeLimitBytes: 1048576)
-                .CreateLogger();
+
+            _logger = Log.Logger;
         }
         public void LogError(string msg)
         {
