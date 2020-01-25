@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
-namespace SimpleTimer
+namespace SimpleTimer.ClockUserControls
 {
     public class ActionCommand : ICommand, IDisposable
     {
-        public event EventHandler CanExecuteChanged { add { throw new NotSupportedException(); } remove { } }
+        public event EventHandler CanExecuteChanged { add { throw new NotSupportedException(); } remove { throw new NotSupportedException(); } }
 
         Action<object> _action;
         public ActionCommand(Action<object> action)

@@ -1,15 +1,15 @@
 ﻿using SimpleTimer.Clocks;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Timers;
-using static SimpleTimer.UiUpdatedEventArgs;
+using static SimpleTimer.Clocks.UiUpdatedEventArgs;
 
-namespace SimpleTimer
+namespace SimpleTimer.Clocks
 {
     public class TimerClock : IClock
     {
-        readonly ConfigurationValues _config;
+        readonly ILogger _logger;
+        readonly IConfigurationValues _config;
         readonly TimeSpan TimerInterval;
 
         readonly Timer _timer = new Timer();
@@ -18,40 +18,14 @@ namespace SimpleTimer
 
         #region Left var
         /// <summary>
-        /// Variable to know how long is left to finish the timer
-        /// This variable is accessed by UI and timer thread
-        /// </summary>
-        TimeSpan _left = TimeSpan.Zero;
-        /// <summary>
         /// Used for reset
         /// </summary>
         TimeSpan _originalLeft = TimeSpan.Zero;
         /// <summary>
-        /// A simple check to avoid race conditions.
-        /// Fallback if timer is running. Stops, modifies value then starts again
+        /// Variable to know how long is left to finish the timer
+        /// This variable is accessed by UI and timer thread
         /// </summary>
-        TimeSpan Left
-        {
-            get
-            {
-                return _left;
-            }
-            set
-            {
-                //check always if timer is running
-                if (_timer.Enabled == false)
-                {
-                    _left = value;
-                }
-                else
-                {
-                    //log bug
-
-                    //this shouldnt happen but still modify for graceful degradation
-                    _left = value;
-                }
-            }
-        }
+        TimeSpan Left { get; set; } = TimeSpan.Zero;
 
         #endregion
 
@@ -78,8 +52,9 @@ namespace SimpleTimer
         }
         #endregion Events
 
-        public TimerClock(ConfigurationValues config)
+        public TimerClock(IConfigurationValues config, ILogger logger)
         {
+            _logger = logger;
             _config = config;
             TimerInterval = TimeSpan.FromSeconds(_config?.TimerInterval ?? 1);
             _timer.Interval = TimerInterval.TotalMilliseconds;
@@ -139,9 +114,9 @@ namespace SimpleTimer
                     OnTickHappened(args);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //todo log
+                _logger.LogError($"{nameof(TimerClock)} Error in {nameof(Timer_Elapsed)}", ex);
             }
         }
         private void Stop()
@@ -150,16 +125,13 @@ namespace SimpleTimer
             try
             {
                 System.Threading.Monitor.TryEnter(_lock, TimerInterval * 2, ref lockTaken);
-                if (lockTaken)
+                if (!lockTaken)
                 {
-                    _timer.Stop();
+                    //this shouldn't happen
+                    _logger.LogError($"{nameof(TimerClock)} : {nameof(Stop)} was not able to get lock...");
                 }
-                else
-                {
-                    //fallback
-                    _timer.Stop();
-                    //todo log error
-                }
+                //graceful degradation...
+                _timer.Stop();
             }
             finally
             {

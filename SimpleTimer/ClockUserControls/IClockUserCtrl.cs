@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
-namespace SimpleTimer
+namespace SimpleTimer.ClockUserControls
 {
     public interface IClockUserCtrl : IDisposable
     {

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SimpleTimer
+namespace SimpleTimer.Clocks
 {
     public interface IClock : IDisposable
     {
