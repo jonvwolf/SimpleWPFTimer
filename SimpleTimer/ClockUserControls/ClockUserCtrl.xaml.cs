@@ -14,11 +14,15 @@ namespace SimpleTimer.ClockUserControls
     public partial class ClockUserCtrl : UserControl, IClockUserCtrl, IUserInterface
     {
         public event EventHandler<UIEventArgs> UiEventHappened;
-        readonly IClockViewModel _vm;
-        public ClockUserCtrl(ConfigurationValues config)
+        IClockViewModel _vm;
+        public ClockUserCtrl()
         {
             InitializeComponent();
-            _vm = new TimerViewModel(this, config);
+        }
+
+        public void SetViewModel(IClockViewModel vm)
+        {
+            _vm = vm;
             DataContext = _vm;
         }
 
