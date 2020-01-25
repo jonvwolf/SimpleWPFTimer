@@ -6,22 +6,31 @@ using System.Media;
 
 namespace SimpleTimer
 {
-    public class LoopSoundPlayer : IDisposable
+    public class LoopSoundPlayer : ILoopSoundPlayer
     {
-        readonly ConfigurationValues _config;
+        readonly IConfigurationValues _config;
         readonly object _lock = new object();
         readonly SoundPlayer _sound;
         readonly IClock _timer;
 
-        public LoopSoundPlayer(Stream sound, ConfigurationValues config)
+        public LoopSoundPlayer(Stream sound, IConfigurationValues config, IClock timer)
         {
             _config = config;
             //sound player's dispose, also disposes the stream
             _sound = new SoundPlayer(sound);
             _sound.Load();
 
-            _timer = new TimerClock(config);
+            _timer = timer;
+            RegisterEvents();
+        }
+
+        private void RegisterEvents()
+        {
             _timer.Finished += Timer_Finished;
+        }
+        private void UnregisterEvents()
+        {
+            _timer.Finished -= Timer_Finished;
         }
 
         private void Timer_Finished(object sender, UiUpdatedEventArgs e)
@@ -60,7 +69,7 @@ namespace SimpleTimer
             {
                 if (disposing)
                 {
-                    _timer.Finished -= Timer_Finished;
+                    UnregisterEvents();
                     Stop();
 
                     _timer?.Dispose();

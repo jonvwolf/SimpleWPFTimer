@@ -10,12 +10,13 @@ namespace SimpleTimer.ClockUserControls
 {
     public class TimerViewModel : IClockViewModel
     {
-        readonly ConfigurationValues _config;
+        readonly IConfigurationValues _config;
         readonly IClock _clock;
-        readonly LoopSoundPlayer _sound;
+        readonly ILoopSoundPlayer _sound;
         readonly ActionCommand _textPressEnterCommand;
         readonly ActionCommand _textPressEscapeCommand;
         readonly IUserInterface _ui;
+        readonly ILogger _logger;
         string _text;
         string _primaryButtonText;
 
@@ -33,14 +34,14 @@ namespace SimpleTimer.ClockUserControls
         }
         #endregion
 
-        public TimerViewModel(IUserInterface ui, ConfigurationValues config)
+        public TimerViewModel(IUserInterface ui, ILoopSoundPlayer player, IClock timerclock, IConfigurationValues config, ILogger logger)
         {
+            _logger = logger;
             _config = config;
             _ui = ui;
-            _clock = new TimerClock(config);
+            _clock = timerclock;
             
-            var stream = Utils.GetResourceStream(_config.RingtoneFilename);
-            _sound = new LoopSoundPlayer(stream, config);
+            _sound = player;
 
             _textPressEnterCommand = new ActionCommand(TxtTime_EnterKeyDown);
             _textPressEscapeCommand = new ActionCommand(TxtTime_EscapeKeyDown);
@@ -135,8 +136,8 @@ namespace SimpleTimer.ClockUserControls
                     }
                     break;
                 default:
-                    //TODO log
-                    throw new InvalidOperationException($"Unkown event type: {e.Type.ToString()}");
+                    _logger.LogError($"{nameof(TimerViewModel)} Unkown event type: {e.Type.ToString()}");
+                    break;
             }
         }
 

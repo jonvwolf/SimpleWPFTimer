@@ -8,7 +8,8 @@ namespace SimpleTimer.Clocks
 {
     public class TimerClock : IClock
     {
-        readonly ConfigurationValues _config;
+        readonly ILogger _logger;
+        readonly IConfigurationValues _config;
         readonly TimeSpan TimerInterval;
 
         readonly Timer _timer = new Timer();
@@ -37,11 +38,6 @@ namespace SimpleTimer.Clocks
             }
             set
             {
-                if (_timer.Enabled)
-                {
-                    //log bug
-                    //this shouldnt happen but still modify for graceful degradation   
-                }
                 _left = value;
             }
         }
@@ -71,8 +67,9 @@ namespace SimpleTimer.Clocks
         }
         #endregion Events
 
-        public TimerClock(ConfigurationValues config)
+        public TimerClock(IConfigurationValues config, ILogger logger)
         {
+            _logger = logger;
             _config = config;
             TimerInterval = TimeSpan.FromSeconds(_config?.TimerInterval ?? 1);
             _timer.Interval = TimerInterval.TotalMilliseconds;
@@ -132,9 +129,9 @@ namespace SimpleTimer.Clocks
                     OnTickHappened(args);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //todo log
+                _logger.LogError($"{nameof(TimerClock)} Error in {nameof(Timer_Elapsed)}", ex);
             }
         }
         private void Stop()
@@ -145,8 +142,8 @@ namespace SimpleTimer.Clocks
                 System.Threading.Monitor.TryEnter(_lock, TimerInterval * 2, ref lockTaken);
                 if (!lockTaken)
                 {
-                    //log bug
                     //this shouldn't happen
+                    _logger.LogError($"{nameof(TimerClock)} : {nameof(Stop)} was not able to get lock...");
                 }
                 //graceful degradation...
                 _timer.Stop();

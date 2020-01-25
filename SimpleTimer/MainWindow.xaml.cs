@@ -13,18 +13,25 @@ namespace SimpleTimer
     {
         readonly IClockUserCtrl _timer;
         readonly IClockUserCtrl _stopwatch;
-        
-        public MainWindow()
+
+        public MainWindow() : this(null)
+        {
+            
+        }
+        public MainWindow(ISimpleContainer container = null)
         {
             InitializeComponent();
+            if (container == null)
+            {
+                container = new SimpleContainer();
+            }
 
-            var config = new ConfigurationValues();
-            _timer = new ClockUserCtrl(config);
-            _stopwatch = new ClockUserCtrl(config);
+            _timer = container.GetTimerClockUserControl();
+            _stopwatch = container.GetStopwatchClockUserControl();
 
             TimerContentCtrl.Content = _timer;
             StopwatchContentCtrl.Content = _stopwatch;
-            
+
             RoutedCommand tabRightHotKeyCommand = new RoutedCommand();
             tabRightHotKeyCommand.InputGestures.Add(new KeyGesture(Key.Right, ModifierKeys.Alt));
             CommandBindings.Add(new CommandBinding(tabRightHotKeyCommand, TabRightHotKey));
