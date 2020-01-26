@@ -13,8 +13,7 @@ namespace SimpleTimer
     {
         readonly IClockUserCtrl _timer;
         readonly IClockUserCtrl _stopwatch;
-        readonly ILogger _logger;
-
+        
         public MainWindow() : this(null)
         {
             
@@ -27,7 +26,6 @@ namespace SimpleTimer
                 container = new SimpleContainer();
             }
 
-            _logger = container.GetLogger();
             _timer = container.GetTimerClockUserControl();
             _stopwatch = container.GetStopwatchClockUserControl();
 
