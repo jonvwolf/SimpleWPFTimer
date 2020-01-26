@@ -19,9 +19,11 @@ namespace SimpleTimer.ClockUserControls
         readonly ILogger _logger;
         string _text;
         string _primaryButtonText;
+        bool _isTextEnabled;
 
         #region DataContext
         public string Text { get => _text; set { _text = value; OnPropertyChanged(nameof(Text)); } }
+        public bool IsTextEnabled { get => _isTextEnabled; set { _isTextEnabled = value; OnPropertyChanged(nameof(IsTextEnabled)); } }
         public string PrimaryButtonText { get => _primaryButtonText; set { _primaryButtonText = value; OnPropertyChanged(nameof(PrimaryButtonText)); } }
         public ICommand TextPressEnter { get => _textPressEnterCommand; }
         public ICommand TextPressEscape { get => _textPressEscapeCommand; }
@@ -49,6 +51,7 @@ namespace SimpleTimer.ClockUserControls
 
             _text = _config?.InitialText ?? "";
             _primaryButtonText = _config?.PrimaryButtonStart ?? "";
+            IsTextEnabled = true;
         }
 
         private void RegisterEvents()

@@ -4,7 +4,7 @@ namespace SimpleTimer.Clocks
 {
     public interface IClock : IDisposable
     {
-        void PressPrimaryButton(string textTime);
+        void PressPrimaryButton(string textTime = null);
         void PressSecondaryButton();
 
         void NewStart(string textTime);
