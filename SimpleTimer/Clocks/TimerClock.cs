@@ -174,8 +174,13 @@ namespace SimpleTimer.Clocks
             NewStart(Left.ToString(_config.TimeFormat, CultureInfo.InvariantCulture));
         }
 
-        public void PressPrimaryButton(string textTime)
+        public void PressPrimaryButton(string textTime = null)
         {
+            if (textTime == null)
+            {
+                textTime = "";
+            }
+
             if (_primaryBtnMode == PrimaryButtonMode.Stopped)
             {
                 NewStart(textTime);
