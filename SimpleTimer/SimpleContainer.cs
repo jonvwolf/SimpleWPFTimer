@@ -13,10 +13,6 @@ namespace SimpleTimer
             _config = new ConfigurationValues();
             _logger = new SeriLogger();
         }
-        public ILogger GetLogger()
-        {
-            return _logger;
-        }
         public IClockUserCtrl GetTimerClockUserControl()
         {
             var clockForPlayer = new TimerClock(_config, _logger);
