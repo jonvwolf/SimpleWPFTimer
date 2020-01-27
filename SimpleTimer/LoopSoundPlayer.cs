@@ -72,7 +72,7 @@ namespace SimpleTimer
                     UnregisterEvents();
                     Stop();
 
-                    _timer?.Dispose();
+                    _timer?.Close();
                     _sound?.Dispose();
                 }
                 disposedValue = true;

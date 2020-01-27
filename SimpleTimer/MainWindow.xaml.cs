@@ -26,8 +26,8 @@ namespace SimpleTimer
                 container = new SimpleContainer();
             }
 
-            _timer = container.GetTimerClockUserControl();
-            _stopwatch = container.GetStopwatchClockUserControl();
+            _timer = container.GetTimerClockUserControl(Dispatcher);
+            _stopwatch = container.GetStopwatchClockUserControl(Dispatcher);
 
             TimerContentCtrl.Content = _timer;
             StopwatchContentCtrl.Content = _stopwatch;

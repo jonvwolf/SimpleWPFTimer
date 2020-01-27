@@ -9,7 +9,6 @@ namespace SimpleTimer.Clocks
     public class TimerClock : BaseClock, IClock
     {
         readonly IConfigurationValues _config;
-        
         PrimaryButtonMode _primaryBtnMode;
 
         #region Left var
@@ -58,12 +57,11 @@ namespace SimpleTimer.Clocks
         protected override void TimerTick()
         {
             //Inside timer
-            if (!base.IsTimerEnabled)
+            if (!base.IsRunning)
                 return;
 
-            //This is not 100% accurate but it is good enough for this app
-            //For better precision, you should do a delta
-            Left -= TimerInterval; //todo delta
+            //not exact but good enough for this app
+            Left -= base.Interval;
 
             if (Left <= TimeSpan.Zero)
             {
@@ -71,11 +69,11 @@ namespace SimpleTimer.Clocks
                 Left = TimeSpan.Zero;
 
                 _primaryBtnMode = PrimaryButtonMode.Stopped;
-                OnFinished(new UiUpdatedEventArgs { Left = Left, PrimaryBtn = _primaryBtnMode });
+                OnFinished(new UiUpdatedEventArgs { Time = Left, PrimaryBtn = _primaryBtnMode });
             }
             else
             {
-                OnTickHappened(new UiUpdatedEventArgs() { Left = Left });
+                OnTickHappened(new UiUpdatedEventArgs() { Time = Left });
             }
         }
         #endregion
@@ -84,7 +82,7 @@ namespace SimpleTimer.Clocks
         public void NewStart(string textTime)
         {
             //this always forces a new start
-            if (base.IsTimerEnabled)
+            if (base.IsRunning)
             {
                 base.StopClock();
             }
@@ -97,7 +95,7 @@ namespace SimpleTimer.Clocks
         }
         public void Pause()
         {
-            if (base.IsTimerEnabled)
+            if (base.IsRunning)
             {
                 base.StopClock();
 

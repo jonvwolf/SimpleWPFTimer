@@ -10,7 +10,8 @@ namespace SimpleTimer.Clocks
     {
         readonly DispatcherTimer _timer;
         readonly ILogger _logger;
-        protected bool IsTimerEnabled { get { return _timer.IsEnabled; } }
+        protected bool IsRunning { get { return _timer.IsEnabled; } }
+        protected TimeSpan Interval { get { return _timer.Interval; } }
         public BaseClock(ILogger logger, IConfigurationValues config, DispatcherTimer timer)
         {
             _timer = timer ?? throw new ArgumentNullException(nameof(timer));
