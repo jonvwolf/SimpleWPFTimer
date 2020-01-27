@@ -13,8 +13,6 @@ namespace SimpleTimer.ClockUserControls
     {
         readonly IConfigurationValues _config;
         readonly IClock _clock;
-        readonly ActionCommand _textPressEnterCommand;
-        readonly ActionCommand _textPressEscapeCommand;
         readonly IUserInterface _ui;
         readonly ILogger _logger;
         string _text;
@@ -25,8 +23,8 @@ namespace SimpleTimer.ClockUserControls
         public string Text { get => _text; set { _text = value; OnPropertyChanged(nameof(Text)); } }
         public bool IsTextEnabled { get => _isTextEnabled; set { _isTextEnabled = value; OnPropertyChanged(nameof(IsTextEnabled)); } }
         public string PrimaryButtonText { get => _primaryButtonText; set { _primaryButtonText = value; OnPropertyChanged(nameof(PrimaryButtonText)); } }
-        public ICommand TextPressEnter { get => _textPressEnterCommand; }
-        public ICommand TextPressEscape { get => _textPressEscapeCommand; }
+        public ICommand TextPressEnter { get => null; }
+        public ICommand TextPressEscape { get => null; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,9 +42,6 @@ namespace SimpleTimer.ClockUserControls
             _clock = stopwatchclock;
             _logger = logger;
 
-            //todo: see if these are needed to be instantiated
-            _textPressEnterCommand = new ActionCommand((e) => { });
-            _textPressEscapeCommand = new ActionCommand((e) => { });
             RegisterEvents();
 
             _text = _config?.InitialText ?? "";
@@ -56,22 +51,22 @@ namespace SimpleTimer.ClockUserControls
 
         private void RegisterEvents()
         {
-            _clock.TickHappened += _clock_TickHappened;
-            _clock.UiUpdated += _clock_UiUpdated;
+            _clock.TickHappened += Clock_TickHappened;
+            _clock.UiUpdated += Clock_UiUpdated;
 
-            _ui.UiEventHappened += _ui_UiEventHappened;
+            _ui.UiEventHappened += Ui_UiEventHappened;
         }
 
         private void UnregisterEvents()
         {
-            _clock.TickHappened -= _clock_TickHappened;
-            _clock.UiUpdated -= _clock_UiUpdated;
+            _clock.TickHappened -= Clock_TickHappened;
+            _clock.UiUpdated -= Clock_UiUpdated;
 
-            _ui.UiEventHappened -= _ui_UiEventHappened;
+            _ui.UiEventHappened -= Ui_UiEventHappened;
         }
 
         #region clock events
-        private void _clock_UiUpdated(object sender, UiUpdatedEventArgs e)
+        private void Clock_UiUpdated(object sender, UiUpdatedEventArgs e)
         {
             _ui.InvokeAsync(() =>
             {
@@ -79,7 +74,7 @@ namespace SimpleTimer.ClockUserControls
             });
         }
 
-        private void _clock_TickHappened(object sender, UiUpdatedEventArgs e)
+        private void Clock_TickHappened(object sender, UiUpdatedEventArgs e)
         {
             _ui.InvokeAsync(() =>
             {
@@ -89,7 +84,7 @@ namespace SimpleTimer.ClockUserControls
         #endregion
 
         #region ui events
-        private void _ui_UiEventHappened(object sender, UIEventArgs e)
+        private void Ui_UiEventHappened(object sender, UIEventArgs e)
         {
             switch (e.Type)
             {
@@ -123,24 +118,18 @@ namespace SimpleTimer.ClockUserControls
         {
             if (e == null)
                 return;
-            if (e.Left.HasValue)
+            if (e.Time.HasValue)
             {
-                Text = e.Left.Value.ToString(_config.TimeFormat, CultureInfo.InvariantCulture);
+                Text = e.Time.Value.ToString(_config.TimeFormat, CultureInfo.InvariantCulture);
             }
             if (e.PrimaryBtn.HasValue)
             {
-                switch (e.PrimaryBtn.Value)
+                PrimaryButtonText = e.PrimaryBtn.Value switch
                 {
-                    case PrimaryButtonMode.Running:
-                        PrimaryButtonText = _config.PrimaryButtonStop;
-                        break;
-                    case PrimaryButtonMode.Stopped:
-                        PrimaryButtonText = _config.PrimaryButtonStart;
-                        break;
-                    default:
-                        PrimaryButtonText = e.PrimaryBtn.Value.ToString();
-                        break;
-                }
+                    PrimaryButtonMode.Running => _config.PrimaryButtonStop,
+                    PrimaryButtonMode.Stopped => _config.PrimaryButtonStart,
+                    _ => e.PrimaryBtn.Value.ToString(),
+                };
             }
         }
 
@@ -157,9 +146,7 @@ namespace SimpleTimer.ClockUserControls
                 {
                     UnregisterEvents();
 
-                    _clock?.Dispose();
-                    _textPressEnterCommand?.Dispose();
-                    _textPressEscapeCommand?.Dispose();
+                    _clock?.Close();
                 }
 
                 disposedValue = true;

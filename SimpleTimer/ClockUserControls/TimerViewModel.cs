@@ -163,9 +163,9 @@ namespace SimpleTimer.ClockUserControls
         {
             if (e == null)
                 return;
-            if (e.Left.HasValue)
+            if (e.Time.HasValue)
             {
-                Text = e.Left.Value.ToString(_config.TimeFormat, CultureInfo.InvariantCulture);
+                Text = e.Time.Value.ToString(_config.TimeFormat, CultureInfo.InvariantCulture);
             }
             if (e.PrimaryBtn.HasValue)
             {
@@ -239,7 +239,7 @@ namespace SimpleTimer.ClockUserControls
                 {
                     UnregisterEvents();
 
-                    _clock?.Dispose();
+                    _clock?.Close();
                     _sound?.Dispose();
                     _textPressEnterCommand?.Dispose();
                     _textPressEscapeCommand?.Dispose();

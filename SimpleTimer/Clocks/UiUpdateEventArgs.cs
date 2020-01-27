@@ -9,6 +9,6 @@ namespace SimpleTimer.Clocks
             Stopped, Running
         }
         public PrimaryButtonMode? PrimaryBtn { get; set; }
-        public TimeSpan? Left { get; set; }
+        public TimeSpan? Time { get; set; }
     }
 }

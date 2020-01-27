@@ -1,20 +1,15 @@
 ﻿using System;
+using System.Windows.Threading;
+using static SimpleTimer.Clocks.UiUpdatedEventArgs;
 
 namespace SimpleTimer.Clocks
 {
-    public class StopwatchClock : IClock
+    public class StopwatchClock : BaseClock, IClock
     {
-        IClock _timer;
         #region Events
         public event EventHandler<UiUpdatedEventArgs> TickHappened;
-        public event EventHandler<UiUpdatedEventArgs> Finished;
+        public event EventHandler<UiUpdatedEventArgs> Finished { add => throw new NotSupportedException(); remove => throw new NotSupportedException(); }
         public event EventHandler<UiUpdatedEventArgs> UiUpdated;
-
-        private void OnFinished(UiUpdatedEventArgs e)
-        {
-            var handler = Finished;
-            handler?.Invoke(this, e);
-        }
 
         private void OnTickHappened(UiUpdatedEventArgs e)
         {
@@ -28,40 +23,55 @@ namespace SimpleTimer.Clocks
         }
         #endregion Events
 
-        public StopwatchClock(IClock timer)
+        TimeSpan _time = TimeSpan.Zero;
+
+        public StopwatchClock(ILogger logger, IConfigurationValues config, DispatcherTimer timer) : base(logger, config, timer)
         {
-            _timer = timer;
+            
         }
 
-        public void NewStart(string textTime)
+        protected override void TimerTick()
         {
-            throw new NotImplementedException();
+            _time += base.Interval;
+            OnTickHappened(new UiUpdatedEventArgs() { Time = _time });
         }
-
+        
         public void Pause()
         {
-            _timer.Pause();
+            if (base.IsRunning)
+            {
+                PressPrimaryButton();
+            }
         }
 
-        public void PressPrimaryButton(string textTime)
+        public void PressPrimaryButton(string textTime = null)
         {
-            _timer.PressPrimaryButton("");
+            if (base.IsRunning)
+            {
+                base.StopClock();
+                OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = PrimaryButtonMode.Stopped });
+            }
+            else
+            {
+                base.StartClock();
+                OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = PrimaryButtonMode.Running });
+            }
         }
 
         public void PressSecondaryButton()
         {
-            _timer.PressPrimaryButton("00");
-            _timer.Pause();
+            _time = TimeSpan.Zero;
         }
 
+        #region Not supported
         public void Resume()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
-
-        public void Close()
+        public void NewStart(string textTime)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
+        #endregion
     }
 }
