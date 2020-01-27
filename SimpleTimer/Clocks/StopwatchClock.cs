@@ -59,34 +59,9 @@ namespace SimpleTimer.Clocks
             throw new NotImplementedException();
         }
 
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
+        public void Close()
         {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    _timer?.Dispose();
-                }
-
-                disposedValue = true;
-            }
+            throw new NotImplementedException();
         }
-
-        ~StopwatchClock()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        #endregion
-
     }
 }
