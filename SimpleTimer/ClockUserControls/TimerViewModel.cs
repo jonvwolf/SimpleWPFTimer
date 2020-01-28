@@ -75,26 +75,20 @@ namespace SimpleTimer.ClockUserControls
         #region ClockEvents
         private void Clock_TickHappened(object sender, UiUpdatedEventArgs e)
         {
-            _ui.InvokeAsync(() =>
-            {
-                UpdateIU(e);
-            });
+            //runs on UI thread
+            UpdateIU(e);
         }
 
         private void Clock_Finished(object sender, UiUpdatedEventArgs e)
         {
-            _ui.InvokeAsync(() =>
-            {
-                _sound.Play(_config.TimerBeepingSeconds);
-                UpdateIU(e, true);
-            });
+            //runs on UI thread
+            _sound.Play(_config.TimerBeepingSeconds);
+            UpdateIU(e, true);
         }
         private void Clock_UiUpdated(object sender, UiUpdatedEventArgs e)
         {
-            _ui.InvokeAsync(() =>
-            {
-                UpdateIU(e);
-            });
+            //runs on UI thread
+            UpdateIU(e);
         }
         #endregion
 

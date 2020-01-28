@@ -8,7 +8,6 @@ namespace SimpleTimer
         readonly Serilog.ILogger _logger;
         public SeriLogger()
         {
-
             _logger = Log.Logger;
         }
         public void LogError(string msg)

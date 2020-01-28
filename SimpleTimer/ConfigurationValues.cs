@@ -15,6 +15,13 @@ namespace SimpleTimer
         public string PrimaryButtonOK { get => "OK"; }
         public int TimerBeepingSeconds { get => 60; }
         public int TimerInterval { get => 1; }
-        
+
+        public string NoticeFilename => "NOTICE.txt";
+
+        public string AuthorCreditsTitle => "Author & Credits";
+
+        public string KeybindingsTitle => "Keybindings";
+
+        public string Author => "github.com/jonwolfdev";
     }
 }
