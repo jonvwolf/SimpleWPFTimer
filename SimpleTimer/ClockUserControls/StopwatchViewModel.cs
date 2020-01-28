@@ -1,9 +1,7 @@
 ﻿using SimpleTimer.Clocks;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Text;
 using System.Windows.Input;
 using static SimpleTimer.Clocks.UiUpdatedEventArgs;
 
