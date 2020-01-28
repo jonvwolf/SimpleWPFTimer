@@ -32,10 +32,6 @@ namespace SimpleTimer.ClockUserControls
         }
 
         #region IUserInterface
-        public DispatcherOperation InvokeAsync(Action action)
-        {
-            return Dispatcher.InvokeAsync(action);
-        }
         public void BtnStartFocus()
         {
             BtnStart.Focus();

@@ -8,7 +8,7 @@ namespace SimpleTimer
     {
         readonly IConfigurationValues _config;
         readonly ILogger _logger;
-
+        
         public SimpleContainer()
         {
             _config = new ConfigurationValues();
@@ -41,5 +41,9 @@ namespace SimpleTimer
             return ctrl;
         }
 
+        public IConfigurationValues GetConfiguration()
+        {
+            return _config;
+        }
     }
 }

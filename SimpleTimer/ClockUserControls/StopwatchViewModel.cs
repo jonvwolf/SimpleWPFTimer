@@ -68,18 +68,14 @@ namespace SimpleTimer.ClockUserControls
         #region clock events
         private void Clock_UiUpdated(object sender, UiUpdatedEventArgs e)
         {
-            _ui.InvokeAsync(() =>
-            {
-                UpdateIU(e);
-            });
+            //runs on UI thread
+            UpdateIU(e);
         }
 
         private void Clock_TickHappened(object sender, UiUpdatedEventArgs e)
         {
-            _ui.InvokeAsync(() =>
-            {
-                UpdateIU(e);
-            });
+            //runs on UI thread
+            UpdateIU(e);
         }
         #endregion
 

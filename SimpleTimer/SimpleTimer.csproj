@@ -24,10 +24,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\NOTICE.txt" Link="NOTICE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="..\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\resources\clock.png" Link="resources\clock.png">
       <Pack>True</Pack>

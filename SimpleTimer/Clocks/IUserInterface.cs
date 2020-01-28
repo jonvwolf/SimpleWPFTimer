@@ -11,7 +11,6 @@ namespace SimpleTimer.Clocks
         void TextFocus();
         bool IsTextFocused();
         void ShowMessageBox(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon);
-        DispatcherOperation InvokeAsync(Action action);
 
         event EventHandler<UIEventArgs> UiEventHappened;
     }
