@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Timers;
 using System.Windows.Threading;
 
 namespace SimpleTimer.Clocks
@@ -12,7 +9,7 @@ namespace SimpleTimer.Clocks
         readonly ILogger _logger;
         protected bool IsRunning { get { return _timer.IsEnabled; } }
         protected TimeSpan Interval { get { return _timer.Interval; } }
-        public BaseClock(ILogger logger, IConfigurationValues config, DispatcherTimer timer)
+        protected BaseClock(ILogger logger, IConfigurationValues config, DispatcherTimer timer)
         {
             _timer = timer ?? throw new ArgumentNullException(nameof(timer));
             _logger = logger;
