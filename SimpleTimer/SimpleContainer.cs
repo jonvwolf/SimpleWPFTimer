@@ -1,5 +1,6 @@
 ﻿using SimpleTimer.Clocks;
 using SimpleTimer.ClockUserControls;
+using System.Windows.Threading;
 
 namespace SimpleTimer
 {
@@ -7,20 +8,20 @@ namespace SimpleTimer
     {
         readonly IConfigurationValues _config;
         readonly ILogger _logger;
-
+        
         public SimpleContainer()
         {
             _config = new ConfigurationValues();
             _logger = new SeriLogger();
         }
-        public IClockUserCtrl GetTimerClockUserControl()
+        public IClockUserCtrl GetTimerClockUserControl(Dispatcher dispatcher)
         {
-            var clockForPlayer = new TimerClock(_config, _logger);
+            var clockForPlayer = new TimerClock(_config, _logger, new DispatcherTimer(DispatcherPriority.Normal, dispatcher));
 
             var stream = Utils.GetResourceStream(_config.RingtoneFilename);
             var player = new LoopSoundPlayer(stream, _config, clockForPlayer);
 
-            var clock = new TimerClock(_config, _logger);
+            var clock = new TimerClock(_config, _logger, new DispatcherTimer(DispatcherPriority.Normal, dispatcher));
 
             var ctrl = new ClockUserCtrl();
             var vm = new TimerViewModel(ctrl, player, clock, _config, _logger);
@@ -29,21 +30,20 @@ namespace SimpleTimer
             return ctrl;
         }
 
-        public IClockUserCtrl GetStopwatchClockUserControl()
+        public IClockUserCtrl GetStopwatchClockUserControl(Dispatcher dispatcher)
         {
-            var clockForPlayer = new TimerClock(_config, _logger);
-
-            var stream = Utils.GetResourceStream(_config.RingtoneFilename);
-            var player = new LoopSoundPlayer(stream, _config, clockForPlayer);
-
-            var clock = new TimerClock(_config, _logger);
+            var clockForPlayer = new StopwatchClock(_logger, _config, new DispatcherTimer(DispatcherPriority.Normal, dispatcher));
 
             var ctrl = new ClockUserCtrl();
-            var vm = new TimerViewModel(ctrl, player, clock, _config, _logger);
+            var vm = new StopwatchViewModel(ctrl, clockForPlayer, _config, _logger);
             ctrl.SetViewModel(vm);
 
             return ctrl;
         }
 
+        public IConfigurationValues GetConfiguration()
+        {
+            return _config;
+        }
     }
 }

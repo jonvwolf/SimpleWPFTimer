@@ -2,9 +2,9 @@
 
 namespace SimpleTimer.Clocks
 {
-    public interface IClock : IDisposable
+    public interface IClock : IClosable
     {
-        void PressPrimaryButton(string textTime);
+        void PressPrimaryButton(string textTime = null);
         void PressSecondaryButton();
 
         void NewStart(string textTime);

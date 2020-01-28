@@ -37,5 +37,9 @@ namespace SimpleTimer
         /// </summary>
         int TimerBeepingSeconds { get; }
         int TimerInterval { get; }
+        string NoticeFilename { get; }
+        string AuthorCreditsTitle { get; }
+        string KeybindingsTitle { get; }
+        string Author { get; }
     }
 }

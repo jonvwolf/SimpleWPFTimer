@@ -5,13 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleTimer"
         mc:Ignorable="d"
-        Title="Simple Timer" Height="250" Width="445" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="Simple Timer" Height="280" Width="445" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Window.Resources>
     </Window.Resources>
-    
+
     <Grid>
         <StackPanel>
-            <TabControl x:Name="TabCtrl" Height="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type StackPanel}}, Path=ActualHeight}">
+            <Menu>
+                <MenuItem Header="_About">
+                    <MenuItem Header="_Key bindings" Click="KeybindingsMenuItem_Click" />
+                    <MenuItem Header="_Author &amp; Credits" Click="AuthorCreditsMenuItem_Click" />
+                    <Separator />
+                    <MenuItem Header="_Exit" Click="MenuItem_Click" />
+                </MenuItem>
+            </Menu>
+            <TabControl x:Name="TabCtrl" Height="225" SelectionChanged="TabCtrl_SelectionChanged">
                 <TabItem Width="200" Height="30" Tag="TimerContentCtrl">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">

@@ -19,9 +19,11 @@ namespace SimpleTimer.ClockUserControls
         readonly ILogger _logger;
         string _text;
         string _primaryButtonText;
+        bool _isTextEnabled;
 
         #region DataContext
         public string Text { get => _text; set { _text = value; OnPropertyChanged(nameof(Text)); } }
+        public bool IsTextEnabled { get => _isTextEnabled; set { _isTextEnabled = value; OnPropertyChanged(nameof(IsTextEnabled)); } }
         public string PrimaryButtonText { get => _primaryButtonText; set { _primaryButtonText = value; OnPropertyChanged(nameof(PrimaryButtonText)); } }
         public ICommand TextPressEnter { get => _textPressEnterCommand; }
         public ICommand TextPressEscape { get => _textPressEscapeCommand; }
@@ -49,6 +51,7 @@ namespace SimpleTimer.ClockUserControls
 
             _text = _config?.InitialText ?? "";
             _primaryButtonText = _config?.PrimaryButtonStart ?? "";
+            IsTextEnabled = true;
         }
 
         private void RegisterEvents()
@@ -72,26 +75,20 @@ namespace SimpleTimer.ClockUserControls
         #region ClockEvents
         private void Clock_TickHappened(object sender, UiUpdatedEventArgs e)
         {
-            _ui.InvokeAsync(() =>
-            {
-                UpdateIU(e);
-            });
+            //runs on UI thread
+            UpdateIU(e);
         }
 
         private void Clock_Finished(object sender, UiUpdatedEventArgs e)
         {
-            _ui.InvokeAsync(() =>
-            {
-                _sound.Play(_config.TimerBeepingSeconds);
-                UpdateIU(e, true);
-            });
+            //runs on UI thread
+            _sound.Play(_config.TimerBeepingSeconds);
+            UpdateIU(e, true);
         }
         private void Clock_UiUpdated(object sender, UiUpdatedEventArgs e)
         {
-            _ui.InvokeAsync(() =>
-            {
-                UpdateIU(e);
-            });
+            //runs on UI thread
+            UpdateIU(e);
         }
         #endregion
 
@@ -160,9 +157,9 @@ namespace SimpleTimer.ClockUserControls
         {
             if (e == null)
                 return;
-            if (e.Left.HasValue)
+            if (e.Time.HasValue)
             {
-                Text = e.Left.Value.ToString(_config.TimeFormat, CultureInfo.InvariantCulture);
+                Text = e.Time.Value.ToString(_config.TimeFormat, CultureInfo.InvariantCulture);
             }
             if (e.PrimaryBtn.HasValue)
             {
@@ -236,7 +233,7 @@ namespace SimpleTimer.ClockUserControls
                 {
                     UnregisterEvents();
 
-                    _clock?.Dispose();
+                    _clock?.Close();
                     _sound?.Dispose();
                     _textPressEnterCommand?.Dispose();
                     _textPressEscapeCommand?.Dispose();

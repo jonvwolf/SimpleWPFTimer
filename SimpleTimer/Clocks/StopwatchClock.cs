@@ -1,66 +1,77 @@
 ﻿using System;
+using System.Windows.Threading;
+using static SimpleTimer.Clocks.UiUpdatedEventArgs;
 
 namespace SimpleTimer.Clocks
 {
-    public class StopwatchClock : IClock
+    public class StopwatchClock : BaseClock, IClock
     {
+        #region Events
         public event EventHandler<UiUpdatedEventArgs> TickHappened;
-        public event EventHandler<UiUpdatedEventArgs> Finished;
+        public event EventHandler<UiUpdatedEventArgs> Finished { add => throw new NotSupportedException(); remove => throw new NotSupportedException(); }
         public event EventHandler<UiUpdatedEventArgs> UiUpdated;
 
-        public void NewStart(string textTime)
+        private void OnTickHappened(UiUpdatedEventArgs e)
         {
-            throw new NotImplementedException();
+            var handler = TickHappened;
+            handler?.Invoke(this, e);
+        }
+        private void OnUiUpdated(UiUpdatedEventArgs e)
+        {
+            var handler = UiUpdated;
+            handler?.Invoke(this, e);
+        }
+        #endregion Events
+
+        TimeSpan _time = TimeSpan.Zero;
+
+        public StopwatchClock(ILogger logger, IConfigurationValues config, DispatcherTimer timer) : base(logger, config, timer)
+        {
+            
         }
 
+        protected override void TimerTick()
+        {
+            _time += base.Interval;
+            OnTickHappened(new UiUpdatedEventArgs() { Time = _time });
+        }
+        
         public void Pause()
         {
-            throw new NotImplementedException();
+            if (base.IsRunning)
+            {
+                PressPrimaryButton();
+            }
         }
 
-        public void PressPrimaryButton(string textTime)
+        public void PressPrimaryButton(string textTime = null)
         {
-            throw new NotImplementedException();
+            if (base.IsRunning)
+            {
+                base.StopClock();
+                OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = PrimaryButtonMode.Stopped });
+            }
+            else
+            {
+                base.StartClock();
+                OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = PrimaryButtonMode.Running });
+            }
         }
 
         public void PressSecondaryButton()
         {
-            throw new NotImplementedException();
+            _time = TimeSpan.Zero;
         }
 
+        #region Not supported
         public void Resume()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
-
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
+        public void NewStart(string textTime)
         {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    
-                }
-
-                disposedValue = true;
-            }
-        }
-
-        ~StopwatchClock()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            throw new NotSupportedException();
         }
         #endregion
-
     }
 }

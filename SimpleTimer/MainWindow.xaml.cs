@@ -1,5 +1,7 @@
 ﻿using SimpleTimer.ClockUserControls;
 using System;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,6 +15,7 @@ namespace SimpleTimer
     {
         readonly IClockUserCtrl _timer;
         readonly IClockUserCtrl _stopwatch;
+        readonly IConfigurationValues _config;
 
         public MainWindow() : this(null)
         {
@@ -26,8 +29,9 @@ namespace SimpleTimer
                 container = new SimpleContainer();
             }
 
-            _timer = container.GetTimerClockUserControl();
-            _stopwatch = container.GetStopwatchClockUserControl();
+            _config = container.GetConfiguration();
+            _timer = container.GetTimerClockUserControl(Dispatcher);
+            _stopwatch = container.GetStopwatchClockUserControl(Dispatcher);
 
             TimerContentCtrl.Content = _timer;
             StopwatchContentCtrl.Content = _stopwatch;
@@ -56,9 +60,13 @@ namespace SimpleTimer
             this.KeyDown -= MainWindow_KeyDown;
         }
 
-        private void SwitchTabs(bool right)
+        private void TabCtrl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GetCurrentUserCtrl()?.SwitchedToAnotherTab();
+        }
+
+        private void SwitchTabs(bool right)
+        {
             if (right)
             {
                 if (TabCtrl.SelectedIndex == (TabCtrl.Items.Count - 1))
@@ -151,5 +159,28 @@ namespace SimpleTimer
             GC.SuppressFinalize(this);
         }
         #endregion
+
+        private void KeybindingsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            string keybindings = "- Alt+left or right arrow key: Switch between tabs";
+            keybindings += Environment.NewLine + "- Shift+Enter: Primary button";
+            keybindings += Environment.NewLine + "- Backspace: Secondary button";
+            keybindings += Environment.NewLine + "- Key numbers/pad [0-9]: Automatically pauses Timer and selects Text box";
+            MessageBox.Show(keybindings, _config.KeybindingsTitle, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void AuthorCreditsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            string notice = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\" + _config.NoticeFilename;
+            string author = "Author: " + _config.Author;
+            author += Environment.NewLine + "App license: see License.txt file";
+            author += Environment.NewLine + Environment.NewLine + File.ReadAllText(notice);
+            MessageBox.Show(author, _config.AuthorCreditsTitle, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SimpleTimer"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="300">
+             d:DesignHeight="215" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="btnStyleStart" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#4d90fe" />
@@ -80,7 +80,8 @@
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBox x:Name="TxtTime" Margin="25" Grid.Column="0" Grid.ColumnSpan="2" FontSize="36" TextAlignment="Center" Padding="0,-3,0,0" FontFamily="Consolas"
-                 MaxLength="10" MaxLines="1" GotFocus="TxtTime_GotFocus" Text="{Binding Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=00:00:00}">
+                 MaxLength="10" MaxLines="1" GotFocus="TxtTime_GotFocus" Text="{Binding Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=00:00:00}"
+                 IsEnabled="{Binding Path=IsTextEnabled, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>
                 <KeyBinding Key="Return" Command="{Binding TextPressEnter}" />
                 <KeyBinding Key="Esc" Command="{Binding TextPressEscape}" />

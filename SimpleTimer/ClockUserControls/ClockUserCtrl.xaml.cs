@@ -3,7 +3,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace SimpleTimer.ClockUserControls
 {
@@ -32,10 +31,6 @@ namespace SimpleTimer.ClockUserControls
         }
 
         #region IUserInterface
-        public DispatcherOperation InvokeAsync(Action action)
-        {
-            return Dispatcher.InvokeAsync(action);
-        }
         public void BtnStartFocus()
         {
             BtnStart.Focus();
