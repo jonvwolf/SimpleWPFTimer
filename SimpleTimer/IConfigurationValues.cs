@@ -41,5 +41,13 @@ namespace SimpleTimer
         string AuthorCreditsTitle { get; }
         string KeybindingsTitle { get; }
         string Author { get; }
+        string BlueColor { get; }
+        string FontColorOnBlue { get; }
+        string BlueMouseOverColor { get; }
+        string BluePressedColor { get; }
+        string RedColor { get; }
+        string FontColorOnRed { get; }
+        string RedMouseOverColor { get; }
+        string RedPressedColor { get; }
     }
 }

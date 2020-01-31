@@ -8,8 +8,8 @@
              d:DesignHeight="215" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="btnStyleStart" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#4d90fe" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="{Binding Path=PrimaryBtnBackgroundColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='#4d90fe'}" />
+            <Setter Property="Foreground" Value="{Binding Path=PrimaryBtnForegroundColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='White'}" />
             <Setter Property="FontSize" Value="15" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
 
@@ -24,13 +24,11 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#2f5bb7" />
-                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="{Binding Path=PrimaryBtnMouseOverColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='#2f5bb7'}" />
                             </Trigger>
 
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#4d90fe" />
-                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="{Binding Path=PrimaryBtnPressedColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='#4d90fe'}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -81,14 +79,14 @@
         </Grid.RowDefinitions>
         <TextBox x:Name="TxtTime" Margin="25" Grid.Column="0" Grid.ColumnSpan="2" FontSize="36" TextAlignment="Center" Padding="0,-3,0,0" FontFamily="Consolas"
                  MaxLength="10" MaxLines="1" GotFocus="TxtTime_GotFocus" Text="{Binding Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=00:00:00}"
-                 IsEnabled="{Binding Path=IsTextEnabled, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}">
+                 IsEnabled="{Binding Path=IsTextEnabled, Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>
                 <KeyBinding Key="Return" Command="{Binding TextPressEnter}" />
                 <KeyBinding Key="Esc" Command="{Binding TextPressEscape}" />
             </TextBox.InputBindings>
         </TextBox>
         <Button x:Name="BtnStart" Grid.Column="0" Grid.Row="1" Margin="25" Style="{StaticResource btnStyleStart}" Click="BtnStart_Click"
-                Content="{Binding Path=PrimaryButtonText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Start}">
+                Content="{Binding Path=PrimaryButtonText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Start}">
         </Button>
         <Button x:Name="BtnReset" Grid.Column="1" Grid.Row="1" Margin="25" Style="{StaticResource btnStyleReset}" Click="BtnReset_Click">Reset</Button>
     </Grid>

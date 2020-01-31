@@ -8,50 +8,30 @@ using static SimpleTimer.Clocks.UiUpdatedEventArgs;
 
 namespace SimpleTimer.ClockUserControls
 {
-    public class TimerViewModel : IClockViewModel
+    public class TimerViewModel : BaseViewModel
     {
-        readonly IConfigurationValues _config;
         readonly IClock _clock;
         readonly ILoopSoundPlayer _sound;
-        readonly ActionCommand _textPressEnterCommand;
-        readonly ActionCommand _textPressEscapeCommand;
+        
         readonly IUserInterface _ui;
         readonly ILogger _logger;
-        string _text;
-        string _primaryButtonText;
-        bool _isTextEnabled;
-
-        #region DataContext
-        public string Text { get => _text; set { _text = value; OnPropertyChanged(nameof(Text)); } }
-        public bool IsTextEnabled { get => _isTextEnabled; set { _isTextEnabled = value; OnPropertyChanged(nameof(IsTextEnabled)); } }
-        public string PrimaryButtonText { get => _primaryButtonText; set { _primaryButtonText = value; OnPropertyChanged(nameof(PrimaryButtonText)); } }
-        public ICommand TextPressEnter { get => _textPressEnterCommand; }
-        public ICommand TextPressEscape { get => _textPressEscapeCommand; }
         
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string name)
-        {
-            var handler = PropertyChanged;
-            handler?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-        #endregion
-
-        public TimerViewModel(IUserInterface ui, ILoopSoundPlayer player, IClock timerclock, IConfigurationValues config, ILogger logger)
+        public TimerViewModel(IUserInterface ui, ILoopSoundPlayer player, IClock timerclock, IConfigurationValues config, ILogger logger) : base(config)
         {
             _logger = logger;
-            _config = config;
             _ui = ui;
             _clock = timerclock;
             
             _sound = player;
 
-            _textPressEnterCommand = new ActionCommand(TxtTime_EnterKeyDown);
-            _textPressEscapeCommand = new ActionCommand(TxtTime_EscapeKeyDown);
+            TextPressEnterCommand = new ActionCommand(TxtTime_EnterKeyDown);
+            TextPressEscapeCommand = new ActionCommand(TxtTime_EscapeKeyDown);
             RegisterEvents();
 
-            _text = _config?.InitialText ?? "";
-            _primaryButtonText = _config?.PrimaryButtonStart ?? "";
+            Text = Config?.InitialText ?? "";
+            PrimaryButtonText = Config?.PrimaryButtonStart ?? "";
             IsTextEnabled = true;
+            ChangeButtonBlue();
         }
 
         private void RegisterEvents()
@@ -82,7 +62,7 @@ namespace SimpleTimer.ClockUserControls
         private void Clock_Finished(object sender, UiUpdatedEventArgs e)
         {
             //runs on UI thread
-            _sound.Play(_config.TimerBeepingSeconds);
+            _sound.Play(Config.TimerBeepingSeconds);
             UpdateIU(e, true);
         }
         private void Clock_UiUpdated(object sender, UiUpdatedEventArgs e)
@@ -159,24 +139,26 @@ namespace SimpleTimer.ClockUserControls
                 return;
             if (e.Time.HasValue)
             {
-                Text = e.Time.Value.ToString(_config.TimeFormat, CultureInfo.InvariantCulture);
+                Text = e.Time.Value.ToString(Config.TimeFormat, CultureInfo.InvariantCulture);
             }
             if (e.PrimaryBtn.HasValue)
             {
                 switch (e.PrimaryBtn.Value)
                 {
                     case PrimaryButtonMode.Running:
-                        PrimaryButtonText = _config.PrimaryButtonStop;
+                        PrimaryButtonText = Config.PrimaryButtonStop;
+                        ChangeButtonRed();
                         break;
                     case PrimaryButtonMode.Stopped:
                         if (hasEnded)
                         {
-                            PrimaryButtonText = _config.PrimaryButtonOK;
+                            PrimaryButtonText = Config.PrimaryButtonOK;
                         }
                         else
                         {
-                            PrimaryButtonText = _config.PrimaryButtonStart;
+                            PrimaryButtonText = Config.PrimaryButtonStart;
                         }
+                        ChangeButtonBlue();
                         break;
                     default:
                         PrimaryButtonText = e.PrimaryBtn.Value.ToString();
@@ -187,9 +169,9 @@ namespace SimpleTimer.ClockUserControls
 
         private bool StopPlayer()
         {
-            if (PrimaryButtonText == _config.PrimaryButtonOK)
+            if (PrimaryButtonText == Config.PrimaryButtonOK)
             {
-                PrimaryButtonText = _config.PrimaryButtonStart;
+                PrimaryButtonText = Config.PrimaryButtonStart;
                 _sound.Stop();
                 return true;
             }
@@ -205,7 +187,7 @@ namespace SimpleTimer.ClockUserControls
             }
             catch (Exception ex)
             {
-                _ui.ShowMessageBox(ex.Message, _config.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                _ui.ShowMessageBox(ex.Message, Config.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void NewStart()
@@ -217,7 +199,7 @@ namespace SimpleTimer.ClockUserControls
             }
             catch (Exception ex)
             {
-                _ui.ShowMessageBox(ex.Message, _config.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                _ui.ShowMessageBox(ex.Message, Config.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion
@@ -225,7 +207,7 @@ namespace SimpleTimer.ClockUserControls
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
@@ -235,25 +217,11 @@ namespace SimpleTimer.ClockUserControls
 
                     _clock?.Close();
                     _sound?.Dispose();
-                    _textPressEnterCommand?.Dispose();
-                    _textPressEscapeCommand?.Dispose();
                 }
 
                 disposedValue = true;
             }
-        }
-
-        ~TimerViewModel()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(false);
-        }
-
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            base.Dispose(disposing);
         }
 
         #endregion

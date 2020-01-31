@@ -7,44 +7,25 @@ using static SimpleTimer.Clocks.UiUpdatedEventArgs;
 
 namespace SimpleTimer.ClockUserControls
 {
-    public class StopwatchViewModel : IClockViewModel
+    public class StopwatchViewModel : BaseViewModel
     {
-        readonly IConfigurationValues _config;
         readonly IClock _clock;
         readonly IUserInterface _ui;
         readonly ILogger _logger;
-        string _text;
-        string _primaryButtonText;
-        bool _isTextEnabled;
-
-        #region Datacontext
-        public string Text { get => _text; set { _text = value; OnPropertyChanged(nameof(Text)); } }
-        public bool IsTextEnabled { get => _isTextEnabled; set { _isTextEnabled = value; OnPropertyChanged(nameof(IsTextEnabled)); } }
-        public string PrimaryButtonText { get => _primaryButtonText; set { _primaryButtonText = value; OnPropertyChanged(nameof(PrimaryButtonText)); } }
-        public ICommand TextPressEnter { get => null; }
-        public ICommand TextPressEscape { get => null; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string name)
+        
+        public StopwatchViewModel(IUserInterface ui, IClock stopwatchclock, IConfigurationValues config, ILogger logger) : base(config)
         {
-            var handler = PropertyChanged;
-            handler?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-        #endregion
-
-        public StopwatchViewModel(IUserInterface ui, IClock stopwatchclock, IConfigurationValues config, ILogger logger)
-        {
-            _config = config;
             _ui = ui;
             _clock = stopwatchclock;
             _logger = logger;
 
             RegisterEvents();
 
-            _text = _config?.InitialText ?? "";
-            _primaryButtonText = _config?.PrimaryButtonStart ?? "";
+            Text = Config?.InitialText ?? "";
+            PrimaryButtonText = Config?.PrimaryButtonStart ?? "";
             IsTextEnabled = false;
+
+            ChangeButtonBlue();
         }
 
         private void RegisterEvents()
@@ -114,16 +95,24 @@ namespace SimpleTimer.ClockUserControls
                 return;
             if (e.Time.HasValue)
             {
-                Text = e.Time.Value.ToString(_config.TimeFormat, CultureInfo.InvariantCulture);
+                Text = e.Time.Value.ToString(Config.TimeFormat, CultureInfo.InvariantCulture);
             }
             if (e.PrimaryBtn.HasValue)
             {
-                PrimaryButtonText = e.PrimaryBtn.Value switch
+                switch (e.PrimaryBtn.Value)
                 {
-                    PrimaryButtonMode.Running => _config.PrimaryButtonStop,
-                    PrimaryButtonMode.Stopped => _config.PrimaryButtonStart,
-                    _ => e.PrimaryBtn.Value.ToString(),
-                };
+                    case PrimaryButtonMode.Running:
+                        PrimaryButtonText = Config.PrimaryButtonStop;
+                        ChangeButtonRed();
+                        break;
+                    case PrimaryButtonMode.Stopped:
+                        PrimaryButtonText = Config.PrimaryButtonStart;
+                        ChangeButtonBlue();
+                        break;
+                    default:
+                        PrimaryButtonText = e.PrimaryBtn.Value.ToString();
+                        break;
+                }
             }
         }
 
@@ -132,7 +121,7 @@ namespace SimpleTimer.ClockUserControls
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
@@ -145,19 +134,9 @@ namespace SimpleTimer.ClockUserControls
 
                 disposedValue = true;
             }
+            base.Dispose(disposing);
         }
 
-        ~StopwatchViewModel()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
         #endregion
     }
 }
