@@ -26,6 +26,7 @@ namespace SimpleTimer.ClockUserControls
             IsTextEnabled = false;
 
             ChangeButtonBlue();
+            _ui?.ChangeWindowTitle(Config.WindowTitle);
         }
 
         private void RegisterEvents()
@@ -104,10 +105,12 @@ namespace SimpleTimer.ClockUserControls
                     case PrimaryButtonMode.Running:
                         PrimaryButtonText = Config.PrimaryButtonStop;
                         ChangeButtonRed();
+                        _ui.ChangeWindowTitle(Config.WindowTitleRunning);
                         break;
                     case PrimaryButtonMode.Stopped:
                         PrimaryButtonText = Config.PrimaryButtonStart;
                         ChangeButtonBlue();
+                        _ui.ChangeWindowTitle(Config.WindowTitle);
                         break;
                     default:
                         PrimaryButtonText = e.PrimaryBtn.Value.ToString();

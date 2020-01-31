@@ -49,5 +49,7 @@ namespace SimpleTimer
         string FontColorOnRed { get; }
         string RedMouseOverColor { get; }
         string RedPressedColor { get; }
+        string WindowTitle { get; }
+        string WindowTitleRunning { get; }
     }
 }

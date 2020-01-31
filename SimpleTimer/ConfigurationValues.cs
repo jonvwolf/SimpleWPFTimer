@@ -31,7 +31,9 @@ namespace SimpleTimer
 
         public string RedColor => "#d45d79";
         public string FontColorOnRed => "White";
-        public string RedMouseOverColor => "#ea9085";
+        public string RedMouseOverColor => "#AC4D63";
         public string RedPressedColor => "#d45d79";
+        public string WindowTitle => "Simple Timer";
+        public string WindowTitleRunning => "[Running] Simple Timer";
     }
 }

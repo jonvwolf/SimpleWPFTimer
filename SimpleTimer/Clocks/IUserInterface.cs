@@ -10,6 +10,7 @@ namespace SimpleTimer.Clocks
         void TextFocus();
         bool IsTextFocused();
         void ShowMessageBox(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon);
+        void ChangeWindowTitle(string title);
 
         event EventHandler<UIEventArgs> UiEventHappened;
     }

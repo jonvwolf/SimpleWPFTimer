@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleTimer"
         mc:Ignorable="d"
-        Title="Simple Timer" Height="280" Width="445" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="{Binding Path=WindowTitle,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,FallbackValue='Simple Timer'}" Height="280" Width="445" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Window.Resources>
     </Window.Resources>
 

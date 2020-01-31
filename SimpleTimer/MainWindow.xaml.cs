@@ -17,14 +17,6 @@ namespace SimpleTimer
         readonly IClockUserCtrl _timer;
         readonly IClockUserCtrl _stopwatch;
         readonly IConfigurationValues _config;
-        public static string AppVersion
-        {
-            get
-            {
-                var version = typeof(MainWindow).Assembly.GetName().Version;
-                return $"v{version.Major}.{version.Minor}";
-            }
-        }
         
         public MainWindow() : this(null)
         {
@@ -37,11 +29,12 @@ namespace SimpleTimer
             {
                 container = new SimpleContainer();
             }
-            DataContext = this;
+            
             _config = container.GetConfiguration();
             _timer = container.GetTimerClockUserControl(Dispatcher);
             _stopwatch = container.GetStopwatchClockUserControl(Dispatcher);
 
+            DataContext = _timer;
             TimerContentCtrl.Content = _timer;
             StopwatchContentCtrl.Content = _stopwatch;
 
@@ -71,7 +64,9 @@ namespace SimpleTimer
 
         private void TabCtrl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GetCurrentUserCtrl()?.SwitchedToAnotherTab();
+            var userCtrl = GetCurrentUserCtrl();
+            userCtrl?.SwitchedToAnotherTab();
+            DataContext = userCtrl;
         }
 
         private void SwitchTabs(bool right)
