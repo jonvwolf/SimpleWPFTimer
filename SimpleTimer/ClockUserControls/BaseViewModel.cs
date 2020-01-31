@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
 
 namespace SimpleTimer.ClockUserControls
@@ -21,7 +19,7 @@ namespace SimpleTimer.ClockUserControls
         string _primaryBtnMouseOverColor;
         string _primaryBtnPressedColor;
 
-        public BaseViewModel(IConfigurationValues config)
+        protected BaseViewModel(IConfigurationValues config)
         {
             Config = config;
         }

@@ -1,8 +1,5 @@
 ﻿using SimpleTimer.Clocks;
-using System;
-using System.ComponentModel;
 using System.Globalization;
-using System.Windows.Input;
 using static SimpleTimer.Clocks.UiUpdatedEventArgs;
 
 namespace SimpleTimer.ClockUserControls
