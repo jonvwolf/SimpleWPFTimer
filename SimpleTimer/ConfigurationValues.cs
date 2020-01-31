@@ -23,5 +23,17 @@ namespace SimpleTimer
         public string KeybindingsTitle => "Keybindings";
 
         public string Author => "github.com/jonwolfdev";
+
+        public string BlueColor => "#4d90fe";
+        public string FontColorOnBlue => "White";
+        public string BlueMouseOverColor => "#2f5bb7";
+        public string BluePressedColor => "#4d90fe";
+
+        public string RedColor => "#d45d79";
+        public string FontColorOnRed => "White";
+        public string RedMouseOverColor => "#AC4D63";
+        public string RedPressedColor => "#d45d79";
+        public string WindowTitle => "Simple Timer";
+        public string WindowTitleRunning => "[Running] Simple Timer";
     }
 }

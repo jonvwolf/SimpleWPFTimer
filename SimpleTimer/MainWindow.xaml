@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleTimer"
         mc:Ignorable="d"
-        Title="Simple Timer" Height="280" Width="445" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="{Binding Path=WindowTitle,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,FallbackValue='Simple Timer'}" Height="280" Width="445" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Window.Resources>
     </Window.Resources>
 
@@ -17,6 +17,8 @@
                     <MenuItem Header="_Author &amp; Credits" Click="AuthorCreditsMenuItem_Click" />
                     <Separator />
                     <MenuItem Header="_Exit" Click="MenuItem_Click" />
+                </MenuItem>
+                <MenuItem Header="{Binding Path=AppVersion,Mode=OneWay, FallbackValue='v0.0'}">
                 </MenuItem>
             </Menu>
             <TabControl x:Name="TabCtrl" Height="225" SelectionChanged="TabCtrl_SelectionChanged">

@@ -54,13 +54,17 @@ namespace SimpleTimer.Clocks
             else
             {
                 base.StartClock();
-                OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = PrimaryButtonMode.Running });
+                OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = PrimaryButtonMode.Running, Time = _time });
             }
         }
 
         public void PressSecondaryButton()
         {
             _time = TimeSpan.Zero;
+            if (!base.IsRunning)
+            {
+                PressPrimaryButton();
+            }
         }
 
         #region Not supported

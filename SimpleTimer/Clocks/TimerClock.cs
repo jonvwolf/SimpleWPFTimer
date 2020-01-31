@@ -90,7 +90,7 @@ namespace SimpleTimer.Clocks
             base.StartClock();
 
             _primaryBtnMode = PrimaryButtonMode.Running;
-            OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = _primaryBtnMode });
+            OnUiUpdated(new UiUpdatedEventArgs() { PrimaryBtn = _primaryBtnMode, Time = Left });
         }
         public void Pause()
         {

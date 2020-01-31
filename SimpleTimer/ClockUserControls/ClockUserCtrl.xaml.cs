@@ -1,5 +1,6 @@
 ﻿using SimpleTimer.Clocks;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,6 +12,23 @@ namespace SimpleTimer.ClockUserControls
     /// </summary>
     public partial class ClockUserCtrl : UserControl, IClockUserCtrl, IUserInterface
     {
+        string _windowTitle;
+        public string WindowTitle { get => _windowTitle; set { _windowTitle = value; OnPropertyChanged(nameof(WindowTitle)); } }
+        public static string AppVersion
+        {
+            get
+            {
+                var version = typeof(MainWindow).Assembly.GetName().Version;
+                return $"v{version.Major}.{version.Minor}";
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string name)
+        {
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         public event EventHandler<UIEventArgs> UiEventHappened;
         IClockViewModel _vm;
         public ClockUserCtrl()
@@ -31,6 +49,10 @@ namespace SimpleTimer.ClockUserControls
         }
 
         #region IUserInterface
+        public void ChangeWindowTitle(string title)
+        {
+            WindowTitle = title;
+        }
         public void BtnStartFocus()
         {
             BtnStart.Focus();

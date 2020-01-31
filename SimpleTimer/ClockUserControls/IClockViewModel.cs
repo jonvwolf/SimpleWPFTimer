@@ -11,5 +11,9 @@ namespace SimpleTimer.ClockUserControls
         bool IsTextEnabled { get; set; }
         ICommand TextPressEnter { get; }
         ICommand TextPressEscape { get; }
+        string PrimaryBtnBackgroundColor { get; }
+        string PrimaryBtnForegroundColor { get; }
+        string PrimaryBtnMouseOverColor { get; }
+        string PrimaryBtnPressedColor { get; }
     }
 }

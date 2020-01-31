@@ -1,5 +1,6 @@
 ﻿using SimpleTimer.ClockUserControls;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -16,7 +17,7 @@ namespace SimpleTimer
         readonly IClockUserCtrl _timer;
         readonly IClockUserCtrl _stopwatch;
         readonly IConfigurationValues _config;
-
+        
         public MainWindow() : this(null)
         {
             
@@ -28,11 +29,12 @@ namespace SimpleTimer
             {
                 container = new SimpleContainer();
             }
-
+            
             _config = container.GetConfiguration();
             _timer = container.GetTimerClockUserControl(Dispatcher);
             _stopwatch = container.GetStopwatchClockUserControl(Dispatcher);
 
+            DataContext = _timer;
             TimerContentCtrl.Content = _timer;
             StopwatchContentCtrl.Content = _stopwatch;
 
@@ -62,7 +64,9 @@ namespace SimpleTimer
 
         private void TabCtrl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GetCurrentUserCtrl()?.SwitchedToAnotherTab();
+            var userCtrl = GetCurrentUserCtrl();
+            userCtrl?.SwitchedToAnotherTab();
+            DataContext = userCtrl;
         }
 
         private void SwitchTabs(bool right)
