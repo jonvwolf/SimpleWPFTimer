@@ -18,6 +18,8 @@
                     <Separator />
                     <MenuItem Header="_Exit" Click="MenuItem_Click" />
                 </MenuItem>
+                <MenuItem Header="{Binding Path=AppVersion,Mode=OneWay, FallbackValue='v0.0'}">
+                </MenuItem>
             </Menu>
             <TabControl x:Name="TabCtrl" Height="225" SelectionChanged="TabCtrl_SelectionChanged">
                 <TabItem Width="200" Height="30" Tag="TimerContentCtrl">
