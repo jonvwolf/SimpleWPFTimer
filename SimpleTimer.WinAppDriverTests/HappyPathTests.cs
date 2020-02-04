@@ -17,8 +17,11 @@ namespace SimpleTimer.WinAppDriverTests
         {
             _app = app;
 
+            Thread.Sleep(1000);
             _timerTextBox = _app.Session.FindElementByAccessibilityId("TextTime");
+            Thread.Sleep(1000);
             _timerResetButton = _app.Session.FindElementByAccessibilityId("ResetButton");
+            Thread.Sleep(1000);
             _timerStartButton = _app.Session.FindElementByAccessibilityId("StartButton");
         }
         [Fact]
