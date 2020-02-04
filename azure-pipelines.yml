@@ -43,7 +43,7 @@ steps:
     command: 'test'
     projects: '**/*[Tt]ests/*.csproj'
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
-    testRunTitle: 'UnitTests'
+    testRunTitle: 'Tests'
 
 - task: SonarCloudAnalyze@1
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows.Threading;
 using static SimpleTimer.Clocks.UiUpdatedEventArgs;
 
 namespace SimpleTimer.Clocks
@@ -46,7 +45,7 @@ namespace SimpleTimer.Clocks
         }
         #endregion Events
 
-        public TimerClock(IConfigurationValues config, ILogger logger, DispatcherTimer timer) : base(logger, config, timer)
+        public TimerClock(IConfigurationValues config, ILogger logger, IDispatcherTimer timer) : base(logger, config, timer)
         {
             _config = config;
             _primaryBtnMode = PrimaryButtonMode.Stopped;

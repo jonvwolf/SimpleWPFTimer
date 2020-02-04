@@ -16,12 +16,14 @@ namespace SimpleTimer
         }
         public IClockUserCtrl GetTimerClockUserControl(Dispatcher dispatcher)
         {
-            var clockForPlayer = new TimerClock(_config, _logger, new DispatcherTimer(DispatcherPriority.Normal, dispatcher));
+            var dispatcherForPlayer = new DispatcherTimerImpl(new DispatcherTimer(DispatcherPriority.Normal, dispatcher));
+            var clockForPlayer = new TimerClock(_config, _logger, dispatcherForPlayer);
 
             var stream = Utils.GetResourceStream(_config.RingtoneFilename);
             var player = new LoopSoundPlayer(stream, _config, clockForPlayer);
 
-            var clock = new TimerClock(_config, _logger, new DispatcherTimer(DispatcherPriority.Normal, dispatcher));
+            var dispatcherTimer = new DispatcherTimerImpl(new DispatcherTimer(DispatcherPriority.Normal, dispatcher));
+            var clock = new TimerClock(_config, _logger, dispatcherTimer);
 
             var ctrl = new ClockUserCtrl();
             var vm = new TimerViewModel(ctrl, player, clock, _config, _logger);
@@ -32,7 +34,8 @@ namespace SimpleTimer
 
         public IClockUserCtrl GetStopwatchClockUserControl(Dispatcher dispatcher)
         {
-            var clockForPlayer = new StopwatchClock(_logger, _config, new DispatcherTimer(DispatcherPriority.Normal, dispatcher));
+            var dispatcherTimer = new DispatcherTimerImpl(new DispatcherTimer(DispatcherPriority.Normal, dispatcher));
+            var clockForPlayer = new StopwatchClock(_logger, _config, dispatcherTimer);
 
             var ctrl = new ClockUserCtrl();
             var vm = new StopwatchViewModel(ctrl, clockForPlayer, _config, _logger);
