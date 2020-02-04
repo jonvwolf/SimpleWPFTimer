@@ -8,57 +8,108 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace SimpleTimer.WinAppDriverTests
 {
-    public class AppSession
+    public class AppSession : IDisposable
     {
-        const string WinAppDriverUrl = "http://127.0.0.1:4723";
-        protected static WindowsDriver<WindowsElement> session;
-
-        [Fact]
-        public void Setup()
+        private const string WinAppDriverUrl = "http://127.0.0.1:4723";
+        private static WindowsDriver<WindowsElement> _session { get; set; }
+        private readonly static object _lock = new object();
+        public WindowsDriver<WindowsElement> Session { get => _session; }
+        public Dictionary<string, WindowsElement> Elements { get; private set; } = new Dictionary<string, WindowsElement>();
+        public AppSession()
         {
-            if(session == null)
+            Setup();
+        }
+
+        protected void Setup()
+        {
+            lock (_lock)
             {
-                string appId = "";
-                string folder = @"..\..\..\..\";
-                string[] filesFound = Directory.GetFiles(folder, "*SimpleTimer.exe", SearchOption.AllDirectories);
-                if(filesFound.Length == 0)
+                if (_session == null)
                 {
-                    throw new InvalidOperationException("Not able to found SimpleTimer.exe file");
-                }
-                if(filesFound.Length >= 2)
-                {
-                    foreach(var file in filesFound)
+                    string appId = "";
+                    string folder = @"..\..\..\..\";
+                    string[] filesFound = Directory.GetFiles(folder, "*SimpleTimer.exe", SearchOption.AllDirectories);
+                    if (filesFound.Length == 0)
                     {
-                        if (file.Contains("bin", StringComparison.OrdinalIgnoreCase))
+                        throw new InvalidOperationException("Not able to found SimpleTimer.exe file");
+                    }
+                    if (filesFound.Length >= 2)
+                    {
+                        foreach (var file in filesFound)
                         {
-                            if(file.Contains("debug", StringComparison.OrdinalIgnoreCase) || file.Contains("release", StringComparison.OrdinalIgnoreCase))
+                            if (file.Contains("bin", StringComparison.OrdinalIgnoreCase))
                             {
-                                appId = Path.GetFullPath(file);
+                                if (file.Contains("debug", StringComparison.OrdinalIgnoreCase) || file.Contains("release", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    appId = Path.GetFullPath(file);
+                                }
                             }
                         }
                     }
-                }
-                if (string.IsNullOrEmpty(appId))
-                {
-                    throw new InvalidOperationException("No SimpleTimer.exe found in a bin/debug or bin/release folder");
-                }
+                    if (string.IsNullOrEmpty(appId))
+                    {
+                        throw new InvalidOperationException("No SimpleTimer.exe found in a bin/debug or bin/release folder");
+                    }
 
-                var ok = new AppiumOptions();
-                ok.AddAdditionalCapability("app", appId);
-                
-                session = new WindowsDriver<WindowsElement>(new Uri(WinAppDriverUrl), ok);
-                Thread.Sleep(500);
-                Assert.NotNull(session);
-                Assert.NotNull(session.SessionId);
-                Thread.Sleep(500);
-                session.Close();
-                session.Quit();
-                session = null;
+                    var options = new AppiumOptions();
+                    options.AddAdditionalCapability("app", appId);
+
+                    _session = new WindowsDriver<WindowsElement>(new Uri(WinAppDriverUrl), options);
+
+                    Assert.Equal("Simple Timer", _session.Title);
+                    Assert.NotNull(_session);
+                    Assert.NotNull(_session.SessionId);
+
+                    _session.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1.5);
+                }
             }
         }
+
+        protected void Shutdown()
+        {
+            lock (_lock)
+            {
+                if (_session == null)
+                    return;
+                _session.Close();
+                _session.Quit();
+                _session = null;
+            }
+        }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Shutdown();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        ~AppSession()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(false);
+        }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
 
     }
 }

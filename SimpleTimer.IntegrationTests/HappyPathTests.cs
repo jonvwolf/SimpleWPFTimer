@@ -11,7 +11,7 @@ using Xunit;
 
 namespace SimpleTimer.IntegrationTests
 {
-    public class HappyPath
+    public class HappyPathTests
     {
         Mock<IDispatcherTimer> CreateDispatcherTimer(IConfigurationValues config)
         {
