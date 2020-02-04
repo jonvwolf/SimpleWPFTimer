@@ -16,11 +16,20 @@ namespace SimpleTimer.WinAppDriverTests
         public HappyPathTests(AppSession app)
         {
             _app = app;
-
-            Thread.Sleep(30000);
-            _timerTextBox = _app.Session.FindElementByAccessibilityId("TextTime");
-            _timerResetButton = _app.Session.FindElementByAccessibilityId("ResetButton");
-            _timerStartButton = _app.Session.FindElementByAccessibilityId("StartButton");
+            
+            _timerTextBox = _app.Session.FindElementByClassName("TextBox");
+            var buttons = _app.Session.FindElementsByClassName("Button");
+            foreach(var button in buttons)
+            {
+                if (button.Text == "Start")
+                {
+                    _timerStartButton = button;
+                }
+                else if (button.Text == "Reset")
+                {
+                    _timerResetButton = button;
+                }
+            }
         }
         [Fact]
         public void Test1_InitialValues()
