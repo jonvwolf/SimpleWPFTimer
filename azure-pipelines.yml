@@ -41,7 +41,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: '**/*(UnitTests|IntegrationTests)/*.csproj'
+    projects: '**/*[Tt]ests/*.csproj'
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
     testRunTitle: 'Tests'
 
