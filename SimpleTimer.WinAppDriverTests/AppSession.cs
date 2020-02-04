@@ -60,7 +60,8 @@ namespace SimpleTimer.WinAppDriverTests
 
                     _session = new WindowsDriver<WindowsElement>(new Uri(WinAppDriverUrl), options);
 
-                    Assert.Equal("Simple Timer", _session.Title);
+                    Assert.Contains("Simple", _session.Title);
+                    Assert.Contains("Timer", _session.Title);
                     Assert.NotNull(_session);
                     Assert.NotNull(_session.SessionId);
 
