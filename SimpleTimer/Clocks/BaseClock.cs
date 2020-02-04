@@ -5,11 +5,11 @@ namespace SimpleTimer.Clocks
 {
     public abstract class BaseClock : IClosable
     {
-        readonly DispatcherTimer _timer;
+        readonly IDispatcherTimer _timer;
         readonly ILogger _logger;
         protected bool IsRunning { get { return _timer.IsEnabled; } }
         protected TimeSpan Interval { get { return _timer.Interval; } }
-        protected BaseClock(ILogger logger, IConfigurationValues config, DispatcherTimer timer)
+        protected BaseClock(ILogger logger, IConfigurationValues config, IDispatcherTimer timer)
         {
             _timer = timer ?? throw new ArgumentNullException(nameof(timer));
             _logger = logger;

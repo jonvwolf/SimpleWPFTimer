@@ -25,7 +25,7 @@ namespace SimpleTimer.Clocks
 
         TimeSpan _time = TimeSpan.Zero;
 
-        public StopwatchClock(ILogger logger, IConfigurationValues config, DispatcherTimer timer) : base(logger, config, timer)
+        public StopwatchClock(ILogger logger, IConfigurationValues config, IDispatcherTimer timer) : base(logger, config, timer)
         {
             
         }

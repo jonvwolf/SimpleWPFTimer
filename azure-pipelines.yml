@@ -41,9 +41,9 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: '**/*[Tt]ests/*.csproj'
+    projects: '**/*(UnitTests|IntegrationTests)/*.csproj'
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
-    testRunTitle: 'UnitTests'
+    testRunTitle: 'Tests'
 
 - task: SonarCloudAnalyze@1
 

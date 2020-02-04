@@ -46,7 +46,7 @@ namespace SimpleTimer.Clocks
         }
         #endregion Events
 
-        public TimerClock(IConfigurationValues config, ILogger logger, DispatcherTimer timer) : base(logger, config, timer)
+        public TimerClock(IConfigurationValues config, ILogger logger, IDispatcherTimer timer) : base(logger, config, timer)
         {
             _config = config;
             _primaryBtnMode = PrimaryButtonMode.Stopped;
