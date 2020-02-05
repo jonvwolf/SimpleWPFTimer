@@ -50,7 +50,7 @@ namespace SimpleTimer.WinAppDriverTests
                 {
                     throw new InvalidOperationException("No SimpleTimer.exe found in a bin/debug or bin/release folder");
                 }
-
+                appId = @"D:\a\r1\a\_jonwolfdev_SimpleWPFTimer\SimpleTimer\bin\Debug\netcoreapp3.1\SimpleTimer.exe";
                 var options = new AppiumOptions();
                 options.AddAdditionalCapability("app", appId);
 
