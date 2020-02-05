@@ -37,20 +37,26 @@ namespace SimpleTimer.WinAppDriverTests
                 {
                     foreach (var file in filesFound)
                     {
+                        appId = Path.GetFullPath(file);
+                        break;
                         if (file.Contains(@"SimpleTimer" + Path.DirectorySeparatorChar + "bin", StringComparison.OrdinalIgnoreCase))
                         {
                             if (file.Contains("debug", StringComparison.OrdinalIgnoreCase) || file.Contains("release", StringComparison.OrdinalIgnoreCase))
                             {
-                                appId = Path.GetFullPath(file);
+                                
                             }
                         }
                     }
+                }
+                else
+                {
+                    appId = Path.GetFullPath(filesFound[0]);
                 }
                 if (string.IsNullOrEmpty(appId))
                 {
                     throw new InvalidOperationException("No SimpleTimer.exe found in a bin/debug or bin/release folder");
                 }
-                appId = @"D:\a\r1\a\_jonwolfdev_SimpleWPFTimer\SimpleTimer\bin\Debug\netcoreapp3.1\SimpleTimer.exe";
+                //appId = @"D:\a\r1\a\_jonwolfdev_SimpleWPFTimer\SimpleTimer\bin\Debug\netcoreapp3.1\SimpleTimer.exe";
                 var options = new AppiumOptions();
                 options.AddAdditionalCapability("app", appId);
 
