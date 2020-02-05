@@ -37,6 +37,8 @@ namespace SimpleTimer.WinAppDriverTests
                 {
                     foreach (var file in filesFound)
                     {
+                        appId = Path.GetFullPath(file);
+                        break;
                         if (file.Contains(@"SimpleTimer" + Path.DirectorySeparatorChar + "bin", StringComparison.OrdinalIgnoreCase))
                         {
                             if (file.Contains("debug", StringComparison.OrdinalIgnoreCase) || file.Contains("release", StringComparison.OrdinalIgnoreCase))
