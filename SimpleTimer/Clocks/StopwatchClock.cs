@@ -64,6 +64,10 @@ namespace SimpleTimer.Clocks
             {
                 PressPrimaryButton();
             }
+            else
+            {
+                OnUiUpdated(new UiUpdatedEventArgs() { Time = _time });
+            }
         }
 
         #region Not supported

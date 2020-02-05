@@ -25,7 +25,7 @@ namespace SimpleTimer
             var dispatcherTimer = new DispatcherTimerImpl(new DispatcherTimer(DispatcherPriority.Normal, dispatcher));
             var clock = new TimerClock(_config, _logger, dispatcherTimer);
 
-            var ctrl = new ClockUserCtrl();
+            var ctrl = new ClockUserCtrl("_timer");
             var vm = new TimerViewModel(ctrl, player, clock, _config, _logger);
             ctrl.SetViewModel(vm);
             
@@ -37,7 +37,7 @@ namespace SimpleTimer
             var dispatcherTimer = new DispatcherTimerImpl(new DispatcherTimer(DispatcherPriority.Normal, dispatcher));
             var clockForPlayer = new StopwatchClock(_logger, _config, dispatcherTimer);
 
-            var ctrl = new ClockUserCtrl();
+            var ctrl = new ClockUserCtrl("_sw");
             var vm = new StopwatchViewModel(ctrl, clockForPlayer, _config, _logger);
             ctrl.SetViewModel(vm);
 

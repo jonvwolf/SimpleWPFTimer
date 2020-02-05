@@ -13,6 +13,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleTimer.IntegrationTests", "SimpleTimer.IntegrationTests\SimpleTimer.IntegrationTests.csproj", "{B8AEE3E0-2B55-4E8B-AEB0-C8AF9DF0448D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleTimer.WinAppDriverTests", "SimpleTimer.WinAppDriverTests\SimpleTimer.WinAppDriverTests.csproj", "{1EF79120-85F6-4980-8FD2-B5BEA7038E30}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EEBD6322-A65F-4D9B-8FB7-97812C66C99C} = {EEBD6322-A65F-4D9B-8FB7-97812C66C99C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

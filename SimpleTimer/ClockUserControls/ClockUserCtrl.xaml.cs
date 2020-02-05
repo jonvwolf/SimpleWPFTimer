@@ -31,9 +31,13 @@ namespace SimpleTimer.ClockUserControls
 
         public event EventHandler<UIEventArgs> UiEventHappened;
         IClockViewModel _vm;
-        public ClockUserCtrl()
+        public ClockUserCtrl(string uidAppend = "")
         {
             InitializeComponent();
+            TxtTime.Uid += uidAppend;
+            BtnStart.Uid += uidAppend;
+            BtnReset.Uid += uidAppend;
+            this.Uid += uidAppend;
         }
 
         public void SetViewModel(IClockViewModel vm)
