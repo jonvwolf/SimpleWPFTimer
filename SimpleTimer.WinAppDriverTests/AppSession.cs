@@ -58,7 +58,17 @@ namespace SimpleTimer.WinAppDriverTests
                 var options = new AppiumOptions();
                 options.AddAdditionalCapability("app", appId);
                 options.AddAdditionalCapability("deviceReadyTimeout", 5);
-                Session = new WindowsDriver<WindowsElement>(new Uri(WinAppDriverUrl), options);
+
+                try
+                {
+                    Session = new WindowsDriver<WindowsElement>(new Uri(WinAppDriverUrl), options);
+                }
+                catch
+                {
+                    //winappdriver is bugged in azure...
+                    Session = new WindowsDriver<WindowsElement>(new Uri(WinAppDriverUrl), options);
+                }
+                
 
                 Assert.AreEqual("Simple Timer", Session.Title);
                 Assert.IsNotNull(Session);
